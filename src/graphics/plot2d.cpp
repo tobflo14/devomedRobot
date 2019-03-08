@@ -209,23 +209,17 @@ GLint graph_update1(double mainValue, int _dataTail, GLuint vertexBuffers) {
  * Updates the buffer with the new values
  */
 GLint graph_update1(double mainValue, double value2, int _dataTail, GLuint vertexBuffers) {
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers);
-	float value = (float) mainValue;
-	// Calculate x and y position for mainValue and creates a 2D point
-	GLfloat point[VERTEX_COORDINATE_COUNT] = {
-		C_GRAPH_WIDTH * _dataTail / C_SAMPLES_PER_FRAME -1.0f,
-      	2 * (value - C_MIN_LSB) / (C_MAX_LSB - C_MIN_LSB) - 1.0f, // [1,-1]
-		0.0f
-	};
+    std::cout << "før : " << _dataTail << std::endl;
+	graph_update1(mainValue, _dataTail, vertexBuffers);
+	std::cout << "etter : " << _dataTail << std::endl;
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers);
 
 	// Put the point in current index of buffer
 	float current_index_of_buffer = sizeof(GLfloat) * _dataTail * VERTEX_COORDINATE_COUNT;
 	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT;
-	glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer,
-		size_of_new_data, point);
-	
+
 	// Increment buffer position, start writing to the start of the buffer again when the end is reached
-	value = (float) value2;
+	float value = (float) value2;
 	// Calculate x and y position for mainValue and creates a 2D point
 	GLfloat point2[VERTEX_COORDINATE_COUNT] = {
 		C_GRAPH_WIDTH * _dataTail / C_SAMPLES_PER_FRAME -1.0f,

@@ -209,7 +209,7 @@ double integral = 0.0;
          // std::cout << "value2: ";
          // std::cout << value2 << std::endl;
           _dataTail  = graph_update1(value, value2, _dataTail, vertexDataBuffer);
-         // CreateAndDrawGrid1(_dataTail, vertexBufferArray, programID, MatrixID, MVP);
+          CreateAndDrawGrid1(_dataTail, vertexBufferArray, programID, MatrixID, MVP);
           DrawGrid(vertexArrayGrid);
           plot_input.has_data = false;
           plot_input.values_read = true;
