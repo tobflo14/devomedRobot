@@ -6,17 +6,17 @@
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build",
-  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o -c /home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp",
-  "file": "/home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp"
+  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/lowpass_velocity_cruisetest.dir/src/lowpass_velocity_cruisetest.cpp.o -c /home/nakkeslengprosjekt/asdf/src/lowpass_velocity_cruisetest.cpp",
+  "file": "/home/nakkeslengprosjekt/asdf/src/lowpass_velocity_cruisetest.cpp"
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build",
-  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/ogl_plot.dir/common/shader.cpp.o -c /home/nakkeslengprosjekt/asdf/common/shader.cpp",
+  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o -c /home/nakkeslengprosjekt/asdf/common/shader.cpp",
   "file": "/home/nakkeslengprosjekt/asdf/common/shader.cpp"
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build",
-  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp",
+  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/lowpass_velocity_cruisetest.dir/src/graphics/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp",
   "file": "/home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp"
 },
 {

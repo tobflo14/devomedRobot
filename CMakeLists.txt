@@ -45,8 +45,8 @@ set(EXAMPLES
 	#lowpass_filter_ogl
 	#lowpass_filter_ogl_joint_not
 	#lowpass_filter_ogl_joint
-  #lowpass_velocity_cruisetest
-	ogl_plot
+  lowpass_velocity_cruisetest
+	#ogl_plot
   #control_loop
 	#gnuplot
   #joint_impedance_control

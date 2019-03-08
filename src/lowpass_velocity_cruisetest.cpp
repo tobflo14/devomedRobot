@@ -128,7 +128,7 @@ int main(int argc, char** argv) {
   
   double time = 0.0;
   double acceleration_limit = 12.0;
-  double jerk_limit = 1000.0;
+  double jerk_limit = 2000.0;
   double force_limit = 0.01;
 
   std::vector<double> pid_constants = {0.0, 0.0, 0.0};
@@ -266,13 +266,13 @@ int main(int argc, char** argv) {
               } else {//} if (response[0] != '\0' && response[0] != '\n') { //Successful response
                 std::string string_response = std::string(response);
                 double Kp = stod(string_response.substr(0, string_response.find(",")));
-                Kp = 10;//(Kp/1023)*4;
+                Kp = 4;//(Kp/1023)*4;
                 string_response.erase(0, string_response.find(",")+1);
                 double Ki = stod(string_response.substr(0, string_response.find(",")));
                 Ki = 0;//(Ki/1023)*0;
                 string_response.erase(0, string_response.find(",")+1);
                 double Kd = stod(string_response);
-                Kd = 0;//(Kd/1023)*0;
+                Kd = 0.0000001;//(Kd/1023)*0;
                 //std::cout << "Kd:";
                 pid_constants[0] = Kp;
                 pid_constants[1] = Ki;
@@ -390,7 +390,7 @@ int main(int argc, char** argv) {
         time = 0.0;
       }
 
-      error = external_velocity - vel_desired_previous;
+      error = external_velocity - vel_commanded_previous;
 /*
       //Y and Z axis needs to be inverted from force input to velocity output for some reason.
       error(1,0) *= -1;
@@ -439,8 +439,8 @@ int main(int argc, char** argv) {
       //franka::CartesianVelocities velocity_desired = {{0.0, 0.0, 0.0, -vel_desired[3], vel_desired[4], vel_desired[5]}};
       franka::CartesianVelocities velocity_desired = {{0.0, 0.0, vel_desired[2], 0.0, 0.0, 0.0}};
   
-      inloop_data2.push_back(vel_desired[2]*10);
-      inloop_data.push_back(external_velocity[2]*10);
+      inloop_data2.push_back(pd[2]*10);
+      inloop_data.push_back(pid_constants[2]*derivative[2]);
       
      // std::cout << "inloop size" << inloop_data.size() << std::endl;
         if (print_data.mutex.try_lock()) {

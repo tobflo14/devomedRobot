@@ -97,42 +97,42 @@ clean: CMakeFiles/examples_common.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ogl_plot.dir
+# Target rules for target CMakeFiles/lowpass_velocity_cruisetest.dir
 
 # All Build rule for target.
-CMakeFiles/ogl_plot.dir/all: CMakeFiles/examples_common.dir/all
-CMakeFiles/ogl_plot.dir/all: CMakeFiles/copy_shader_dir.dir/all
-CMakeFiles/ogl_plot.dir/all: externalGL/CMakeFiles/GLEW_1130.dir/all
-CMakeFiles/ogl_plot.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
-	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/depend
-	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=56,57,58,59 "Built target ogl_plot"
-.PHONY : CMakeFiles/ogl_plot.dir/all
+CMakeFiles/lowpass_velocity_cruisetest.dir/all: CMakeFiles/examples_common.dir/all
+CMakeFiles/lowpass_velocity_cruisetest.dir/all: CMakeFiles/copy_shader_dir.dir/all
+CMakeFiles/lowpass_velocity_cruisetest.dir/all: externalGL/CMakeFiles/GLEW_1130.dir/all
+CMakeFiles/lowpass_velocity_cruisetest.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/depend
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=50,51,52,53 "Built target lowpass_velocity_cruisetest"
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/all
 
 # Include target in all.
-all: CMakeFiles/ogl_plot.dir/all
+all: CMakeFiles/lowpass_velocity_cruisetest.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ogl_plot.dir/rule: cmake_check_build_system
+CMakeFiles/lowpass_velocity_cruisetest.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nakkeslengprosjekt/asdf/build/CMakeFiles 23
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ogl_plot.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/lowpass_velocity_cruisetest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nakkeslengprosjekt/asdf/build/CMakeFiles 0
-.PHONY : CMakeFiles/ogl_plot.dir/rule
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/rule
 
 # Convenience name for target.
-ogl_plot: CMakeFiles/ogl_plot.dir/rule
+lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/rule
 
-.PHONY : ogl_plot
-
-# clean rule for target.
-CMakeFiles/ogl_plot.dir/clean:
-	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/clean
-.PHONY : CMakeFiles/ogl_plot.dir/clean
+.PHONY : lowpass_velocity_cruisetest
 
 # clean rule for target.
-clean: CMakeFiles/ogl_plot.dir/clean
+CMakeFiles/lowpass_velocity_cruisetest.dir/clean:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/clean
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/lowpass_velocity_cruisetest.dir/clean
 
 .PHONY : clean
 
@@ -726,7 +726,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=53,54,55 "Built target msaa"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=57,58,59 "Built target msaa"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/all
 
 # Include target in all.
@@ -911,7 +911,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/clipboard.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=50,51,52 "Built target monitors"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=54,55,56 "Built target monitors"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/all
 
 # Include target in all.

@@ -15,6 +15,8 @@ void CreateGrid(GLuint vertexArray, GLuint dataBuffer);
 
 void DrawGrid(GLuint vertexArray);
 
+//void DrawGrid(GLuint vertexArray, GLuint programID, GLuint MatrixID, glm::mat4 MVP);
+
 GLint graph_update1(double mainValue, int _dataTail, GLuint vertexBuffer);
 
 GLint graph_update1(double mainValue, double value2, int _dataTail, GLuint vertexBuffers);
