@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/comm_test.dir/src/communication_test.cpp.o CMakeFiles/comm_test.dir/src/examples_common.cpp.o  -o comm_test -Wl,-rpath,/usr/local/lib -lOpenGL /usr/local/lib/libfranka.so 

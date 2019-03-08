@@ -1,0 +1,140 @@
+cmake_minimum_required (VERSION 3.4)
+project (asdf)
+
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_LIST_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+
+#set(CMAKE_CXX_STANDARD 14)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Franka REQUIRED) # la til eigentest
+find_package(Threads REQUIRED)
+find_package(Eigen3 REQUIRED)
+find_package(Poco REQUIRED COMPONENTS Foundation)
+
+set(CMAKE_BUILD_TYPE "Release")
+
+
+add_library(examples_common STATIC
+  src/examples_common.cpp
+)
+
+add_subdirectory (externalGL)
+
+include_directories(
+	cmake/
+	externalGL/glfw-3.1.2/include/
+	externalGL/glm-0.9.7.1/
+	externalGL/glew-1.13.0/include/
+	.
+)
+
+
+target_link_libraries(examples_common PUBLIC Franka::Franka Eigen3::Eigen) # la til eigentest
+
+#include_directories(${EIGEN3_INCLUDE_DIR})
+
+set(EXAMPLES 
+	communication_test
+  #lowpass_no_eigen
+	#lowpass_filter_test
+	#lowpass_filter_ogl
+	#ogl_plot
+  control_loop
+	#gnuplot
+  #joint_impedance_control
+)
+
+foreach(example ${EXAMPLES})
+  add_executable(${example} src/${example}.cpp common/shader.cpp common/shader.hpp src/graphics/plot2d.cpp src/graphics/plot2d.h)
+  target_link_libraries(${example} OpenGL  /usr/local/lib/libfranka.so 
+	Threads::Threads glfw GLEW_1130 examples_common Eigen3::Eigen) 
+endforeach()
+
+
+file(GLOB_RECURSE HEADERS
+  external/*.h
+  src/*.h
+  common/*.h
+)
+
+## Tools
+file(GLOB_RECURSE SOURCES
+  src/*.cpp
+  src/graphics/*.cpp
+  common/*.cpp
+)
+file(GLOB_RECURSE HEADERS
+  include/*.h
+  src/*.h
+  src/graphics/*.h
+  common/*.h
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#add_executable(comm_test src/communication_test.cpp src/examples_common.cpp)
+#add_executable(lowpass src/lowpass_filter_test.cpp src/examples_common.cpp)
+#add_executable(ogl src/ogl-plot.cpp src/examples_common.cpp )
+
+
+#find_package(Eigen3 REQUIRED)
+
+
+
+
+#target_link_libraries(comm_test OpenGL /usr/local/lib/libfranka.so)
+#target_link_libraries(lowpass OpenGL Threads::Threads  /usr/local/lib/libfranka.so)
+#target_link_libraries(ogl OpenGL Threads::Threads glfw GLEW_1130 /usr/local/lib/libfranka.so)
+#target_include_directories(comm_test <external .h files>)
+
+#add_executable(communication_test src/communication_test.cpp)
+#add_executable(lowpass_filter_test src/lowpass_filter_test.cpp)
+
+
+
+
+#add_library(libfranka SHARED IMPORTED)
+#set_property(TARGET libfranka PROPERTY IMPORTED_LOCATION /usr/local/lib/libfranka.so)
+
+#add_library(examples_common STATIC
+#  src/examples_common.cpp
+#)
+
+
+#target_link_libraries(communication_test libfranka examples_common)
+#target_link_libraries(lowpass_filter_test libfranka examples_common Threads::Threads)
+
