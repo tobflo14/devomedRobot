@@ -573,86 +573,86 @@ common/shader.cpp.s:
 	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.s
 .PHONY : common/shader.cpp.s
 
-src/examples_common.o: src/examples_common.cpp.o
+graphics/plot2d.o: graphics/plot2d.cpp.o
 
-.PHONY : src/examples_common.o
-
-# target to build an object file
-src/examples_common.cpp.o:
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/examples_common.cpp.o
-.PHONY : src/examples_common.cpp.o
-
-src/examples_common.i: src/examples_common.cpp.i
-
-.PHONY : src/examples_common.i
-
-# target to preprocess a source file
-src/examples_common.cpp.i:
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/examples_common.cpp.i
-.PHONY : src/examples_common.cpp.i
-
-src/examples_common.s: src/examples_common.cpp.s
-
-.PHONY : src/examples_common.s
-
-# target to generate assembly for a file
-src/examples_common.cpp.s:
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/examples_common.cpp.s
-.PHONY : src/examples_common.cpp.s
-
-src/graphics/plot2d.o: src/graphics/plot2d.cpp.o
-
-.PHONY : src/graphics/plot2d.o
+.PHONY : graphics/plot2d.o
 
 # target to build an object file
-src/graphics/plot2d.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/graphics/plot2d.cpp.o
-.PHONY : src/graphics/plot2d.cpp.o
+graphics/plot2d.cpp.o:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o
+.PHONY : graphics/plot2d.cpp.o
 
-src/graphics/plot2d.i: src/graphics/plot2d.cpp.i
+graphics/plot2d.i: graphics/plot2d.cpp.i
 
-.PHONY : src/graphics/plot2d.i
+.PHONY : graphics/plot2d.i
 
 # target to preprocess a source file
-src/graphics/plot2d.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/graphics/plot2d.cpp.i
-.PHONY : src/graphics/plot2d.cpp.i
+graphics/plot2d.cpp.i:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.i
+.PHONY : graphics/plot2d.cpp.i
 
-src/graphics/plot2d.s: src/graphics/plot2d.cpp.s
+graphics/plot2d.s: graphics/plot2d.cpp.s
 
-.PHONY : src/graphics/plot2d.s
+.PHONY : graphics/plot2d.s
 
 # target to generate assembly for a file
-src/graphics/plot2d.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/graphics/plot2d.cpp.s
-.PHONY : src/graphics/plot2d.cpp.s
+graphics/plot2d.cpp.s:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.s
+.PHONY : graphics/plot2d.cpp.s
 
-src/lowpass_velocity_cruisetest.o: src/lowpass_velocity_cruisetest.cpp.o
+src/examples/lowpass_velocity_cruisetest.o: src/examples/lowpass_velocity_cruisetest.cpp.o
 
-.PHONY : src/lowpass_velocity_cruisetest.o
+.PHONY : src/examples/lowpass_velocity_cruisetest.o
 
 # target to build an object file
-src/lowpass_velocity_cruisetest.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/lowpass_velocity_cruisetest.cpp.o
-.PHONY : src/lowpass_velocity_cruisetest.cpp.o
+src/examples/lowpass_velocity_cruisetest.cpp.o:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.o
+.PHONY : src/examples/lowpass_velocity_cruisetest.cpp.o
 
-src/lowpass_velocity_cruisetest.i: src/lowpass_velocity_cruisetest.cpp.i
+src/examples/lowpass_velocity_cruisetest.i: src/examples/lowpass_velocity_cruisetest.cpp.i
 
-.PHONY : src/lowpass_velocity_cruisetest.i
+.PHONY : src/examples/lowpass_velocity_cruisetest.i
 
 # target to preprocess a source file
-src/lowpass_velocity_cruisetest.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/lowpass_velocity_cruisetest.cpp.i
-.PHONY : src/lowpass_velocity_cruisetest.cpp.i
+src/examples/lowpass_velocity_cruisetest.cpp.i:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.i
+.PHONY : src/examples/lowpass_velocity_cruisetest.cpp.i
 
-src/lowpass_velocity_cruisetest.s: src/lowpass_velocity_cruisetest.cpp.s
+src/examples/lowpass_velocity_cruisetest.s: src/examples/lowpass_velocity_cruisetest.cpp.s
 
-.PHONY : src/lowpass_velocity_cruisetest.s
+.PHONY : src/examples/lowpass_velocity_cruisetest.s
 
 # target to generate assembly for a file
-src/lowpass_velocity_cruisetest.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/lowpass_velocity_cruisetest.cpp.s
-.PHONY : src/lowpass_velocity_cruisetest.cpp.s
+src/examples/lowpass_velocity_cruisetest.cpp.s:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.s
+.PHONY : src/examples/lowpass_velocity_cruisetest.cpp.s
+
+src/source/examples_common.o: src/source/examples_common.cpp.o
+
+.PHONY : src/source/examples_common.o
+
+# target to build an object file
+src/source/examples_common.cpp.o:
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o
+.PHONY : src/source/examples_common.cpp.o
+
+src/source/examples_common.i: src/source/examples_common.cpp.i
+
+.PHONY : src/source/examples_common.i
+
+# target to preprocess a source file
+src/source/examples_common.cpp.i:
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.i
+.PHONY : src/source/examples_common.cpp.i
+
+src/source/examples_common.s: src/source/examples_common.cpp.s
+
+.PHONY : src/source/examples_common.s
+
+# target to generate assembly for a file
+src/source/examples_common.cpp.s:
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.s
+.PHONY : src/source/examples_common.cpp.s
 
 # Help Target
 help:
@@ -699,15 +699,15 @@ help:
 	@echo "... common/shader.o"
 	@echo "... common/shader.i"
 	@echo "... common/shader.s"
-	@echo "... src/examples_common.o"
-	@echo "... src/examples_common.i"
-	@echo "... src/examples_common.s"
-	@echo "... src/graphics/plot2d.o"
-	@echo "... src/graphics/plot2d.i"
-	@echo "... src/graphics/plot2d.s"
-	@echo "... src/lowpass_velocity_cruisetest.o"
-	@echo "... src/lowpass_velocity_cruisetest.i"
-	@echo "... src/lowpass_velocity_cruisetest.s"
+	@echo "... graphics/plot2d.o"
+	@echo "... graphics/plot2d.i"
+	@echo "... graphics/plot2d.s"
+	@echo "... src/examples/lowpass_velocity_cruisetest.o"
+	@echo "... src/examples/lowpass_velocity_cruisetest.i"
+	@echo "... src/examples/lowpass_velocity_cruisetest.s"
+	@echo "... src/source/examples_common.o"
+	@echo "... src/source/examples_common.i"
+	@echo "... src/source/examples_common.s"
 .PHONY : help
 
 

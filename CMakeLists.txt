@@ -21,7 +21,7 @@ find_package(Threads REQUIRED)
 
 
 add_library(examples_common STATIC
-  src/examples_common.cpp
+  src/source/examples_common.cpp
 )
 
 add_subdirectory (externalGL)
@@ -31,6 +31,7 @@ include_directories(
 	externalGL/glfw-3.1.2/include/
 	externalGL/glm-0.9.7.1/
 	externalGL/glew-1.13.0/include/
+	src/headers/
 	.
 )
 
@@ -68,31 +69,31 @@ COMMENT "copy shaders to build directory"
 VERBATIM)
 
 foreach(example ${EXAMPLES})
-  add_executable(${example} src/${example}.cpp common/shader.cpp common/shader.hpp src/graphics/plot2d.cpp src/graphics/plot2d.h)
+  add_executable(${example} src/examples/${example}.cpp common/shader.cpp common/shader.hpp graphics/plot2d.cpp graphics/plot2d.h)
   target_link_libraries(${example} OpenGL  Franka::Franka
 	Threads::Threads glfw GLEW_1130 examples_common Eigen3::Eigen3) 
   ADD_DEPENDENCIES(${example} copy_shader_dir)
 endforeach()
 
 
-file(GLOB_RECURSE HEADERS
+#file(GLOB_RECURSE HEADERS
   #external/*.h
-  src/*.h
-  common/*.h
-)
+#  src/*.h
+#  common/*.h
+#)
 
 ## Tools
-file(GLOB_RECURSE SOURCES
-  src/*.cpp
-  src/graphics/*.cpp
-  common/*.cpp
-)
-file(GLOB_RECURSE HEADERS
-  include/*.h
-  src/*.h
-  src/graphics/*.h
-  common/*.h
-)
+#file(GLOB_RECURSE SOURCES
+#  src/*.cpp
+#  src/graphics/*.cpp
+#  common/*.cpp
+#)
+#file(GLOB_RECURSE HEADERS
+#  include/*.h
+#  src/*.h
+#  src/graphics/*.h
+#  common/*.h
+#)
 
 
 

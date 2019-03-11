@@ -57,38 +57,38 @@ include CMakeFiles/examples_common.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/examples_common.dir/flags.make
 
-CMakeFiles/examples_common.dir/src/examples_common.cpp.o: CMakeFiles/examples_common.dir/flags.make
-CMakeFiles/examples_common.dir/src/examples_common.cpp.o: ../src/examples_common.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/examples_common.dir/src/examples_common.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/examples_common.dir/src/examples_common.cpp.o -c /home/nakkeslengprosjekt/asdf/src/examples_common.cpp
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o: CMakeFiles/examples_common.dir/flags.make
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o: ../src/source/examples_common.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o -c /home/nakkeslengprosjekt/asdf/src/source/examples_common.cpp
 
-CMakeFiles/examples_common.dir/src/examples_common.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/examples_common.dir/src/examples_common.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/examples_common.cpp > CMakeFiles/examples_common.dir/src/examples_common.cpp.i
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/examples_common.dir/src/source/examples_common.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/source/examples_common.cpp > CMakeFiles/examples_common.dir/src/source/examples_common.cpp.i
 
-CMakeFiles/examples_common.dir/src/examples_common.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/examples_common.dir/src/examples_common.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/examples_common.cpp -o CMakeFiles/examples_common.dir/src/examples_common.cpp.s
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/examples_common.dir/src/source/examples_common.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/source/examples_common.cpp -o CMakeFiles/examples_common.dir/src/source/examples_common.cpp.s
 
-CMakeFiles/examples_common.dir/src/examples_common.cpp.o.requires:
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.requires:
 
-.PHONY : CMakeFiles/examples_common.dir/src/examples_common.cpp.o.requires
+.PHONY : CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.requires
 
-CMakeFiles/examples_common.dir/src/examples_common.cpp.o.provides: CMakeFiles/examples_common.dir/src/examples_common.cpp.o.requires
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/examples_common.cpp.o.provides.build
-.PHONY : CMakeFiles/examples_common.dir/src/examples_common.cpp.o.provides
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.provides: CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.requires
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.provides.build
+.PHONY : CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.provides
 
-CMakeFiles/examples_common.dir/src/examples_common.cpp.o.provides.build: CMakeFiles/examples_common.dir/src/examples_common.cpp.o
+CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.provides.build: CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o
 
 
 # Object files for target examples_common
 examples_common_OBJECTS = \
-"CMakeFiles/examples_common.dir/src/examples_common.cpp.o"
+"CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o"
 
 # External object files for target examples_common
 examples_common_EXTERNAL_OBJECTS =
 
-libexamples_common.a: CMakeFiles/examples_common.dir/src/examples_common.cpp.o
+libexamples_common.a: CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o
 libexamples_common.a: CMakeFiles/examples_common.dir/build.make
 libexamples_common.a: CMakeFiles/examples_common.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libexamples_common.a"
@@ -100,7 +100,7 @@ CMakeFiles/examples_common.dir/build: libexamples_common.a
 
 .PHONY : CMakeFiles/examples_common.dir/build
 
-CMakeFiles/examples_common.dir/requires: CMakeFiles/examples_common.dir/src/examples_common.cpp.o.requires
+CMakeFiles/examples_common.dir/requires: CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o.requires
 
 .PHONY : CMakeFiles/examples_common.dir/requires
 

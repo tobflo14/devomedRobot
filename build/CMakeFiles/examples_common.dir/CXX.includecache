@@ -6,21 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/nakkeslengprosjekt/asdf/src/examples_common.cpp
-examples_common.h
-/home/nakkeslengprosjekt/asdf/src/examples_common.h
-algorithm
--
-array
--
-cmath
--
-franka/exception.h
--
-franka/robot.h
--
-
-/home/nakkeslengprosjekt/asdf/src/examples_common.h
+../src/headers/examples_common.h
 array
 -
 Eigen/Core
@@ -32,6 +18,20 @@ franka/duration.h
 franka/robot.h
 -
 franka/robot_state.h
+-
+
+/home/nakkeslengprosjekt/asdf/src/source/examples_common.cpp
+examples_common.h
+/home/nakkeslengprosjekt/asdf/src/source/examples_common.h
+algorithm
+-
+array
+-
+cmath
+-
+franka/exception.h
+-
+franka/robot.h
 -
 
 /usr/local/include/eigen3/Eigen/Core
