@@ -573,32 +573,59 @@ common/shader.cpp.s:
 	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.s
 .PHONY : common/shader.cpp.s
 
-graphics/plot2d.o: graphics/plot2d.cpp.o
+graphics/source/plot2d.o: graphics/source/plot2d.cpp.o
 
-.PHONY : graphics/plot2d.o
+.PHONY : graphics/source/plot2d.o
 
 # target to build an object file
-graphics/plot2d.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o
-.PHONY : graphics/plot2d.cpp.o
+graphics/source/plot2d.cpp.o:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o
+.PHONY : graphics/source/plot2d.cpp.o
 
-graphics/plot2d.i: graphics/plot2d.cpp.i
+graphics/source/plot2d.i: graphics/source/plot2d.cpp.i
 
-.PHONY : graphics/plot2d.i
+.PHONY : graphics/source/plot2d.i
 
 # target to preprocess a source file
-graphics/plot2d.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.i
-.PHONY : graphics/plot2d.cpp.i
+graphics/source/plot2d.cpp.i:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.i
+.PHONY : graphics/source/plot2d.cpp.i
 
-graphics/plot2d.s: graphics/plot2d.cpp.s
+graphics/source/plot2d.s: graphics/source/plot2d.cpp.s
 
-.PHONY : graphics/plot2d.s
+.PHONY : graphics/source/plot2d.s
 
 # target to generate assembly for a file
-graphics/plot2d.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.s
-.PHONY : graphics/plot2d.cpp.s
+graphics/source/plot2d.cpp.s:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.s
+.PHONY : graphics/source/plot2d.cpp.s
+
+graphics/source/plot2dTest.o: graphics/source/plot2dTest.cpp.o
+
+.PHONY : graphics/source/plot2dTest.o
+
+# target to build an object file
+graphics/source/plot2dTest.cpp.o:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o
+.PHONY : graphics/source/plot2dTest.cpp.o
+
+graphics/source/plot2dTest.i: graphics/source/plot2dTest.cpp.i
+
+.PHONY : graphics/source/plot2dTest.i
+
+# target to preprocess a source file
+graphics/source/plot2dTest.cpp.i:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.i
+.PHONY : graphics/source/plot2dTest.cpp.i
+
+graphics/source/plot2dTest.s: graphics/source/plot2dTest.cpp.s
+
+.PHONY : graphics/source/plot2dTest.s
+
+# target to generate assembly for a file
+graphics/source/plot2dTest.cpp.s:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.s
+.PHONY : graphics/source/plot2dTest.cpp.s
 
 src/examples/lowpass_velocity_cruisetest.o: src/examples/lowpass_velocity_cruisetest.cpp.o
 
@@ -654,6 +681,33 @@ src/source/examples_common.cpp.s:
 	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.s
 .PHONY : src/source/examples_common.cpp.s
 
+src/source/pid.o: src/source/pid.cpp.o
+
+.PHONY : src/source/pid.o
+
+# target to build an object file
+src/source/pid.cpp.o:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o
+.PHONY : src/source/pid.cpp.o
+
+src/source/pid.i: src/source/pid.cpp.i
+
+.PHONY : src/source/pid.i
+
+# target to preprocess a source file
+src/source/pid.cpp.i:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.i
+.PHONY : src/source/pid.cpp.i
+
+src/source/pid.s: src/source/pid.cpp.s
+
+.PHONY : src/source/pid.s
+
+# target to generate assembly for a file
+src/source/pid.cpp.s:
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.s
+.PHONY : src/source/pid.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -699,15 +753,21 @@ help:
 	@echo "... common/shader.o"
 	@echo "... common/shader.i"
 	@echo "... common/shader.s"
-	@echo "... graphics/plot2d.o"
-	@echo "... graphics/plot2d.i"
-	@echo "... graphics/plot2d.s"
+	@echo "... graphics/source/plot2d.o"
+	@echo "... graphics/source/plot2d.i"
+	@echo "... graphics/source/plot2d.s"
+	@echo "... graphics/source/plot2dTest.o"
+	@echo "... graphics/source/plot2dTest.i"
+	@echo "... graphics/source/plot2dTest.s"
 	@echo "... src/examples/lowpass_velocity_cruisetest.o"
 	@echo "... src/examples/lowpass_velocity_cruisetest.i"
 	@echo "... src/examples/lowpass_velocity_cruisetest.s"
 	@echo "... src/source/examples_common.o"
 	@echo "... src/source/examples_common.i"
 	@echo "... src/source/examples_common.s"
+	@echo "... src/source/pid.o"
+	@echo "... src/source/pid.i"
+	@echo "... src/source/pid.s"
 .PHONY : help
 
 

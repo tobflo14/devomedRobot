@@ -57,28 +57,28 @@ include CMakeFiles/ogl_plot.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ogl_plot.dir/flags.make
 
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o: CMakeFiles/ogl_plot.dir/flags.make
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o: ../src/ogl_plot.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o -c /home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o: CMakeFiles/ogl_plot.dir/flags.make
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o: ../src/examples/ogl_plot.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o -c /home/nakkeslengprosjekt/asdf/src/examples/ogl_plot.cpp
 
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp > CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.i
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/examples/ogl_plot.cpp > CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.i
 
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp -o CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.s
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/examples/ogl_plot.cpp -o CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.s
 
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.requires:
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.requires:
 
-.PHONY : CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.requires
+.PHONY : CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.requires
 
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.provides: CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.requires
-	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.provides.build
-.PHONY : CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.provides
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.provides: CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.provides.build
+.PHONY : CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.provides
 
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.provides.build: CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.provides.build: CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o
 
 
 CMakeFiles/ogl_plot.dir/common/shader.cpp.o: CMakeFiles/ogl_plot.dir/flags.make
@@ -105,42 +105,68 @@ CMakeFiles/ogl_plot.dir/common/shader.cpp.o.provides: CMakeFiles/ogl_plot.dir/co
 CMakeFiles/ogl_plot.dir/common/shader.cpp.o.provides.build: CMakeFiles/ogl_plot.dir/common/shader.cpp.o
 
 
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o: CMakeFiles/ogl_plot.dir/flags.make
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o: ../src/graphics/plot2d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o: CMakeFiles/ogl_plot.dir/flags.make
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o: ../graphics/source/plot2d.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp
 
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp > CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.i
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp > CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.i
 
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp -o CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.s
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp -o CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.s
 
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.requires:
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.requires:
 
-.PHONY : CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.requires
+.PHONY : CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.requires
 
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.provides: CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.requires
-	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.provides.build
-.PHONY : CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.provides
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.provides: CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.provides.build
+.PHONY : CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.provides
 
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.provides.build: CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.provides.build: CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o
+
+
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o: CMakeFiles/ogl_plot.dir/flags.make
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o: ../graphics/source/plot2dTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp
+
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp > CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.i
+
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp -o CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.s
+
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.requires:
+
+.PHONY : CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.requires
+
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.provides: CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ogl_plot.dir/build.make CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.provides.build
+.PHONY : CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.provides
+
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.provides.build: CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o
 
 
 # Object files for target ogl_plot
 ogl_plot_OBJECTS = \
-"CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o" \
+"CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o" \
 "CMakeFiles/ogl_plot.dir/common/shader.cpp.o" \
-"CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o"
+"CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o" \
+"CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o"
 
 # External object files for target ogl_plot
 ogl_plot_EXTERNAL_OBJECTS =
 
-ogl_plot: CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o
+ogl_plot: CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o
 ogl_plot: CMakeFiles/ogl_plot.dir/common/shader.cpp.o
-ogl_plot: CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o
+ogl_plot: CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o
+ogl_plot: CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o
 ogl_plot: CMakeFiles/ogl_plot.dir/build.make
 ogl_plot: externalGL/glfw-3.1.2/src/libglfw3.a
 ogl_plot: externalGL/libGLEW_1130.a
@@ -167,7 +193,7 @@ ogl_plot: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
 ogl_plot: /usr/lib/x86_64-linux-gnu/libXcursor.so
 ogl_plot: /usr/local/lib/libfranka.so.0.5.0
 ogl_plot: CMakeFiles/ogl_plot.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ogl_plot"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ogl_plot"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ogl_plot.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -175,9 +201,10 @@ CMakeFiles/ogl_plot.dir/build: ogl_plot
 
 .PHONY : CMakeFiles/ogl_plot.dir/build
 
-CMakeFiles/ogl_plot.dir/requires: CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o.requires
+CMakeFiles/ogl_plot.dir/requires: CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o.requires
 CMakeFiles/ogl_plot.dir/requires: CMakeFiles/ogl_plot.dir/common/shader.cpp.o.requires
-CMakeFiles/ogl_plot.dir/requires: CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o.requires
+CMakeFiles/ogl_plot.dir/requires: CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o.requires
+CMakeFiles/ogl_plot.dir/requires: CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o.requires
 
 .PHONY : CMakeFiles/ogl_plot.dir/requires
 

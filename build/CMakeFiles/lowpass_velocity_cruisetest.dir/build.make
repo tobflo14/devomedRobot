@@ -105,42 +105,94 @@ CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o.provides: CMakeFi
 CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o.provides.build: CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o
 
 
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o: CMakeFiles/lowpass_velocity_cruisetest.dir/flags.make
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o: ../graphics/plot2d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/plot2d.cpp
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o: CMakeFiles/lowpass_velocity_cruisetest.dir/flags.make
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o: ../src/source/pid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o -c /home/nakkeslengprosjekt/asdf/src/source/pid.cpp
 
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/graphics/plot2d.cpp > CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.i
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/source/pid.cpp > CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.i
 
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/graphics/plot2d.cpp -o CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.s
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/source/pid.cpp -o CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.s
 
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.requires:
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.requires:
 
-.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.requires
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.requires
 
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.provides: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.requires
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.provides.build
-.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.provides
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.provides: CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.requires
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.provides.build
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.provides
 
-CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.provides.build: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o
+CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.provides.build: CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o
+
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o: CMakeFiles/lowpass_velocity_cruisetest.dir/flags.make
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o: ../graphics/source/plot2d.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp > CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.i
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp -o CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.s
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.requires:
+
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.requires
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.provides: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.requires
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.provides.build
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.provides
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.provides.build: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o
+
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o: CMakeFiles/lowpass_velocity_cruisetest.dir/flags.make
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o: ../graphics/source/plot2dTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp > CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.i
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp -o CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.s
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.requires:
+
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.requires
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.provides: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.requires
+	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.provides.build
+.PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.provides
+
+CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.provides.build: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o
 
 
 # Object files for target lowpass_velocity_cruisetest
 lowpass_velocity_cruisetest_OBJECTS = \
 "CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.o" \
 "CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o" \
-"CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o"
+"CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o" \
+"CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o" \
+"CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o"
 
 # External object files for target lowpass_velocity_cruisetest
 lowpass_velocity_cruisetest_EXTERNAL_OBJECTS =
 
 lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.o
 lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o
-lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o
+lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o
+lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o
+lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o
 lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/build.make
 lowpass_velocity_cruisetest: externalGL/glfw-3.1.2/src/libglfw3.a
 lowpass_velocity_cruisetest: externalGL/libGLEW_1130.a
@@ -167,7 +219,7 @@ lowpass_velocity_cruisetest: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
 lowpass_velocity_cruisetest: /usr/lib/x86_64-linux-gnu/libXcursor.so
 lowpass_velocity_cruisetest: /usr/local/lib/libfranka.so.0.5.0
 lowpass_velocity_cruisetest: CMakeFiles/lowpass_velocity_cruisetest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable lowpass_velocity_cruisetest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable lowpass_velocity_cruisetest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lowpass_velocity_cruisetest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -177,7 +229,9 @@ CMakeFiles/lowpass_velocity_cruisetest.dir/build: lowpass_velocity_cruisetest
 
 CMakeFiles/lowpass_velocity_cruisetest.dir/requires: CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.o.requires
 CMakeFiles/lowpass_velocity_cruisetest.dir/requires: CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o.requires
-CMakeFiles/lowpass_velocity_cruisetest.dir/requires: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o.requires
+CMakeFiles/lowpass_velocity_cruisetest.dir/requires: CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o.requires
+CMakeFiles/lowpass_velocity_cruisetest.dir/requires: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o.requires
+CMakeFiles/lowpass_velocity_cruisetest.dir/requires: CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o.requires
 
 .PHONY : CMakeFiles/lowpass_velocity_cruisetest.dir/requires
 

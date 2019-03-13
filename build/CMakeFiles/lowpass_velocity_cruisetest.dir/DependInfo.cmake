@@ -5,8 +5,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/nakkeslengprosjekt/asdf/common/shader.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o"
-  "/home/nakkeslengprosjekt/asdf/graphics/plot2d.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/plot2d.cpp.o"
+  "/home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o"
+  "/home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o"
   "/home/nakkeslengprosjekt/asdf/src/examples/lowpass_velocity_cruisetest.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.o"
+  "/home/nakkeslengprosjekt/asdf/src/source/pid.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,6 +19,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../externalGL/glm-0.9.7.1"
   "../externalGL/glew-1.13.0/include"
   "../src/headers"
+  "../graphics/headers"
   "../."
   "/usr/local/include/eigen3"
   "/usr/local/include"

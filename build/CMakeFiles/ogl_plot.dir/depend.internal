@@ -5,7 +5,7 @@ CMakeFiles/ogl_plot.dir/common/shader.cpp.o
  ../externalGL/glew-1.13.0/include/GL/glew.h
  /home/nakkeslengprosjekt/asdf/common/shader.cpp
  /home/nakkeslengprosjekt/asdf/common/shader.hpp
-CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o
+CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o
  .././common/shader.hpp
  ../externalGL/glew-1.13.0/include/GL/glew.h
  ../externalGL/glfw-3.1.2/include/GLFW/glfw3.h
@@ -92,9 +92,9 @@ CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o
  ../externalGL/glm-0.9.7.1/glm/vec3.hpp
  ../externalGL/glm-0.9.7.1/glm/vec4.hpp
  ../externalGL/glm-0.9.7.1/glm/vector_relational.hpp
- /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp
- /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.h
-CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o
+ ../graphics/headers/plot2d.h
+ /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp
+CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o
  .././common/shader.hpp
  ../externalGL/glew-1.13.0/include/GL/glew.h
  ../externalGL/glfw-3.1.2/include/GLFW/glfw3.h
@@ -181,10 +181,97 @@ CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o
  ../externalGL/glm-0.9.7.1/glm/vec3.hpp
  ../externalGL/glm-0.9.7.1/glm/vec4.hpp
  ../externalGL/glm-0.9.7.1/glm/vector_relational.hpp
- /home/nakkeslengprosjekt/asdf/src/examples_common.h
- /home/nakkeslengprosjekt/asdf/src/functions.h
- /home/nakkeslengprosjekt/asdf/src/graphics/plot2d.h
- /home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp
+ ../graphics/headers/plot2dTest.h
+ /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp
+CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o
+ ../externalGL/glfw-3.1.2/include/GLFW/glfw3.h
+ ../externalGL/glm-0.9.7.1/glm/common.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/_fixes.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/_swizzle.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/_swizzle_func.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/_vectorize.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_common.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_common.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_exponential.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_exponential.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_geometric.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_geometric.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_integer.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_integer.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_matrix.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_matrix.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_packing.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_packing.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_trigonometric.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_trigonometric.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/func_vector_relational.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/func_vector_relational.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/precision.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/setup.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_float.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_half.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_half.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_int.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat2x2.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat2x2.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat2x3.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat2x3.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat2x4.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat2x4.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat3x2.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat3x2.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat3x3.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat3x3.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat3x4.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat3x4.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat4x2.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat4x2.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat4x3.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat4x3.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat4x4.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_mat4x4.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec1.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec1.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec2.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec2.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec3.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec3.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec4.hpp
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec4.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec4_avx.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec4_avx2.inl
+ ../externalGL/glm-0.9.7.1/glm/detail/type_vec4_sse2.inl
+ ../externalGL/glm-0.9.7.1/glm/exponential.hpp
+ ../externalGL/glm-0.9.7.1/glm/fwd.hpp
+ ../externalGL/glm-0.9.7.1/glm/geometric.hpp
+ ../externalGL/glm-0.9.7.1/glm/glm.hpp
+ ../externalGL/glm-0.9.7.1/glm/gtc/constants.hpp
+ ../externalGL/glm-0.9.7.1/glm/gtc/constants.inl
+ ../externalGL/glm-0.9.7.1/glm/gtc/matrix_transform.hpp
+ ../externalGL/glm-0.9.7.1/glm/gtc/matrix_transform.inl
+ ../externalGL/glm-0.9.7.1/glm/integer.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat2x2.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat2x3.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat2x4.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat3x2.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat3x3.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat3x4.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat4x2.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat4x3.hpp
+ ../externalGL/glm-0.9.7.1/glm/mat4x4.hpp
+ ../externalGL/glm-0.9.7.1/glm/matrix.hpp
+ ../externalGL/glm-0.9.7.1/glm/packing.hpp
+ ../externalGL/glm-0.9.7.1/glm/trigonometric.hpp
+ ../externalGL/glm-0.9.7.1/glm/vec2.hpp
+ ../externalGL/glm-0.9.7.1/glm/vec3.hpp
+ ../externalGL/glm-0.9.7.1/glm/vec4.hpp
+ ../externalGL/glm-0.9.7.1/glm/vector_relational.hpp
+ ../graphics/headers/plot2dTest.h
+ ../src/headers/examples_common.h
+ ../src/headers/functions.h
+ /home/nakkeslengprosjekt/asdf/src/examples/ogl_plot.cpp
  /usr/local/include/eigen3/Eigen/Core
  /usr/local/include/eigen3/Eigen/src/Core/Array.h
  /usr/local/include/eigen3/Eigen/src/Core/ArrayBase.h

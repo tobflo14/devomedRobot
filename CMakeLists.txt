@@ -32,6 +32,7 @@ include_directories(
 	externalGL/glm-0.9.7.1/
 	externalGL/glew-1.13.0/include/
 	src/headers/
+	graphics/headers/
 	.
 )
 
@@ -53,15 +54,6 @@ set(EXAMPLES
   #joint_impedance_control
 )
 
-
-#ADD_CUSTOM_TARGET(
-#  copy_shader_files
-#  ${CMAKE_COMMAND}
-#  -D SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}
-#  -D DESTINATION_DIR=${CMAKE_CURRENT_BINARY_DIR}
-#  -P CopyFile.cmake
-#)
-
 ADD_CUSTOM_TARGET(copy_shader_dir ALL
 COMMAND ${CMAKE_COMMAND} -E copy_directory
 "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders" "${CMAKE_BINARY_DIR}"
@@ -69,7 +61,8 @@ COMMENT "copy shaders to build directory"
 VERBATIM)
 
 foreach(example ${EXAMPLES})
-  add_executable(${example} src/examples/${example}.cpp common/shader.cpp common/shader.hpp graphics/plot2d.cpp graphics/plot2d.h)
+  add_executable(${example} src/examples/${example}.cpp common/shader.cpp common/shader.hpp src/headers/pid.h src/source/pid.cpp
+  	graphics/source/plot2d.cpp graphics/headers/plot2d.h graphics/source/plot2dTest.cpp graphics/headers/plot2dTest.h )
   target_link_libraries(${example} OpenGL  Franka::Franka
 	Threads::Threads glfw GLEW_1130 examples_common Eigen3::Eigen3) 
   ADD_DEPENDENCIES(${example} copy_shader_dir)
@@ -102,61 +95,3 @@ endforeach()
 #  set(CMAKE_C_COMPILE_OBJECT)
 #      "<CMAKE_C_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 #endif()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#add_executable(comm_test src/communication_test.cpp src/examples_common.cpp)
-#add_executable(lowpass src/lowpass_filter_test.cpp src/examples_common.cpp)
-#add_executable(ogl src/ogl-plot.cpp src/examples_common.cpp )
-
-
-#find_package(Eigen3 REQUIRED)
-
-
-
-
-#target_link_libraries(comm_test OpenGL /usr/local/lib/libfranka.so)
-#target_link_libraries(lowpass OpenGL Threads::Threads  /usr/local/lib/libfranka.so)
-#target_link_libraries(ogl OpenGL Threads::Threads glfw GLEW_1130 /usr/local/lib/libfranka.so)
-#target_include_directories(comm_test <external .h files>)
-
-#add_executable(communication_test src/communication_test.cpp)
-#add_executable(lowpass_filter_test src/lowpass_filter_test.cpp)
-
-
-
-
-#add_library(libfranka SHARED IMPORTED)
-#set_property(TARGET libfranka PROPERTY IMPORTED_LOCATION /usr/local/lib/libfranka.so)
-
-#add_library(examples_common STATIC
-#  src/examples_common.cpp
-#)
-
-
-#target_link_libraries(communication_test libfranka examples_common)
-#target_link_libraries(lowpass_filter_test libfranka examples_common Threads::Threads)
-

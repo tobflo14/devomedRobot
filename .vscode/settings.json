@@ -56,5 +56,6 @@
         "*.fragmentshader": "cpp",
         "dense": "cpp",
         "*.vertexshader": "cpp"
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

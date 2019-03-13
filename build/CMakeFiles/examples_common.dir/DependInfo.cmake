@@ -15,6 +15,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../externalGL/glm-0.9.7.1"
   "../externalGL/glew-1.13.0/include"
   "../src/headers"
+  "../graphics/headers"
   "../."
   "/usr/local/include/eigen3"
   "/usr/local/include"

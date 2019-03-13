@@ -8,8 +8,6 @@
 
 .././common/shader.hpp
 
-.././graphics/plot2d.h
-
 ../externalGL/glew-1.13.0/include/GL/glew.h
 stddef.h
 -
@@ -722,6 +720,16 @@ detail/type_vec4.hpp
 detail/func_vector_relational.hpp
 ../externalGL/glm-0.9.7.1/glm/detail/func_vector_relational.hpp
 
+../graphics/headers/plot2d.h
+
+../graphics/headers/plot2dTest.h
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+GLFW/glfw3.h
+-
+
 ../src/headers/examples_common.h
 array
 -
@@ -734,6 +742,10 @@ franka/duration.h
 franka/robot.h
 -
 franka/robot_state.h
+-
+
+../src/headers/pid.h
+Eigen/Dense
 -
 
 /home/nakkeslengprosjekt/asdf/common/shader.cpp
@@ -762,7 +774,7 @@ shader.hpp
 
 /home/nakkeslengprosjekt/asdf/common/shader.hpp
 
-/home/nakkeslengprosjekt/asdf/graphics/plot2d.cpp
+/home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp
 stdio.h
 -
 stdlib.h
@@ -784,9 +796,31 @@ glm/gtc/matrix_transform.hpp
 common/shader.hpp
 -
 plot2d.h
-/home/nakkeslengprosjekt/asdf/graphics/plot2d.h
+/home/nakkeslengprosjekt/asdf/graphics/source/plot2d.h
 
-/home/nakkeslengprosjekt/asdf/graphics/plot2d.h
+/home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+iostream
+-
+cstring
+-
+GL/glew.h
+-
+GLFW/glfw3.h
+-
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+common/shader.hpp
+-
+plot2dTest.h
+/home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.h
 
 /home/nakkeslengprosjekt/asdf/src/examples/lowpass_velocity_cruisetest.cpp
 array
@@ -837,18 +871,18 @@ termios.h
 -
 examples_common.h
 /home/nakkeslengprosjekt/asdf/src/examples/examples_common.h
-time.h
+plot2dTest.h
+/home/nakkeslengprosjekt/asdf/src/examples/plot2dTest.h
+pid.h
+/home/nakkeslengprosjekt/asdf/src/examples/pid.h
+
+/home/nakkeslengprosjekt/asdf/src/source/pid.cpp
+pid.h
+/home/nakkeslengprosjekt/asdf/src/source/pid.h
+Eigen/Dense
 -
-GL/glew.h
+iostream
 -
-GLFW/glfw3.h
--
-glm/glm.hpp
--
-common/shader.hpp
--
-graphics/plot2d.h
-/home/nakkeslengprosjekt/asdf/src/examples/graphics/plot2d.h
 
 /usr/local/include/eigen3/Eigen/Cholesky
 Core

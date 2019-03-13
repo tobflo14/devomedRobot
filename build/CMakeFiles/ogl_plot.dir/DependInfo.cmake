@@ -5,8 +5,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/nakkeslengprosjekt/asdf/common/shader.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/ogl_plot.dir/common/shader.cpp.o"
-  "/home/nakkeslengprosjekt/asdf/src/graphics/plot2d.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/ogl_plot.dir/src/graphics/plot2d.cpp.o"
-  "/home/nakkeslengprosjekt/asdf/src/ogl_plot.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/ogl_plot.dir/src/ogl_plot.cpp.o"
+  "/home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/ogl_plot.dir/graphics/source/plot2d.cpp.o"
+  "/home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/ogl_plot.dir/graphics/source/plot2dTest.cpp.o"
+  "/home/nakkeslengprosjekt/asdf/src/examples/ogl_plot.cpp" "/home/nakkeslengprosjekt/asdf/build/CMakeFiles/ogl_plot.dir/src/examples/ogl_plot.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -16,6 +17,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../externalGL/glfw-3.1.2/include"
   "../externalGL/glm-0.9.7.1"
   "../externalGL/glew-1.13.0/include"
+  "../src/headers"
+  "../graphics/headers"
   "../."
   "/usr/local/include/eigen3"
   "/usr/local/include"
