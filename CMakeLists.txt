@@ -6,6 +6,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_BUILD_TYPE Release)
 
 add_compile_options(-Wall -Wextra)
 
@@ -21,17 +22,19 @@ find_package(Threads REQUIRED)
 
 
 add_library(examples_common STATIC
-  src/source/examples_common.cpp
+  src/functions/source/examples_common.cpp
 )
 
 add_subdirectory (externalGL)
 
 include_directories(
+	common/headers/
+	src/functions/headers/
+	src/threads/headers/
 	cmake/
 	externalGL/glfw-3.1.2/include/
 	externalGL/glm-0.9.7.1/
 	externalGL/glew-1.13.0/include/
-	src/headers/
 	graphics/headers/
 	.
 )
@@ -47,11 +50,20 @@ set(EXAMPLES
 	#lowpass_filter_ogl
 	#lowpass_filter_ogl_joint_not
 	#lowpass_filter_ogl_joint
-  lowpass_velocity_cruisetest
+  #lowpass_velocity_cruisetest
 	#ogl_plot
   #control_loop
 	#gnuplot
-  #joint_impedance_control
+	#joint_impedance_control
+	main_start_threads
+)
+
+set(SOURCES
+common/source/shader.cpp 
+src/functions/source/pid.cpp
+graphics/source/plot2d.cpp 
+graphics/source/plot2dTest.cpp 
+src/threads/source/robot_loop_thread.cpp
 )
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL
@@ -61,8 +73,7 @@ COMMENT "copy shaders to build directory"
 VERBATIM)
 
 foreach(example ${EXAMPLES})
-  add_executable(${example} src/examples/${example}.cpp common/shader.cpp common/shader.hpp src/headers/pid.h src/source/pid.cpp
-  	graphics/source/plot2d.cpp graphics/headers/plot2d.h graphics/source/plot2dTest.cpp graphics/headers/plot2dTest.h )
+	add_executable(${example} src/apps/${example}.cpp ${SOURCES})
   target_link_libraries(${example} OpenGL  Franka::Franka
 	Threads::Threads glfw GLEW_1130 examples_common Eigen3::Eigen3) 
   ADD_DEPENDENCIES(${example} copy_shader_dir)

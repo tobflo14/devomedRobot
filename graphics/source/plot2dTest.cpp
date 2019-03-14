@@ -18,7 +18,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-#include <common/shader.hpp>
+#include <common/headers/shader.hpp>
 #include "plot2dTest.h"
 
 //GLuint gridColorBuffer;

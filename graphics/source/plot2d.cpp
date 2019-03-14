@@ -18,7 +18,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-#include <common/shader.hpp>
+#include <common/headers/shader.hpp>
 #include "plot2d.h"
 
 static int C_NUM_Y_DIV = 3;

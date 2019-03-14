@@ -6,5 +6,5 @@ CXX_FLAGS = -O3 -DNDEBUG   -Wall -Wextra -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/src/headers -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include 
+CXX_INCLUDES = -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include 
 

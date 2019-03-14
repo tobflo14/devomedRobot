@@ -170,17 +170,17 @@ examples_common/fast:
 .PHONY : examples_common/fast
 
 #=============================================================================
-# Target rules for targets named lowpass_velocity_cruisetest
+# Target rules for targets named main_start_threads
 
 # Build rule for target.
-lowpass_velocity_cruisetest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 lowpass_velocity_cruisetest
-.PHONY : lowpass_velocity_cruisetest
+main_start_threads: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main_start_threads
+.PHONY : main_start_threads
 
 # fast build rule for target.
-lowpass_velocity_cruisetest/fast:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/build
-.PHONY : lowpass_velocity_cruisetest/fast
+main_start_threads/fast:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/build
+.PHONY : main_start_threads/fast
 
 #=============================================================================
 # Target rules for targets named copy_shader_dir
@@ -546,32 +546,32 @@ docs/fast:
 	$(MAKE) -f externalGL/glfw-3.1.2/docs/CMakeFiles/docs.dir/build.make externalGL/glfw-3.1.2/docs/CMakeFiles/docs.dir/build
 .PHONY : docs/fast
 
-common/shader.o: common/shader.cpp.o
+common/source/shader.o: common/source/shader.cpp.o
 
-.PHONY : common/shader.o
+.PHONY : common/source/shader.o
 
 # target to build an object file
-common/shader.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.o
-.PHONY : common/shader.cpp.o
+common/source/shader.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/common/source/shader.cpp.o
+.PHONY : common/source/shader.cpp.o
 
-common/shader.i: common/shader.cpp.i
+common/source/shader.i: common/source/shader.cpp.i
 
-.PHONY : common/shader.i
+.PHONY : common/source/shader.i
 
 # target to preprocess a source file
-common/shader.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.i
-.PHONY : common/shader.cpp.i
+common/source/shader.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/common/source/shader.cpp.i
+.PHONY : common/source/shader.cpp.i
 
-common/shader.s: common/shader.cpp.s
+common/source/shader.s: common/source/shader.cpp.s
 
-.PHONY : common/shader.s
+.PHONY : common/source/shader.s
 
 # target to generate assembly for a file
-common/shader.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/common/shader.cpp.s
-.PHONY : common/shader.cpp.s
+common/source/shader.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/common/source/shader.cpp.s
+.PHONY : common/source/shader.cpp.s
 
 graphics/source/plot2d.o: graphics/source/plot2d.cpp.o
 
@@ -579,7 +579,7 @@ graphics/source/plot2d.o: graphics/source/plot2d.cpp.o
 
 # target to build an object file
 graphics/source/plot2d.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.o
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2d.cpp.o
 .PHONY : graphics/source/plot2d.cpp.o
 
 graphics/source/plot2d.i: graphics/source/plot2d.cpp.i
@@ -588,7 +588,7 @@ graphics/source/plot2d.i: graphics/source/plot2d.cpp.i
 
 # target to preprocess a source file
 graphics/source/plot2d.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.i
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2d.cpp.i
 .PHONY : graphics/source/plot2d.cpp.i
 
 graphics/source/plot2d.s: graphics/source/plot2d.cpp.s
@@ -597,7 +597,7 @@ graphics/source/plot2d.s: graphics/source/plot2d.cpp.s
 
 # target to generate assembly for a file
 graphics/source/plot2d.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2d.cpp.s
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2d.cpp.s
 .PHONY : graphics/source/plot2d.cpp.s
 
 graphics/source/plot2dTest.o: graphics/source/plot2dTest.cpp.o
@@ -606,7 +606,7 @@ graphics/source/plot2dTest.o: graphics/source/plot2dTest.cpp.o
 
 # target to build an object file
 graphics/source/plot2dTest.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.o
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.o
 .PHONY : graphics/source/plot2dTest.cpp.o
 
 graphics/source/plot2dTest.i: graphics/source/plot2dTest.cpp.i
@@ -615,7 +615,7 @@ graphics/source/plot2dTest.i: graphics/source/plot2dTest.cpp.i
 
 # target to preprocess a source file
 graphics/source/plot2dTest.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.i
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.i
 .PHONY : graphics/source/plot2dTest.cpp.i
 
 graphics/source/plot2dTest.s: graphics/source/plot2dTest.cpp.s
@@ -624,89 +624,116 @@ graphics/source/plot2dTest.s: graphics/source/plot2dTest.cpp.s
 
 # target to generate assembly for a file
 graphics/source/plot2dTest.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/graphics/source/plot2dTest.cpp.s
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.s
 .PHONY : graphics/source/plot2dTest.cpp.s
 
-src/examples/lowpass_velocity_cruisetest.o: src/examples/lowpass_velocity_cruisetest.cpp.o
+src/apps/main_start_threads.o: src/apps/main_start_threads.cpp.o
 
-.PHONY : src/examples/lowpass_velocity_cruisetest.o
-
-# target to build an object file
-src/examples/lowpass_velocity_cruisetest.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.o
-.PHONY : src/examples/lowpass_velocity_cruisetest.cpp.o
-
-src/examples/lowpass_velocity_cruisetest.i: src/examples/lowpass_velocity_cruisetest.cpp.i
-
-.PHONY : src/examples/lowpass_velocity_cruisetest.i
-
-# target to preprocess a source file
-src/examples/lowpass_velocity_cruisetest.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.i
-.PHONY : src/examples/lowpass_velocity_cruisetest.cpp.i
-
-src/examples/lowpass_velocity_cruisetest.s: src/examples/lowpass_velocity_cruisetest.cpp.s
-
-.PHONY : src/examples/lowpass_velocity_cruisetest.s
-
-# target to generate assembly for a file
-src/examples/lowpass_velocity_cruisetest.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/examples/lowpass_velocity_cruisetest.cpp.s
-.PHONY : src/examples/lowpass_velocity_cruisetest.cpp.s
-
-src/source/examples_common.o: src/source/examples_common.cpp.o
-
-.PHONY : src/source/examples_common.o
+.PHONY : src/apps/main_start_threads.o
 
 # target to build an object file
-src/source/examples_common.cpp.o:
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.o
-.PHONY : src/source/examples_common.cpp.o
+src/apps/main_start_threads.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/apps/main_start_threads.cpp.o
+.PHONY : src/apps/main_start_threads.cpp.o
 
-src/source/examples_common.i: src/source/examples_common.cpp.i
+src/apps/main_start_threads.i: src/apps/main_start_threads.cpp.i
 
-.PHONY : src/source/examples_common.i
+.PHONY : src/apps/main_start_threads.i
 
 # target to preprocess a source file
-src/source/examples_common.cpp.i:
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.i
-.PHONY : src/source/examples_common.cpp.i
+src/apps/main_start_threads.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/apps/main_start_threads.cpp.i
+.PHONY : src/apps/main_start_threads.cpp.i
 
-src/source/examples_common.s: src/source/examples_common.cpp.s
+src/apps/main_start_threads.s: src/apps/main_start_threads.cpp.s
 
-.PHONY : src/source/examples_common.s
+.PHONY : src/apps/main_start_threads.s
 
 # target to generate assembly for a file
-src/source/examples_common.cpp.s:
-	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/source/examples_common.cpp.s
-.PHONY : src/source/examples_common.cpp.s
+src/apps/main_start_threads.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/apps/main_start_threads.cpp.s
+.PHONY : src/apps/main_start_threads.cpp.s
 
-src/source/pid.o: src/source/pid.cpp.o
+src/functions/source/examples_common.o: src/functions/source/examples_common.cpp.o
 
-.PHONY : src/source/pid.o
+.PHONY : src/functions/source/examples_common.o
 
 # target to build an object file
-src/source/pid.cpp.o:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.o
-.PHONY : src/source/pid.cpp.o
+src/functions/source/examples_common.cpp.o:
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o
+.PHONY : src/functions/source/examples_common.cpp.o
 
-src/source/pid.i: src/source/pid.cpp.i
+src/functions/source/examples_common.i: src/functions/source/examples_common.cpp.i
 
-.PHONY : src/source/pid.i
+.PHONY : src/functions/source/examples_common.i
 
 # target to preprocess a source file
-src/source/pid.cpp.i:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.i
-.PHONY : src/source/pid.cpp.i
+src/functions/source/examples_common.cpp.i:
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.i
+.PHONY : src/functions/source/examples_common.cpp.i
 
-src/source/pid.s: src/source/pid.cpp.s
+src/functions/source/examples_common.s: src/functions/source/examples_common.cpp.s
 
-.PHONY : src/source/pid.s
+.PHONY : src/functions/source/examples_common.s
 
 # target to generate assembly for a file
-src/source/pid.cpp.s:
-	$(MAKE) -f CMakeFiles/lowpass_velocity_cruisetest.dir/build.make CMakeFiles/lowpass_velocity_cruisetest.dir/src/source/pid.cpp.s
-.PHONY : src/source/pid.cpp.s
+src/functions/source/examples_common.cpp.s:
+	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.s
+.PHONY : src/functions/source/examples_common.cpp.s
+
+src/functions/source/pid.o: src/functions/source/pid.cpp.o
+
+.PHONY : src/functions/source/pid.o
+
+# target to build an object file
+src/functions/source/pid.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/pid.cpp.o
+.PHONY : src/functions/source/pid.cpp.o
+
+src/functions/source/pid.i: src/functions/source/pid.cpp.i
+
+.PHONY : src/functions/source/pid.i
+
+# target to preprocess a source file
+src/functions/source/pid.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/pid.cpp.i
+.PHONY : src/functions/source/pid.cpp.i
+
+src/functions/source/pid.s: src/functions/source/pid.cpp.s
+
+.PHONY : src/functions/source/pid.s
+
+# target to generate assembly for a file
+src/functions/source/pid.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/pid.cpp.s
+.PHONY : src/functions/source/pid.cpp.s
+
+src/threads/source/robot_loop_thread.o: src/threads/source/robot_loop_thread.cpp.o
+
+.PHONY : src/threads/source/robot_loop_thread.o
+
+# target to build an object file
+src/threads/source/robot_loop_thread.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/robot_loop_thread.cpp.o
+.PHONY : src/threads/source/robot_loop_thread.cpp.o
+
+src/threads/source/robot_loop_thread.i: src/threads/source/robot_loop_thread.cpp.i
+
+.PHONY : src/threads/source/robot_loop_thread.i
+
+# target to preprocess a source file
+src/threads/source/robot_loop_thread.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/robot_loop_thread.cpp.i
+.PHONY : src/threads/source/robot_loop_thread.cpp.i
+
+src/threads/source/robot_loop_thread.s: src/threads/source/robot_loop_thread.cpp.s
+
+.PHONY : src/threads/source/robot_loop_thread.s
+
+# target to generate assembly for a file
+src/threads/source/robot_loop_thread.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/robot_loop_thread.cpp.s
+.PHONY : src/threads/source/robot_loop_thread.cpp.s
 
 # Help Target
 help:
@@ -717,9 +744,9 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... install"
-	@echo "... rebuild_cache"
 	@echo "... examples_common"
-	@echo "... lowpass_velocity_cruisetest"
+	@echo "... rebuild_cache"
+	@echo "... main_start_threads"
 	@echo "... edit_cache"
 	@echo "... copy_shader_dir"
 	@echo "... list_install_components"
@@ -750,24 +777,27 @@ help:
 	@echo "... tearing"
 	@echo "... windows"
 	@echo "... docs"
-	@echo "... common/shader.o"
-	@echo "... common/shader.i"
-	@echo "... common/shader.s"
+	@echo "... common/source/shader.o"
+	@echo "... common/source/shader.i"
+	@echo "... common/source/shader.s"
 	@echo "... graphics/source/plot2d.o"
 	@echo "... graphics/source/plot2d.i"
 	@echo "... graphics/source/plot2d.s"
 	@echo "... graphics/source/plot2dTest.o"
 	@echo "... graphics/source/plot2dTest.i"
 	@echo "... graphics/source/plot2dTest.s"
-	@echo "... src/examples/lowpass_velocity_cruisetest.o"
-	@echo "... src/examples/lowpass_velocity_cruisetest.i"
-	@echo "... src/examples/lowpass_velocity_cruisetest.s"
-	@echo "... src/source/examples_common.o"
-	@echo "... src/source/examples_common.i"
-	@echo "... src/source/examples_common.s"
-	@echo "... src/source/pid.o"
-	@echo "... src/source/pid.i"
-	@echo "... src/source/pid.s"
+	@echo "... src/apps/main_start_threads.o"
+	@echo "... src/apps/main_start_threads.i"
+	@echo "... src/apps/main_start_threads.s"
+	@echo "... src/functions/source/examples_common.o"
+	@echo "... src/functions/source/examples_common.i"
+	@echo "... src/functions/source/examples_common.s"
+	@echo "... src/functions/source/pid.o"
+	@echo "... src/functions/source/pid.i"
+	@echo "... src/functions/source/pid.s"
+	@echo "... src/threads/source/robot_loop_thread.o"
+	@echo "... src/threads/source/robot_loop_thread.i"
+	@echo "... src/threads/source/robot_loop_thread.s"
 .PHONY : help
 
 

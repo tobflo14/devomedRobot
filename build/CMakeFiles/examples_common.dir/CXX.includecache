@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../src/headers/examples_common.h
+../src/functions/headers/examples_common.h
 array
 -
 Eigen/Core
@@ -20,9 +20,9 @@ franka/robot.h
 franka/robot_state.h
 -
 
-/home/nakkeslengprosjekt/asdf/src/source/examples_common.cpp
+/home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp
 examples_common.h
-/home/nakkeslengprosjekt/asdf/src/source/examples_common.h
+/home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.h
 algorithm
 -
 array
