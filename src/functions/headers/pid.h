@@ -10,7 +10,7 @@ class Pid {
     public:
         Pid(double Kp, double Ki, double Kd);
         void init();
-        void regulateVelocity(void* arg);
+        void regulateVelocity(double dt, void* arg);
 
     private:
         double Kp;
@@ -32,7 +32,7 @@ class Pid {
         Eigen::Vector3d external_velocity;
         Eigen::Vector3d jerk;
         Eigen::Vector3d pd;
-        double dt;
+        //double dt;
         
 
 };

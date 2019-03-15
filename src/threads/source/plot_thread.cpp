@@ -1,18 +1,21 @@
-#include "calculate_velocity_thread.h"
+#include "plot_thread.h"
 #include "global_struct.h"
-#include "functions.h"
-#include "examples_common.h"
-#include "pid.h"
+#include "plot2d.h"
+#include <iostream>
 #include <unistd.h>
 
-void* CalculateVelocityThread(void* arg) {
-    std::cout << "Starting calculateVelocity thread" << std::endl;
+void* PlotThread(void* arg) {
+    std::cout << "Starting plot thread" << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Pid pid = Pid(0.01, 0, 0);
+    Plot2d plot = Plot2d(1000, 1);
+
     bool has_started = false;
     double dt;
     double last_time;
+
+    plot.initPlotWindow();
+    plot.initializeBuffer(1);
 
     while (!has_started) {
         if (robot_data->run) {
@@ -23,12 +26,17 @@ void* CalculateVelocityThread(void* arg) {
         }
         usleep(10000); //Sleep for 10ms
     }
+
     while (robot_data->run) {
         dt = robot_data->timer - last_time;
         last_time = robot_data->timer;
-        pid.regulateVelocity(dt, arg);
+        plot.graph_update(robot_data->robot_velocity[2], robot_data->desired_velocity[2]);
+        plot.drawGraph();
+        plot.swapBuffers();
         usleep(10000); //sleep for 10ms
     }
+    plot.deleteBuffers();
 
     return NULL;
+
 }

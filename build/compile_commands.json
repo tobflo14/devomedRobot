@@ -16,23 +16,28 @@
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build",
-  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/src/functions/source/pid.cpp.o -c /home/nakkeslengprosjekt/asdf/src/functions/source/pid.cpp",
-  "file": "/home/nakkeslengprosjekt/asdf/src/functions/source/pid.cpp"
-},
-{
-  "directory": "/home/nakkeslengprosjekt/asdf/build",
   "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/graphics/source/plot2d.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp",
   "file": "/home/nakkeslengprosjekt/asdf/graphics/source/plot2d.cpp"
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build",
-  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.o -c /home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp",
-  "file": "/home/nakkeslengprosjekt/asdf/graphics/source/plot2dTest.cpp"
+  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/src/functions/source/pid.cpp.o -c /home/nakkeslengprosjekt/asdf/src/functions/source/pid.cpp",
+  "file": "/home/nakkeslengprosjekt/asdf/src/functions/source/pid.cpp"
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build",
   "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/src/threads/source/robot_loop_thread.cpp.o -c /home/nakkeslengprosjekt/asdf/src/threads/source/robot_loop_thread.cpp",
   "file": "/home/nakkeslengprosjekt/asdf/src/threads/source/robot_loop_thread.cpp"
+},
+{
+  "directory": "/home/nakkeslengprosjekt/asdf/build",
+  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/src/threads/source/calculate_velocity_thread.cpp.o -c /home/nakkeslengprosjekt/asdf/src/threads/source/calculate_velocity_thread.cpp",
+  "file": "/home/nakkeslengprosjekt/asdf/src/threads/source/calculate_velocity_thread.cpp"
+},
+{
+  "directory": "/home/nakkeslengprosjekt/asdf/build",
+  "command": "/usr/bin/c++   -I/home/nakkeslengprosjekt/asdf/common/headers -I/home/nakkeslengprosjekt/asdf/src/functions/headers -I/home/nakkeslengprosjekt/asdf/src/threads/headers -I/home/nakkeslengprosjekt/asdf/cmake -I/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/include -I/home/nakkeslengprosjekt/asdf/externalGL/glm-0.9.7.1 -I/home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/include -I/home/nakkeslengprosjekt/asdf/graphics/headers -I/home/nakkeslengprosjekt/asdf/. -isystem /usr/local/include/eigen3 -isystem /usr/local/include  -O3 -DNDEBUG   -Wall -Wextra -pthread -std=gnu++14 -o CMakeFiles/main_start_threads.dir/src/threads/source/plot_thread.cpp.o -c /home/nakkeslengprosjekt/asdf/src/threads/source/plot_thread.cpp",
+  "file": "/home/nakkeslengprosjekt/asdf/src/threads/source/plot_thread.cpp"
 },
 {
   "directory": "/home/nakkeslengprosjekt/asdf/build/externalGL",

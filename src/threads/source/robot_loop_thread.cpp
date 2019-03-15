@@ -53,11 +53,12 @@ void* RobotLoopThread(void* arg) {
         // Eigen::Map<const Eigen::Matrix<double, 6, 1>> force_input(robot_state.K_F_ext_hat_K.data());
 
         //Get last commanded velocity (commanded or actually performed?)
-        Eigen::Map<const Eigen::Matrix<double, 3, 1>> vel_commanded_previous(robot_state.O_dP_EE_c.data().head(3));
+        Eigen::Map<const Eigen::Matrix<double, 6, 1>> vel_commanded_previous(robot_state.O_dP_EE_c.data());
         Eigen::Map<const Eigen::Matrix<double, 6, 1>> acc_commanded_previous(robot_state.O_ddP_EE_c.data());
 
-        robot_data->robot_velocity = vel_commanded_previous;
-        robot_data->robot_acceleration = acc_commanded_previous;
+
+        robot_data->robot_velocity = vel_commanded_previous.head(3);
+        robot_data->robot_acceleration = acc_commanded_previous.head(3);
 
         vel_desired = robot_data->desired_velocity;
         
@@ -73,8 +74,9 @@ void* RobotLoopThread(void* arg) {
         robot.control(cartesian_pose_callback);
         
     } catch (const franka::Exception& ex) {
-        std::cerr << ex.what() << std::endl;
         robot_data->run = false;
+        std::cerr << ex.what() << std::endl;
+        
     }
     return NULL;
 }

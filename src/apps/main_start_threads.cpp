@@ -2,13 +2,14 @@
 #include "global_struct.h"
 #include "robot_loop_thread.h"
 #include "calculate_velocity_thread.h"
+#include "plot_thread.h"
 
 #include <iostream>
 
 #include <thread>
 
 
-#define NUM_THREADS 2
+#define NUM_THREADS 3
 
 
 static shared_robot_data robot_data;
@@ -25,6 +26,7 @@ int main(int argc, char** argv) {
     int rc;
 
     desired_velocity.setZero();
+    run = false;
 
     robot_data.robot_position = robot_position;
     robot_data.robot_velocity = robot_velocity;
@@ -43,6 +45,9 @@ int main(int argc, char** argv) {
         }
         else if (i == 1) {
             rc = pthread_create(&threads[i], NULL, CalculateVelocityThread, &robot_data);
+        }
+        else if (i == 2) {
+            rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
         }
         if (rc) {
             std::cout << "Error:unable to create thread," << rc << std::endl;

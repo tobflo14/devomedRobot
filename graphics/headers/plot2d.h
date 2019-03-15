@@ -1,28 +1,57 @@
 #ifndef PLOT2D_H
 #define PLOT2D_H
 
-void saveScreenshotToFile(std::string filename, int windowWidth, int windowHeight);
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <GLFW/glfw3.h>
+using namespace glm;
 
-void genColor(GLuint colorbuffer);
+class Plot2d {
+    public:
+        Plot2d(int samples_per_frame, float y_range);
+        void initPlotWindow(); 
+        void saveScreenshotToFile(std::string filename, int windowWidth, int windowHeight);
+        void genColor();
+        void fillColorBuffer(float red, float green, float blue); 
+        void initializeBuffer(int numBuff);
+        void CreateGrid();
+        void drawGrid();
+        void graph_update(double mainValue);
+        void graph_update(double mainValue, double value2);
+        void drawGraph();
+        void setValueLimits(int min, int max);
+        void swapBuffers();
+        void deleteBuffers();
 
-void fillColorBuffer(float red, float green, float blue);
+    private:
+        void init();
+        float X_MARGIN_MAX;
+        float X_MARGIN_MIN;
+        float Y_MARGIN_MAX;
+        float Y_MARGIN_MIN;
+        float MIN_EXP_VALUE;
+        float MAX_EXP_VALUE;
+        int NUM_PLOTS;
+        int SAMPLES_PER_FRAME;
+        GLint INDEX_OF_LAST_ENTRY;
+        float GRAPH_WIDTH;
+        float GRAPH_HEIGHT;
+        int VERTEX_COORDINATE_COUNT;
+        int buffersize;
+        //GLuint gridColorBuffer;
+        GLuint dataArray;
+        GLuint dataBuffer;
+        GLuint programID;
+        GLuint MatrixID;
+        glm::mat4 MVP;
+        GLFWwindow* window;
+       // GLfloat color_data;
+        GLuint colorbuffer;
+        static GLfloat color_data[]; //hjelp, hvordan init riktig?
 
-void initGLFW(glm::mat4 MVP); 
-
-void initializeBuffer(GLuint vertexBufferArray, GLuint vertexDataBuffer, int numBuff);
-
-void CreateGrid(GLuint vertexArray, GLuint dataBuffer);
-
-void DrawGrid(GLuint vertexArray);
-
-//void DrawGrid(GLuint vertexArray, GLuint programID, GLuint MatrixID, glm::mat4 MVP);
-
-GLint graph_update1(double mainValue, int _dataTail, GLuint vertexBuffer);
-
-GLint graph_update1(double mainValue, double value2, int _dataTail, GLuint vertexBuffers);
-
-void CreateAndDrawGrid1(int _dataTail, GLuint vertexBufferArray, GLuint programID, GLuint MatrixID, glm::mat4 MVP);
-
-void setValueLimits(int min, int max);
+        //GLfloat xgrid[];
+        //GLfloat xgrid_color[];
+        //static GLfloat color_data[];
+};
 
 #endif

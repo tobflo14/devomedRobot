@@ -8,7 +8,8 @@
                 "${workspaceFolder}/src/headers",
                 "${workspaceFolder}/external/libfranka/build/external/glew-1.13.0/include",
                 "${workspaceFolder}/externalGL/glfw-3.1.2/include",
-                "/usr/include/eigen3"
+                "/usr/include/eigen3",
+                "${workspaceFolder}/externalGL/glm-0.9.7.1"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
