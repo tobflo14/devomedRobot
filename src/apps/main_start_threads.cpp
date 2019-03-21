@@ -8,7 +8,7 @@
 #include <thread>
 
 
-#define NUM_THREADS 1
+#define NUM_THREADS 3
 
 
 static shared_robot_data robot_data;
@@ -43,7 +43,6 @@ int main(int argc, char** argv) {
     int i;
     for( i = 0; i < NUM_THREADS; i++ ) {
         if (i == 0) {
-            //RobotLoopThread(&robot_data);
             rc = pthread_create(&threads[i], NULL, RobotLoopThread, &robot_data);
         }
         else if (i == 1) {
@@ -53,10 +52,10 @@ int main(int argc, char** argv) {
             rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
         }
 
-        //if (rc) {
-         //   std::cout << "Error: unable to create thread, " << rc << std::endl;
-          //  exit(EXIT_FAILURE);
-        //}
+        if (rc) {
+            std::cout << "Error: unable to create thread, " << rc << std::endl;
+            exit(EXIT_FAILURE);
+        }
     }
 
     for( int i = 0; i < NUM_THREADS; i++ ) 

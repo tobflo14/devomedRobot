@@ -30,16 +30,16 @@ void Pid::regulateVelocity(double dt, void* arg){
       
     time += dt;
     if (time > 2.0) {
-        external_velocity(2,0) = 0.2;
+        external_velocity(0,0) = 0.2;
     }
     if (time > 4.0) {
-        external_velocity(2,0) = 0.0;
+        external_velocity(0,0) = 0.0;
     }
     if (time > 6.0) {
-        external_velocity(2,0) = -0.2;
+        external_velocity(0,0) = -0.2;
     }
     if (time > 8.0) {
-        external_velocity(2,0) = 0.0;
+        external_velocity(0,0) = 0.0;
         time = 0.0;
     }
 
@@ -66,6 +66,7 @@ void Pid::regulateVelocity(double dt, void* arg){
       //integral = integral + error*dt;
       integral += error * dt;
       
+      //Use negative change of velocity instead of change of error to prevent "derivative kick"
       derivative = -(vel_commanded_previous - past_velocity) / dt;
 
       pd = Kp * error + Ki * integral + Kd * derivative;
