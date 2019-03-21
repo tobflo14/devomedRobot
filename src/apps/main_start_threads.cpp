@@ -40,11 +40,6 @@ int main(int argc, char** argv) {
 
     pthread_t threads[NUM_THREADS];
 
-
-    rc = pthread_create(&threads[0], NULL, PlotThread, &robot_data);
-
-
-    /*
     int i;
     for( i = 0; i < NUM_THREADS; i++ ) {
         if (i == 0) {
@@ -63,7 +58,7 @@ int main(int argc, char** argv) {
           //  exit(EXIT_FAILURE);
         //}
     }
-*/
+
     for( int i = 0; i < NUM_THREADS; i++ ) 
     {
         std::cout << "Joining thread " << i << std::endl;
