@@ -60,10 +60,11 @@ set(EXAMPLES
 
 set(SOURCES
 common/source/shader.cpp 
-src/functions/source/pid.cpp
 graphics/source/plot2d.cpp 
-graphics/source/plot2dTest.cpp 
+src/functions/source/pid.cpp
 src/threads/source/robot_loop_thread.cpp
+src/threads/source/calculate_velocity_thread.cpp
+src/threads/source/plot_thread.cpp
 )
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL
@@ -86,18 +87,11 @@ endforeach()
 #  common/*.h
 #)
 
-## Tools
-#file(GLOB_RECURSE SOURCES
-#  src/*.cpp
-#  src/graphics/*.cpp
-#  common/*.cpp
-#)
-#file(GLOB_RECURSE HEADERS
-#  include/*.h
-#  src/*.h
-#  src/graphics/*.h
-#  common/*.h
-#)
+file(GLOB_RECURSE SOURCES
+  src/*.cpp
+  src/threads/source/*.cpp
+  common/*.cpp
+)
 
 
 

@@ -1,5 +1,6 @@
 #include "pid.h"
 #include "global_struct.h"
+#include <iostream>
 
 #include <Eigen/Dense>
 
@@ -24,35 +25,37 @@ void Pid::init() {
     this->vel_desired_previous = Eigen::Vector3d(0.0, 0.0, 0.0);
   //  this->past_error = Eigen::Vector3d(0.0, 0.0, 0.0);
   //  this->past_error = Eigen::Vector3d(0.0, 0.0, 0.0);
-    this->dt = 0.001; // robot runs at 1000hz
+    //this->dt = 0.001; // robot runs at 1000hz
     this->jerk_limit = 3000;
     this->acceleration_limit = 10;
     this->acc_commanded_previous = Eigen::Vector3d(0.0, 0.0, 0.0);
     this->time = 0;
 }
 
-void Pid::regulateVelocity(void* arg){
-  shared_robot_data *robot_data = (shared_robot_data *)arg;
-  this->vel_commanded_previous = robot_data->robot_velocity;
-  this->acc_commanded_previous = robot_data->robot_acceleration;
-  vel_desired_previous = vel_desired;
-  //past_error = error;
-  time += dt;
-  if (time > 2.0) {
-      external_velocity(2,0) = 0.2;
-  }
-  if (time > 4.0) {
-      external_velocity(2,0) = 0.0;
-  }
-  if (time > 6.0) {
-      external_velocity(2,0) = -0.2;
-  }
-  if (time > 8.0) {
-      external_velocity(2,0) = 0.0;
-      time = 0.0;
-  }
+void Pid::regulateVelocity(double dt, void* arg){
+  if (dt) { //Run only if dt > 0
+    shared_robot_data *robot_data = (shared_robot_data *)arg;
+    this->vel_commanded_previous = robot_data->robot_velocity;
+    this->acc_commanded_previous = robot_data->robot_acceleration;
+    vel_desired_previous = vel_desired;
+    //past_error = error;
+      
+    time += dt;
+    if (time > 2.0) {
+        external_velocity(2,0) = 0.2;
+    }
+    if (time > 4.0) {
+        external_velocity(2,0) = 0.0;
+    }
+    if (time > 6.0) {
+        external_velocity(2,0) = -0.2;
+    }
+    if (time > 8.0) {
+        external_velocity(2,0) = 0.0;
+        time = 0.0;
+    }
 
-  this->error = external_velocity - vel_commanded_previous;
+    this->error = external_velocity - vel_commanded_previous;
 
 /*
       //Y and Z axis needs to be inverted from force input to velocity output for some reason.
@@ -78,7 +81,6 @@ void Pid::regulateVelocity(void* arg){
       derivative = (error - past_error) / dt;
 
       pd = Kp * error + Ki * integral + Kd * derivative;
-      
       //acc = pd;
       vel_desired = pd;
 
@@ -98,6 +100,9 @@ void Pid::regulateVelocity(void* arg){
       }
 
       vel_desired = vel_commanded_previous + acc * dt;
+      //std::cout << "vel_desired calculated " << vel_desired[2] << std::endl;
       this->past_error = error;
       robot_data->desired_velocity = vel_desired;
+      std::cout << vel_desired[2] << std::endl;
+  }
 }

@@ -600,33 +600,6 @@ graphics/source/plot2d.cpp.s:
 	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2d.cpp.s
 .PHONY : graphics/source/plot2d.cpp.s
 
-graphics/source/plot2dTest.o: graphics/source/plot2dTest.cpp.o
-
-.PHONY : graphics/source/plot2dTest.o
-
-# target to build an object file
-graphics/source/plot2dTest.cpp.o:
-	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.o
-.PHONY : graphics/source/plot2dTest.cpp.o
-
-graphics/source/plot2dTest.i: graphics/source/plot2dTest.cpp.i
-
-.PHONY : graphics/source/plot2dTest.i
-
-# target to preprocess a source file
-graphics/source/plot2dTest.cpp.i:
-	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.i
-.PHONY : graphics/source/plot2dTest.cpp.i
-
-graphics/source/plot2dTest.s: graphics/source/plot2dTest.cpp.s
-
-.PHONY : graphics/source/plot2dTest.s
-
-# target to generate assembly for a file
-graphics/source/plot2dTest.cpp.s:
-	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/graphics/source/plot2dTest.cpp.s
-.PHONY : graphics/source/plot2dTest.cpp.s
-
 src/apps/main_start_threads.o: src/apps/main_start_threads.cpp.o
 
 .PHONY : src/apps/main_start_threads.o
@@ -708,6 +681,60 @@ src/functions/source/pid.cpp.s:
 	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/pid.cpp.s
 .PHONY : src/functions/source/pid.cpp.s
 
+src/threads/source/calculate_velocity_thread.o: src/threads/source/calculate_velocity_thread.cpp.o
+
+.PHONY : src/threads/source/calculate_velocity_thread.o
+
+# target to build an object file
+src/threads/source/calculate_velocity_thread.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/calculate_velocity_thread.cpp.o
+.PHONY : src/threads/source/calculate_velocity_thread.cpp.o
+
+src/threads/source/calculate_velocity_thread.i: src/threads/source/calculate_velocity_thread.cpp.i
+
+.PHONY : src/threads/source/calculate_velocity_thread.i
+
+# target to preprocess a source file
+src/threads/source/calculate_velocity_thread.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/calculate_velocity_thread.cpp.i
+.PHONY : src/threads/source/calculate_velocity_thread.cpp.i
+
+src/threads/source/calculate_velocity_thread.s: src/threads/source/calculate_velocity_thread.cpp.s
+
+.PHONY : src/threads/source/calculate_velocity_thread.s
+
+# target to generate assembly for a file
+src/threads/source/calculate_velocity_thread.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/calculate_velocity_thread.cpp.s
+.PHONY : src/threads/source/calculate_velocity_thread.cpp.s
+
+src/threads/source/plot_thread.o: src/threads/source/plot_thread.cpp.o
+
+.PHONY : src/threads/source/plot_thread.o
+
+# target to build an object file
+src/threads/source/plot_thread.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/plot_thread.cpp.o
+.PHONY : src/threads/source/plot_thread.cpp.o
+
+src/threads/source/plot_thread.i: src/threads/source/plot_thread.cpp.i
+
+.PHONY : src/threads/source/plot_thread.i
+
+# target to preprocess a source file
+src/threads/source/plot_thread.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/plot_thread.cpp.i
+.PHONY : src/threads/source/plot_thread.cpp.i
+
+src/threads/source/plot_thread.s: src/threads/source/plot_thread.cpp.s
+
+.PHONY : src/threads/source/plot_thread.s
+
+# target to generate assembly for a file
+src/threads/source/plot_thread.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/threads/source/plot_thread.cpp.s
+.PHONY : src/threads/source/plot_thread.cpp.s
+
 src/threads/source/robot_loop_thread.o: src/threads/source/robot_loop_thread.cpp.o
 
 .PHONY : src/threads/source/robot_loop_thread.o
@@ -783,9 +810,6 @@ help:
 	@echo "... graphics/source/plot2d.o"
 	@echo "... graphics/source/plot2d.i"
 	@echo "... graphics/source/plot2d.s"
-	@echo "... graphics/source/plot2dTest.o"
-	@echo "... graphics/source/plot2dTest.i"
-	@echo "... graphics/source/plot2dTest.s"
 	@echo "... src/apps/main_start_threads.o"
 	@echo "... src/apps/main_start_threads.i"
 	@echo "... src/apps/main_start_threads.s"
@@ -795,6 +819,12 @@ help:
 	@echo "... src/functions/source/pid.o"
 	@echo "... src/functions/source/pid.i"
 	@echo "... src/functions/source/pid.s"
+	@echo "... src/threads/source/calculate_velocity_thread.o"
+	@echo "... src/threads/source/calculate_velocity_thread.i"
+	@echo "... src/threads/source/calculate_velocity_thread.s"
+	@echo "... src/threads/source/plot_thread.o"
+	@echo "... src/threads/source/plot_thread.i"
+	@echo "... src/threads/source/plot_thread.s"
 	@echo "... src/threads/source/robot_loop_thread.o"
 	@echo "... src/threads/source/robot_loop_thread.i"
 	@echo "... src/threads/source/robot_loop_thread.s"
