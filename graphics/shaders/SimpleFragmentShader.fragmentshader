@@ -6,6 +6,8 @@ in vec3 fragmentColor;
 // Ouput data
 out vec3 color;
 
+uniform vec4 uniformcolor;
+
 // live plot test
 //in vec4 color;
 //out vec4 outputColor;
@@ -16,7 +18,8 @@ void main()
 
 	// Output color = red 
 	//color = vec3(1,0,1);
-	color = fragmentColor;
+	//color = fragmentColor;
 	//outputColor = color;
+	gl_FragColor = uniformcolor;
 
 }

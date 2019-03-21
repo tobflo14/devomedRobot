@@ -22,6 +22,7 @@ using namespace glm;
 #include "plot2d.h"
 
 
+
 // grid
 //GLuint vertexBufferArrayGrid;
 //GLuint vertexGridBuffer;
@@ -80,7 +81,7 @@ void Plot2d::initPlotWindow() {
 	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 	// Camera matrix
 	glm::mat4 View = glm::lookAt(
-		glm::vec3(0, 0, 1), // Camera is at (4,4,-5), in World Space
+		glm::vec3(0, 0, 1.5), // Camera is at (4,4,-5), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -164,7 +165,6 @@ void Plot2d::genColor(){
 	float green;
 	GLfloat color_data[VERTEX_COORDINATE_COUNT*NUM_PLOTS*SAMPLES_PER_FRAME];
 	for (int i=1; i<=NUM_PLOTS; i++) {
-		std::cout << "fills color data " << i << std::endl;
 		if (i == 1) {
 			red = 1.0f;
 			green = 0.0f;
@@ -175,20 +175,29 @@ void Plot2d::genColor(){
 		}
 
 		for (int v=0; v<SAMPLES_PER_FRAME; v++){
+			for (int j=1; j<NUM_PLOTS; j++) {
+					if (j == 1) {
+					red = 1.0f;
+					green = 0.0f;
+				}
+				if (j == 2) {
+					red = 0.0f;
+					green = 1.0f;
+				}
+			}
 			color_data[3*v*i + 0] = red;
 			color_data[3*v*i + 1] = green;
-			color_data[3*v*i + 2] = 0.0f;
+			color_data[3*v*i + 2] = 1.0f;
 		}
 	}
  
   glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(color_data), color_data, GL_DYNAMIC_DRAW);
 
- // glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
   glVertexAttribPointer(1, VERTEX_COORDINATE_COUNT, GL_FLOAT, GL_FALSE, 0, (void*)0);
   glEnableVertexAttribArray(1);
-  std::cout << "generetad color ok" << std::endl;
 }
 
 
@@ -215,6 +224,7 @@ void Plot2d::initializeBuffer()
 	);
 	glEnableVertexAttribArray(0);
 	genColor();
+	uniform_color = glGetUniformLocation(programID, "uniformcolor");
 }
 
 /*
@@ -270,8 +280,9 @@ void Plot2d::graph_update(double values[]) {
 	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT;
 	//double values[NUM_PLOTS];
 	for(int i=0; i<NUM_PLOTS; i++) {
+		float value = (float) values[i];
 		point[0] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
-		point[1] = 2 * ((float)values[i] - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
+		point[1] = 2 * (value - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
 		point[2] = 0.0f;
 
 		glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize*i,
@@ -296,16 +307,20 @@ void Plot2d::drawGraph()
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
 	glBindVertexArray(dataArray);
 
 	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
-	for (int i=0; i<NUM_PLOTS; i++) {
-		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
-	}
-	
-	//glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
+	//for (int i=0; i<NUM_PLOTS; i++) {
+//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
+//	}
+	GLfloat white[4] = {1, 1, 1, 1};
+	GLfloat red[4] = {1, 0, 0, 1};
+	glUniform4fv(uniform_color, 1, white);
+	glDrawArrays(GL_LINE_STRIP, 0, INDEX_OF_LAST_ENTRY);
+	glUniform4fv(uniform_color, 1, red);
+	glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
 	//glUniform1f(1, -C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME);
 	//glDrawArrays(GL_LINE_STRIP, INDEX_OF_LAST_ENTRY, C_SAMPLES_PER_FRAME - INDEX_OF_LAST_ENTRY);
 }

@@ -46,6 +46,7 @@ class Plot2d {
         GLuint MatrixID;
         glm::mat4 MVP;
         GLFWwindow* window;
+	    GLint uniform_color;
         
 
 };

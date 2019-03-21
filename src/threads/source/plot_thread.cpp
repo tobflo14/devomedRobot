@@ -11,23 +11,20 @@ void* PlotThread(void* arg) {
     std::cout << "Plot thread ID : " << syscall(SYS_gettid) << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Plot2d plot = Plot2d(200, 1.0f, 1);
+    Plot2d plot = Plot2d(1000, 1.0f, 2);
   
    // plot.deleteBuffers();
     plot.initPlotWindow();
     plot.initializeBuffer();
     while (!(robot_data->shutdown)) {
         while (robot_data->run) {
-            double values[] = {robot_data->robot_velocity[2], 0.5};
+            double values[] = {robot_data->robot_velocity[0], robot_data->robot_acceleration[0]};
             plot.graph_update(values);
             plot.drawGraph();
             plot.swapBuffers();
-            sleep(0.5);
+            usleep(1000);
         }
-
         usleep(100000);
-        robot_data->run = true;
-        std::cout << "outer plot loop" << std::endl;
     }
 
     plot.deleteBuffers();

@@ -25,18 +25,15 @@ void* RobotLoopThread(void* arg) {
     double jerk_limit = 3000;
     double acceleration_limit = 10;
 
-
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    
     std::cout << "Created shared robot data" << std::endl;
     // Connect to robot.
     franka::Robot robot(ROBOT_IP);
+    std::cout << "Connected to robot" << std::endl;
 
     while (retries > 0) {
+
         try {
-            // Connect to robot.
-        // franka::Robot robot(ROBOT_IP);
-            std::cout << "Connected to robot" << std::endl;
             //setDefaultBehavior(robot);
 
             try {

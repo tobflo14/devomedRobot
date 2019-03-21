@@ -10,7 +10,7 @@ void* CalculateVelocityThread(void* arg) {
     std::cout << "Starting calculateVelocity thread" << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Pid pid = Pid(0.5, 0, 0.01);
+    Pid pid = Pid(0.5, 0, 0.001);
   //  bool has_started = false;
     double dt = 0.001;
     double last_time = robot_data->timer;
