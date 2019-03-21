@@ -1,1 +1,5 @@
 build/
+/build/*
+*.code-workspace
+*.vscode
+.vs/
