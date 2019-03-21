@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o: ../externalGL/glfw-3.1.2/tests/glfwinfo.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfwinfo.dir/glfwinfo.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/glfwinfo.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfwinfo.dir/glfwinfo.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/glfwinfo.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfwinfo.dir/glfwinfo.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/glfwinfo.c > CMakeFiles/glfwinfo.dir/glfwinfo.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/glfwinfo.c > CMakeFiles/glfwinfo.dir/glfwinfo.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfwinfo.dir/glfwinfo.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/glfwinfo.c -o CMakeFiles/glfwinfo.dir/glfwinfo.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/glfwinfo.c -o CMakeFiles/glfwinfo.dir/glfwinfo.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o.requires:
 
@@ -84,15 +84,15 @@ externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o.provides.build:
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o: ../externalGL/glfw-3.1.2/deps/getopt.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c > CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c > CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o.requires:
 

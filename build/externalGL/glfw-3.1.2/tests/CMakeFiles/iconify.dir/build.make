@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.o: ../externalGL/glfw-3.1.2/tests/iconify.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iconify.dir/iconify.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/iconify.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iconify.dir/iconify.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/iconify.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/iconify.dir/iconify.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/iconify.c > CMakeFiles/iconify.dir/iconify.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/iconify.c > CMakeFiles/iconify.dir/iconify.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/iconify.dir/iconify.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/iconify.c -o CMakeFiles/iconify.dir/iconify.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/iconify.c -o CMakeFiles/iconify.dir/iconify.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.o.requires:
 
@@ -84,15 +84,15 @@ externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/iconify.c.o.provides.build: e
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/__/deps/getopt.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/__/deps/getopt.c.o: ../externalGL/glfw-3.1.2/deps/getopt.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/__/deps/getopt.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iconify.dir/__/deps/getopt.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iconify.dir/__/deps/getopt.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/__/deps/getopt.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/iconify.dir/__/deps/getopt.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c > CMakeFiles/iconify.dir/__/deps/getopt.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c > CMakeFiles/iconify.dir/__/deps/getopt.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/__/deps/getopt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/iconify.dir/__/deps/getopt.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c -o CMakeFiles/iconify.dir/__/deps/getopt.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c -o CMakeFiles/iconify.dir/__/deps/getopt.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/iconify.dir/__/deps/getopt.c.o.requires:
 

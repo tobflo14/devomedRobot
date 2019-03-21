@@ -60,15 +60,15 @@ include externalGL/CMakeFiles/GLEW_1130.dir/flags.make
 externalGL/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.o: externalGL/CMakeFiles/GLEW_1130.dir/flags.make
 externalGL/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.o: ../externalGL/glew-1.13.0/src/glew.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/src/glew.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/src/glew.c
 
 externalGL/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/src/glew.c > CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/src/glew.c > CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.i
 
 externalGL/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/src/glew.c -o CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glew-1.13.0/src/glew.c -o CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.s
 
 externalGL/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.o.requires:
 

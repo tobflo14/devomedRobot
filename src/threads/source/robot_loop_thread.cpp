@@ -1,32 +1,57 @@
 #include "robot_loop_thread.h"
 #include "global_struct.h"
 #include "functions.h"
-#include "examples_common.h"
+//#include "examples_common.h"
 #include "pid.h"
+
+#include <iostream>
+#include <Eigen/Dense>
+#include <unistd.h>
+#include <sys/syscall.h>
+
+#include <franka/control_types.h>
+#include <franka/duration.h>
+#include <franka/robot.h>
+#include <franka/robot_state.h>
+#include <franka/exception.h>
+
 
 void* RobotLoopThread(void* arg) {
     std::cout << "Starting robot thread" << std::endl;
-    Eigen::VectorXd vel_desired(6);
+    std::cout << "robot loop thread ID : " << syscall(SYS_gettid) << std::endl;
+    Eigen::Vector3d vel_desired;
     vel_desired.setZero();
+    double jerk_limit = 3000;
+    double acceleration_limit = 10;
+
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
+    
+    std::cout << "Created shared robot data" << std::endl;
+    // Connect to robot.
+    franka::Robot robot(ROBOT_IP);
 
     try {
         // Connect to robot.
-        franka::Robot robot(ROBOT_IP);
-        setDefaultBehavior(robot);
+       // franka::Robot robot(ROBOT_IP);
+        std::cout << "Connected to robot" << std::endl;
+        //setDefaultBehavior(robot);
+
+        try {
+            robot.setJointImpedance({ {3000, 3000, 3000, 2500, 2500, 2000, 2000} });
+            std::cout << "set joint impedance" << std::endl;
+
+        }
+        catch (const franka::ControlException &ex){
+            std::cerr << ex.what() << std::endl;
+        }
         
         // First move the robot to a suitable joint configuration
         //std::array<double, 7> q_goal = {{0, -M_PI_4, 0, -3 * M_PI_4, 0, M_PI_2, M_PI_4}};
-        std::array<double, 7> q_goal = {{0, M_PI_4, 0, -2 * M_PI_4, 0, 3 * M_PI_4, M_PI_4}};
-        MotionGenerator motion_generator(0.5, q_goal);
-        /*
-        std::cout << "WARNING: This example will move the robot! "
-                << "Please make sure to have the user stop button at hand!" << std::endl
-                << "Press Enter to continue..." << std::endl;
-        std::cin.ignore();
-        */
-        robot.control(motion_generator);
+        //std::array<double, 7> q_goal = {{0, M_PI_4, 0, -2 * M_PI_4, 0, 3 * M_PI_4, M_PI_4}};
+        //MotionGenerator motion_generator(0.5, q_goal);
+
+        //robot.control(motion_generator);
         std::cout << "Finished moving to initial joint configuration." << std::endl;
         
         // Set additional parameters always before the control loop, NEVER in the control loop!
@@ -42,41 +67,49 @@ void* RobotLoopThread(void* arg) {
         auto cartesian_pose_callback = [=, &robot_data, &vel_desired]
         (const franka::RobotState& robot_state, franka::Duration period) -> franka::CartesianVelocities {
 
-        robot_data->timer += period.toSec();
+            double dt = period.toSec();
+            robot_data->timer += dt;
+            robot_data->robot_velocity = get_velocity(robot_state);
+            robot_data->robot_acceleration = get_acceleration(robot_state);
+            //Get forces on the flange
+            // Eigen::Map<const Eigen::Matrix<double, 6, 1>> force_input(robot_state.K_F_ext_hat_K.data());
 
-        double dt = 0.001;//period.toSec();
-        //Guess a dt if no dt, to make sure we don't divide by 0
-        if (!dt) { 
-            dt = 0.001;
-        }
-        //Get forces on the flange
-        // Eigen::Map<const Eigen::Matrix<double, 6, 1>> force_input(robot_state.K_F_ext_hat_K.data());
+            //Only run if dt > 0 because limits derive on dt
+            if (dt) { 
+                //dt = 0.001;
+                vel_desired = robot_data->desired_velocity;
 
-        //Get last commanded velocity (commanded or actually performed?)
-        Eigen::Map<const Eigen::Matrix<double, 6, 1>> vel_commanded_previous(robot_state.O_dP_EE_c.data());
-        Eigen::Map<const Eigen::Matrix<double, 6, 1>> acc_commanded_previous(robot_state.O_ddP_EE_c.data());
+                Eigen::Vector3d acc = (vel_desired - robot_data->robot_velocity) / dt;
+                Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
+                
+                if (jerk.norm() > jerk_limit) {
+                    jerk.normalize();
+                    jerk *= jerk_limit;
+                }
 
+                acc = robot_data->robot_acceleration + jerk*dt;
 
-        robot_data->robot_velocity = vel_commanded_previous.head(3);
-        robot_data->robot_acceleration = acc_commanded_previous.head(3);
+                if (acc.norm() > acceleration_limit) {
+                    acc.normalize();
+                    acc *= acceleration_limit;
+                }
 
-        vel_desired = robot_data->desired_velocity;
-        
-        //franka::CartesianVelocities velocity_desired = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
-        //franka::CartesianVelocities velocity_desired = {{0.0, 0.0, 0.0, -vel_desired[3], vel_desired[4], vel_desired[5]}};
-        franka::CartesianVelocities velocity_desired = {{0.0, 0.0, vel_desired[2], 0.0, 0.0, 0.0}};
-        //franka::CartesianVelocities velocity_desired = {{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}};
-        
-        robot_data->run = true;
-        return velocity_desired;
+                vel_desired = robot_data->robot_velocity + acc * dt;
+ 
+            }
+
+            robot_data->run = true;
+            return franka::CartesianVelocities{{0.0, 0.0, vel_desired[2], 0.0, 0.0, 0.0}};
         };
         // Start real-time control loop.
         robot.control(cartesian_pose_callback);
         
     } catch (const franka::Exception& ex) {
         robot_data->run = false;
+        robot_data->shutdown = true;
         std::cerr << ex.what() << std::endl;
-        
-    }
+    } 
+
+    std::cout << "Robot loop thread shutting down " << std::endl;
     return NULL;
 }

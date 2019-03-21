@@ -25,7 +25,7 @@ class Pid {
         Eigen::Vector3d acc_commanded_previous;
         Eigen::Vector3d acc;
         Eigen::Vector3d acc_previous;
-        Eigen::Vector3d past_error;
+        Eigen::Vector3d past_velocity;
         Eigen::Vector3d error;
         Eigen::Vector3d integral;
         Eigen::Vector3d derivative;

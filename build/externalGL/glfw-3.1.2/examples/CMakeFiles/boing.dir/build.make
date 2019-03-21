@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/flags.make
 externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/boing.c.o: externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/flags.make
 externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/boing.c.o: ../externalGL/glfw-3.1.2/examples/boing.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/boing.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/boing.dir/boing.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/boing.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/boing.dir/boing.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/boing.c
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/boing.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/boing.dir/boing.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/boing.c > CMakeFiles/boing.dir/boing.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/boing.c > CMakeFiles/boing.dir/boing.c.i
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/boing.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/boing.dir/boing.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/boing.c -o CMakeFiles/boing.dir/boing.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/boing.c -o CMakeFiles/boing.dir/boing.c.s
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/boing.dir/boing.c.o.requires:
 

@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/flags.make
 externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/wave.c.o: externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/flags.make
 externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/wave.c.o: ../externalGL/glfw-3.1.2/examples/wave.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/wave.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wave.dir/wave.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/wave.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wave.dir/wave.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/wave.c
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/wave.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/wave.dir/wave.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/wave.c > CMakeFiles/wave.dir/wave.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/wave.c > CMakeFiles/wave.dir/wave.c.i
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/wave.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/wave.dir/wave.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/wave.c -o CMakeFiles/wave.dir/wave.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/wave.c -o CMakeFiles/wave.dir/wave.c.s
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/wave.c.o.requires:
 

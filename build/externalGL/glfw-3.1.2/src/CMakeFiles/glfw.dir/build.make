@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.o: ../externalGL/glfw-3.1.2/src/context.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/context.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/context.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/context.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/context.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/context.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/context.c > CMakeFiles/glfw.dir/context.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/context.c > CMakeFiles/glfw.dir/context.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/context.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/context.c -o CMakeFiles/glfw.dir/context.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/context.c -o CMakeFiles/glfw.dir/context.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.o.requires:
 
@@ -84,15 +84,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.o.provides.build: extern
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.o: ../externalGL/glfw-3.1.2/src/init.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/init.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/init.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/init.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/init.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/init.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/init.c > CMakeFiles/glfw.dir/init.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/init.c > CMakeFiles/glfw.dir/init.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/init.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/init.c -o CMakeFiles/glfw.dir/init.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/init.c -o CMakeFiles/glfw.dir/init.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.o.requires:
 
@@ -108,15 +108,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.o.provides.build: externalG
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.o: ../externalGL/glfw-3.1.2/src/input.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/input.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/input.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/input.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/input.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/input.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/input.c > CMakeFiles/glfw.dir/input.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/input.c > CMakeFiles/glfw.dir/input.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/input.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/input.c -o CMakeFiles/glfw.dir/input.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/input.c -o CMakeFiles/glfw.dir/input.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.o.requires:
 
@@ -132,15 +132,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.o.provides.build: external
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.o: ../externalGL/glfw-3.1.2/src/monitor.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/monitor.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/monitor.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/monitor.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/monitor.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/monitor.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/monitor.c > CMakeFiles/glfw.dir/monitor.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/monitor.c > CMakeFiles/glfw.dir/monitor.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/monitor.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/monitor.c -o CMakeFiles/glfw.dir/monitor.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/monitor.c -o CMakeFiles/glfw.dir/monitor.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.o.requires:
 
@@ -156,15 +156,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.o.provides.build: extern
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.o: ../externalGL/glfw-3.1.2/src/window.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/window.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/window.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/window.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/window.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/window.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/window.c > CMakeFiles/glfw.dir/window.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/window.c > CMakeFiles/glfw.dir/window.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/window.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/window.c -o CMakeFiles/glfw.dir/window.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/window.c -o CMakeFiles/glfw.dir/window.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.o.requires:
 
@@ -180,15 +180,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.o.provides.build: externa
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.o: ../externalGL/glfw-3.1.2/src/x11_init.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_init.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_init.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_init.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_init.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/x11_init.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_init.c > CMakeFiles/glfw.dir/x11_init.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_init.c > CMakeFiles/glfw.dir/x11_init.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/x11_init.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_init.c -o CMakeFiles/glfw.dir/x11_init.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_init.c -o CMakeFiles/glfw.dir/x11_init.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.o.requires:
 
@@ -204,15 +204,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_init.c.o.provides.build: exter
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.o: ../externalGL/glfw-3.1.2/src/x11_monitor.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_monitor.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_monitor.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_monitor.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_monitor.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/x11_monitor.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_monitor.c > CMakeFiles/glfw.dir/x11_monitor.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_monitor.c > CMakeFiles/glfw.dir/x11_monitor.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/x11_monitor.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_monitor.c -o CMakeFiles/glfw.dir/x11_monitor.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_monitor.c -o CMakeFiles/glfw.dir/x11_monitor.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.o.requires:
 
@@ -228,15 +228,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_monitor.c.o.provides.build: ex
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.o: ../externalGL/glfw-3.1.2/src/x11_window.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_window.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_window.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_window.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_window.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/x11_window.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_window.c > CMakeFiles/glfw.dir/x11_window.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_window.c > CMakeFiles/glfw.dir/x11_window.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/x11_window.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_window.c -o CMakeFiles/glfw.dir/x11_window.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/x11_window.c -o CMakeFiles/glfw.dir/x11_window.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.o.requires:
 
@@ -252,15 +252,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/x11_window.c.o.provides.build: ext
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.o: ../externalGL/glfw-3.1.2/src/xkb_unicode.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/xkb_unicode.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/xkb_unicode.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/xkb_unicode.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/xkb_unicode.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/xkb_unicode.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/xkb_unicode.c > CMakeFiles/glfw.dir/xkb_unicode.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/xkb_unicode.c > CMakeFiles/glfw.dir/xkb_unicode.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/xkb_unicode.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/xkb_unicode.c -o CMakeFiles/glfw.dir/xkb_unicode.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/xkb_unicode.c -o CMakeFiles/glfw.dir/xkb_unicode.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.o.requires:
 
@@ -276,15 +276,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/xkb_unicode.c.o.provides.build: ex
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.o: ../externalGL/glfw-3.1.2/src/linux_joystick.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/linux_joystick.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/linux_joystick.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/linux_joystick.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/linux_joystick.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/linux_joystick.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/linux_joystick.c > CMakeFiles/glfw.dir/linux_joystick.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/linux_joystick.c > CMakeFiles/glfw.dir/linux_joystick.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/linux_joystick.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/linux_joystick.c -o CMakeFiles/glfw.dir/linux_joystick.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/linux_joystick.c -o CMakeFiles/glfw.dir/linux_joystick.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.o.requires:
 
@@ -300,15 +300,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/linux_joystick.c.o.provides.build:
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.o: ../externalGL/glfw-3.1.2/src/posix_time.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_time.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_time.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_time.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_time.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/posix_time.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_time.c > CMakeFiles/glfw.dir/posix_time.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_time.c > CMakeFiles/glfw.dir/posix_time.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/posix_time.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_time.c -o CMakeFiles/glfw.dir/posix_time.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_time.c -o CMakeFiles/glfw.dir/posix_time.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.o.requires:
 
@@ -324,15 +324,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_time.c.o.provides.build: ext
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.o: ../externalGL/glfw-3.1.2/src/posix_tls.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_tls.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_tls.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_tls.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_tls.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/posix_tls.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_tls.c > CMakeFiles/glfw.dir/posix_tls.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_tls.c > CMakeFiles/glfw.dir/posix_tls.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/posix_tls.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_tls.c -o CMakeFiles/glfw.dir/posix_tls.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/posix_tls.c -o CMakeFiles/glfw.dir/posix_tls.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.o.requires:
 
@@ -348,15 +348,15 @@ externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/posix_tls.c.o.provides.build: exte
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/glx_context.c.o: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/flags.make
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/glx_context.c.o: ../externalGL/glfw-3.1.2/src/glx_context.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/glx_context.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/glx_context.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/glx_context.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/glfw.dir/glx_context.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/glx_context.c
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/glx_context.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/glx_context.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/glx_context.c > CMakeFiles/glfw.dir/glx_context.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/glx_context.c > CMakeFiles/glfw.dir/glx_context.c.i
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/glx_context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/glx_context.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/glx_context.c -o CMakeFiles/glfw.dir/glx_context.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/src && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/src/glx_context.c -o CMakeFiles/glfw.dir/glx_context.c.s
 
 externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/glx_context.c.o.requires:
 

@@ -8,16 +8,14 @@ using namespace glm;
 
 class Plot2d {
     public:
-        Plot2d(int samples_per_frame, float y_range);
+        Plot2d(int samples_per_frame, float y_range, int number_of_plots);
         void initPlotWindow(); 
-        void saveScreenshotToFile(std::string filename, int windowWidth, int windowHeight);
-        void genColor();
-        void fillColorBuffer(float red, float green, float blue); 
-        void initializeBuffer(int numBuff);
+        void saveScreenshotToFile(std::string filename);
+        void genColor(); 
+        void initializeBuffer();
         void CreateGrid();
         void drawGrid();
-        void graph_update(double mainValue);
-        void graph_update(double mainValue, double value2);
+        void graph_update(double values[]);
         void drawGraph();
         void setValueLimits(int min, int max);
         void swapBuffers();
@@ -36,22 +34,20 @@ class Plot2d {
         GLint INDEX_OF_LAST_ENTRY;
         float GRAPH_WIDTH;
         float GRAPH_HEIGHT;
+        int WINDOW_WIDTH;
+        int WINDOW_HEIGHT;
         int VERTEX_COORDINATE_COUNT;
         int buffersize;
         //GLuint gridColorBuffer;
         GLuint dataArray;
         GLuint dataBuffer;
+        GLuint colorbuffer;
         GLuint programID;
         GLuint MatrixID;
         glm::mat4 MVP;
         GLFWwindow* window;
-       // GLfloat color_data;
-        GLuint colorbuffer;
-        static GLfloat color_data[]; //hjelp, hvordan init riktig?
+        
 
-        //GLfloat xgrid[];
-        //GLfloat xgrid_color[];
-        //static GLfloat color_data[];
 };
 
 #endif

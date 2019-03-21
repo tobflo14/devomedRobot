@@ -654,6 +654,33 @@ src/functions/source/examples_common.cpp.s:
 	$(MAKE) -f CMakeFiles/examples_common.dir/build.make CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.s
 .PHONY : src/functions/source/examples_common.cpp.s
 
+src/functions/source/functions.o: src/functions/source/functions.cpp.o
+
+.PHONY : src/functions/source/functions.o
+
+# target to build an object file
+src/functions/source/functions.cpp.o:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/functions.cpp.o
+.PHONY : src/functions/source/functions.cpp.o
+
+src/functions/source/functions.i: src/functions/source/functions.cpp.i
+
+.PHONY : src/functions/source/functions.i
+
+# target to preprocess a source file
+src/functions/source/functions.cpp.i:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/functions.cpp.i
+.PHONY : src/functions/source/functions.cpp.i
+
+src/functions/source/functions.s: src/functions/source/functions.cpp.s
+
+.PHONY : src/functions/source/functions.s
+
+# target to generate assembly for a file
+src/functions/source/functions.cpp.s:
+	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/src/functions/source/functions.cpp.s
+.PHONY : src/functions/source/functions.cpp.s
+
 src/functions/source/pid.o: src/functions/source/pid.cpp.o
 
 .PHONY : src/functions/source/pid.o
@@ -816,6 +843,9 @@ help:
 	@echo "... src/functions/source/examples_common.o"
 	@echo "... src/functions/source/examples_common.i"
 	@echo "... src/functions/source/examples_common.s"
+	@echo "... src/functions/source/functions.o"
+	@echo "... src/functions/source/functions.i"
+	@echo "... src/functions/source/functions.s"
 	@echo "... src/functions/source/pid.o"
 	@echo "... src/functions/source/pid.i"
 	@echo "... src/functions/source/pid.s"

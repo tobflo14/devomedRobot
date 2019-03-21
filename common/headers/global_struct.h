@@ -18,6 +18,7 @@ struct shared_robot_data
     Eigen::Vector3d desired_velocity;
     double timer;
     bool run;
+    bool shutdown;
 };
 
 #endif

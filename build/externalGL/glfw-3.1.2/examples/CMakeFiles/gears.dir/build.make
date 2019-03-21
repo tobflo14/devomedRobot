@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/flags.make
 externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/gears.c.o: externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/flags.make
 externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/gears.c.o: ../externalGL/glfw-3.1.2/examples/gears.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/gears.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gears.dir/gears.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/gears.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/gears.dir/gears.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/gears.c
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/gears.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gears.dir/gears.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/gears.c > CMakeFiles/gears.dir/gears.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/gears.c > CMakeFiles/gears.dir/gears.c.i
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/gears.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gears.dir/gears.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/gears.c -o CMakeFiles/gears.dir/gears.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/examples && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/examples/gears.c -o CMakeFiles/gears.dir/gears.c.s
 
 externalGL/glfw-3.1.2/examples/CMakeFiles/gears.dir/gears.c.o.requires:
 

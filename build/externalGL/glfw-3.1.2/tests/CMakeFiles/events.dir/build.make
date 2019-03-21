@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o: ../externalGL/glfw-3.1.2/tests/events.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/events.dir/events.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/events.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/events.dir/events.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/events.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/events.dir/events.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/events.c > CMakeFiles/events.dir/events.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/events.c > CMakeFiles/events.dir/events.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/events.dir/events.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/events.c -o CMakeFiles/events.dir/events.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/events.c -o CMakeFiles/events.dir/events.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o.requires:
 
@@ -84,15 +84,15 @@ externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o.provides.build: ext
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.o: ../externalGL/glfw-3.1.2/deps/getopt.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/events.dir/__/deps/getopt.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/events.dir/__/deps/getopt.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/events.dir/__/deps/getopt.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c > CMakeFiles/events.dir/__/deps/getopt.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c > CMakeFiles/events.dir/__/deps/getopt.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/events.dir/__/deps/getopt.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c -o CMakeFiles/events.dir/__/deps/getopt.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/deps/getopt.c -o CMakeFiles/events.dir/__/deps/getopt.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.o.requires:
 

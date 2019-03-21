@@ -60,15 +60,15 @@ include externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/cursor.c.o: externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/flags.make
 externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/cursor.c.o: ../externalGL/glfw-3.1.2/tests/cursor.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/cursor.c.o"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cursor.dir/cursor.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/cursor.c
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cursor.dir/cursor.c.o   -c /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/cursor.c
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/cursor.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cursor.dir/cursor.c.i"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/cursor.c > CMakeFiles/cursor.dir/cursor.c.i
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/cursor.c > CMakeFiles/cursor.dir/cursor.c.i
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/cursor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cursor.dir/cursor.c.s"
-	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/cursor.c -o CMakeFiles/cursor.dir/cursor.c.s
+	cd /home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2/tests && /usr/bin/gcc-7 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2/tests/cursor.c -o CMakeFiles/cursor.dir/cursor.c.s
 
 externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/cursor.c.o.requires:
 

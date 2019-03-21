@@ -106,7 +106,7 @@ CMakeFiles/main_start_threads.dir/all: externalGL/CMakeFiles/GLEW_1130.dir/all
 CMakeFiles/main_start_threads.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/depend
 	$(MAKE) -f CMakeFiles/main_start_threads.dir/build.make CMakeFiles/main_start_threads.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=50,51,52,53,54,55,56,57 "Built target main_start_threads"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=50,51,52,53,54,55,56,57,58 "Built target main_start_threads"
 .PHONY : CMakeFiles/main_start_threads.dir/all
 
 # Include target in all.
@@ -116,7 +116,7 @@ all: CMakeFiles/main_start_threads.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main_start_threads.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nakkeslengprosjekt/asdf/build/CMakeFiles 27
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nakkeslengprosjekt/asdf/build/CMakeFiles 28
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main_start_threads.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nakkeslengprosjekt/asdf/build/CMakeFiles 0
 .PHONY : CMakeFiles/main_start_threads.dir/rule
@@ -382,7 +382,7 @@ externalGL/glfw-3.1.2/examples/preinstall:
 externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=84,85 "Built target wave"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=85,86 "Built target wave"
 .PHONY : externalGL/glfw-3.1.2/examples/CMakeFiles/wave.dir/all
 
 # Include target in all.
@@ -530,7 +530,7 @@ clean: externalGL/glfw-3.1.2/examples/CMakeFiles/heightmap.dir/clean
 externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=64,65,66,67 "Built target particles"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=65,66,67,68 "Built target particles"
 .PHONY : externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/all
 
 # Include target in all.
@@ -567,7 +567,7 @@ clean: externalGL/glfw-3.1.2/examples/CMakeFiles/particles.dir/clean
 externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=74,75 "Built target splitview"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=75,76 "Built target splitview"
 .PHONY : externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/all
 
 # Include target in all.
@@ -604,7 +604,7 @@ clean: externalGL/glfw-3.1.2/examples/CMakeFiles/splitview.dir/clean
 externalGL/glfw-3.1.2/examples/CMakeFiles/simple.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/simple.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/simple.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/examples/CMakeFiles/simple.dir/build.make externalGL/glfw-3.1.2/examples/CMakeFiles/simple.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=72,73 "Built target simple"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=73,74 "Built target simple"
 .PHONY : externalGL/glfw-3.1.2/examples/CMakeFiles/simple.dir/all
 
 # Include target in all.
@@ -726,7 +726,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/cursor.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=61,62,63 "Built target msaa"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=62,63,64 "Built target msaa"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/msaa.dir/all
 
 # Include target in all.
@@ -837,7 +837,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/glfwinfo.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/threads.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/threads.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/threads.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/threads.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/threads.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=79,80,81 "Built target threads"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=80,81,82 "Built target threads"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/threads.dir/all
 
 # Include target in all.
@@ -911,7 +911,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/clipboard.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=58,59,60 "Built target monitors"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=59,60,61 "Built target monitors"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/monitors.dir/all
 
 # Include target in all.
@@ -1022,7 +1022,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/gamma.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/sharing.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/sharing.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/sharing.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/sharing.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/sharing.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=70,71 "Built target sharing"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=71,72 "Built target sharing"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/sharing.dir/all
 
 # Include target in all.
@@ -1096,7 +1096,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/joysticks.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=82,83 "Built target title"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=83,84 "Built target title"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/all
 
 # Include target in all.
@@ -1133,7 +1133,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/title.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/reopen.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/reopen.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/reopen.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/reopen.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/reopen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=68,69 "Built target reopen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=69,70 "Built target reopen"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/reopen.dir/all
 
 # Include target in all.
@@ -1207,7 +1207,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/empty.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=76,77,78 "Built target tearing"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=77,78,79 "Built target tearing"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/all
 
 # Include target in all.
@@ -1244,7 +1244,7 @@ clean: externalGL/glfw-3.1.2/tests/CMakeFiles/tearing.dir/clean
 externalGL/glfw-3.1.2/tests/CMakeFiles/windows.dir/all: externalGL/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/windows.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/windows.dir/depend
 	$(MAKE) -f externalGL/glfw-3.1.2/tests/CMakeFiles/windows.dir/build.make externalGL/glfw-3.1.2/tests/CMakeFiles/windows.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=86,87 "Built target windows"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=87,88 "Built target windows"
 .PHONY : externalGL/glfw-3.1.2/tests/CMakeFiles/windows.dir/all
 
 # Include target in all.

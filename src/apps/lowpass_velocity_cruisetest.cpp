@@ -32,7 +32,7 @@
 
 #include "examples_common.h"
 
-#include "plot2dTest.h"
+#include "plot2d.h"
 #include "pid.h"
 
 int main(int argc, char** argv) {
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
   Eigen::VectorXd vel_desired(6);
   vel_desired.setZero();
 
-  Plot2d plot = Plot2d(1000, 5);
+  Plot2d plot = Plot2d(1000, 5, 1);
   Pid pid = Pid(0.5, 0, 0);
 
   // Start print thread.
@@ -249,7 +249,7 @@ int main(int argc, char** argv) {
       Eigen::Map<const Eigen::Matrix<double, 6, 1>> vel_commanded_previous(robot_state.O_dP_EE_c.data());
       Eigen::Map<const Eigen::Matrix<double, 6, 1>> acc_commanded_previous(robot_state.O_ddP_EE_c.data());
 
-      vel_desired = pid.regulateVelocity(vel_commanded_previous, acc_commanded_previous);
+      //vel_desired = pid.regulateVelocity(vel_commanded_previous, acc_commanded_previous);
      
       //franka::CartesianVelocities velocity_desired = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
       //franka::CartesianVelocities velocity_desired = {{0.0, 0.0, 0.0, -vel_desired[3], vel_desired[4], vel_desired[5]}};

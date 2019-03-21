@@ -3,6 +3,17 @@
 //Released under CC0
 //https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 #include "functions.h"
+
+Vector3d get_velocity(const franka::RobotState& robot_state) {
+      		return Vector3d(robot_state.O_dP_EE_c[0], robot_state.O_dP_EE_c[1],
+                             robot_state.O_dP_EE_c[2]);
+}
+
+Vector3d get_acceleration(const franka::RobotState& robot_state) {
+      		return Vector3d(robot_state.O_ddP_EE_c[0], robot_state.O_ddP_EE_c[1],
+                             robot_state.O_ddP_EE_c[2]);
+}
+
 double PerpendicularDistance(const Point &pt, const Point &lineStart, const Point &lineEnd)
 {
 	double dx = lineEnd.first - lineStart.first;

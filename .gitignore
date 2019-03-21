@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 build/
+=======
+>>>>>>> Stashed changes
 /build/*
 *.code-workspace
 *.vscode

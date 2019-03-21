@@ -62,6 +62,7 @@ set(SOURCES
 common/source/shader.cpp 
 graphics/source/plot2d.cpp 
 src/functions/source/pid.cpp
+src/functions/source/functions.cpp
 src/threads/source/robot_loop_thread.cpp
 src/threads/source/calculate_velocity_thread.cpp
 src/threads/source/plot_thread.cpp
@@ -69,7 +70,7 @@ src/threads/source/plot_thread.cpp
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL
 COMMAND ${CMAKE_COMMAND} -E copy_directory
-"${CMAKE_CURRENT_SOURCE_DIR}/src/shaders" "${CMAKE_BINARY_DIR}"
+"${CMAKE_CURRENT_SOURCE_DIR}/graphics/shaders" "${CMAKE_BINARY_DIR}"
 COMMENT "copy shaders to build directory"
 VERBATIM)
 

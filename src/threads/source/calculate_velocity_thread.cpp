@@ -1,34 +1,30 @@
 #include "calculate_velocity_thread.h"
 #include "global_struct.h"
-#include "functions.h"
-#include "examples_common.h"
+//#include "functions.h"
+//#include "examples_common.h"
 #include "pid.h"
 #include <unistd.h>
+#include <iostream>
 
 void* CalculateVelocityThread(void* arg) {
     std::cout << "Starting calculateVelocity thread" << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Pid pid = Pid(0.01, 0, 0);
-    bool has_started = false;
-    double dt;
-    double last_time;
+    Pid pid = Pid(0.04, 0, 0.002);
+  //  bool has_started = false;
+    double dt = 0.001;
+    double last_time = robot_data->timer;
 
-    while (!has_started) {
-        if (robot_data->run) {
-            has_started = true;
-            std::cout << "velocity lopp started" << std::endl;
-            dt = 0.001;
+    while (!(robot_data->shutdown)) {
+        while (robot_data->run) {
+            dt = robot_data->timer - last_time;
             last_time = robot_data->timer;
+            pid.regulateVelocity(dt, arg);
+            usleep(100000); //sleep for 100ms
         }
-        usleep(10000); //Sleep for 10ms
-    }
-    while (robot_data->run) {
-        dt = robot_data->timer - last_time;
-        last_time = robot_data->timer;
-        pid.regulateVelocity(dt, arg);
-        usleep(10000); //sleep for 10ms
+        usleep(100000);
     }
 
+    std::cout << "Calculate velocity thread shutting down" << std::endl;
     return NULL;
 }

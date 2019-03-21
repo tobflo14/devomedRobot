@@ -60,15 +60,15 @@ include CMakeFiles/examples_common.dir/flags.make
 CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o: CMakeFiles/examples_common.dir/flags.make
 CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o: ../src/functions/source/examples_common.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o -c /home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp
+	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o -c /home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp
 
 CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp > CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.i
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp > CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.i
 
 CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp -o CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.s
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nakkeslengprosjekt/asdf/src/functions/source/examples_common.cpp -o CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.s
 
 CMakeFiles/examples_common.dir/src/functions/source/examples_common.cpp.o.requires:
 

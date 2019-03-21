@@ -21,7 +21,6 @@ using namespace glm;
 #include <common/headers/shader.hpp>
 #include "plot2d.h"
 
-//GLuint gridColorBuffer;
 
 // grid
 //GLuint vertexBufferArrayGrid;
@@ -39,18 +38,11 @@ GLfloat xgrid_color[] = {
 	 0.0f, 1.0f, 0.0f, 
 };
 */
-//static GLfloat color_data[SAMPLES_PER_FRAME*3*2];
 
-//GLuint vertexBufferArray;
-//GLuint vertexbuffer;
-//GLuint vertexDataBuffer;
-
-
-//static GLfloat color_data[C_SAMPLES_PER_FRAME*3*2];
-
-Plot2d::Plot2d(int samples_per_frame, float y_range) {
+Plot2d::Plot2d(int samples_per_frame, float y_range, int number_of_plots) {
 	this->SAMPLES_PER_FRAME = samples_per_frame;
 	this->MAX_EXP_VALUE = y_range;
+	this->NUM_PLOTS = number_of_plots;
 	init();
 
 }
@@ -61,21 +53,14 @@ void Plot2d::init() {
 	this->Y_MARGIN_MAX = 0.9999f;
 	this->Y_MARGIN_MIN = -0.9999f;
 	this->MIN_EXP_VALUE = -MAX_EXP_VALUE;
-	this->NUM_PLOTS = 1;
 	this->INDEX_OF_LAST_ENTRY = 0;
 	this->GRAPH_WIDTH = X_MARGIN_MAX - X_MARGIN_MIN; //
 	this->GRAPH_HEIGHT = Y_MARGIN_MAX - Y_MARGIN_MIN; // trenger vi virkelig dette? mao trenger vi margin min/max?
+	this->WINDOW_WIDTH = 1024;
+	this->WINDOW_HEIGHT = 768;
 	this->VERTEX_COORDINATE_COUNT = 3;
 //	this->programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
 	this->buffersize = sizeof(GLfloat)*SAMPLES_PER_FRAME*VERTEX_COORDINATE_COUNT;
-	this->color_data[VERTEX_COORDINATE_COUNT*NUM_PLOTS];
-/*	this->xgrid[] = {
-	-1.0f, 0.0f, 0.0f,
-	 1.0f, 0.0f, 0.0f,
-	-1.0f, 0.2f, 0.0f,
-	 1.0f, 0.2f, 0.0f, 
-	};
-*/
 }
 
 void Plot2d::initPlotWindow() {
@@ -95,7 +80,7 @@ void Plot2d::initPlotWindow() {
 	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 	// Camera matrix
 	glm::mat4 View = glm::lookAt(
-		glm::vec3(0, 0, -2), // Camera is at (4,4,-5), in World Space
+		glm::vec3(0, 0, 1), // Camera is at (4,4,-5), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
@@ -107,7 +92,7 @@ void Plot2d::initPlotWindow() {
 	//initGLFW();
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(1024, 768, "Playground", NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Devomed", NULL, NULL);
 	if (window == NULL) {
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		getchar();
@@ -137,7 +122,7 @@ void Plot2d::initPlotWindow() {
 	
 
 	// Create and compile our GLSL program from the shaders
-  programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+  	programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
 
 	// Get a handle for our "MVP" uniform
 	MatrixID = glGetUniformLocation(programID, "MVP");	
@@ -149,20 +134,20 @@ void Plot2d::initPlotWindow() {
 /*
  * Saves a screenshot to .tga file. Instant copy of pixels in window
  */
-void Plot2d::saveScreenshotToFile(std::string filename, int windowWidth, int windowHeight) {
-  const int numberOfPixels = windowWidth*windowHeight*3;
+void Plot2d::saveScreenshotToFile(std::string filename) {
+  const int numberOfPixels = WINDOW_WIDTH*WINDOW_HEIGHT*3;
   unsigned char pixels[numberOfPixels];
 
   glPixelStorei(GL_PACK_ALIGNMENT, 1);
   glReadBuffer(GL_FRONT);
-  glReadPixels(0,0, windowWidth, windowHeight, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixels);
+  glReadPixels(0,0, WINDOW_WIDTH, WINDOW_HEIGHT, GL_BGR_EXT, GL_UNSIGNED_BYTE, pixels);
 
 	std::string filepath = "images/";
 //	std::string files = std::strcat(filepath.c_str(), filename.c_str());
 	std::string files = filepath.c_str() + filename;
  	FILE *outputFile = fopen(files.c_str(), "w");
   //FILE *outputFile = fopen(filename.c_str(), "w");
-  short header[] = {0,2,0,0,0,0, (short) windowWidth, (short) windowHeight, 24};
+  short header[] = {0,2,0,0,0,0, (short) WINDOW_WIDTH, (short) WINDOW_HEIGHT, 24};
 
   fwrite(&header, sizeof(header), 1, outputFile);
   fwrite(pixels, numberOfPixels, 1, outputFile);
@@ -171,49 +156,55 @@ void Plot2d::saveScreenshotToFile(std::string filename, int windowWidth, int win
   std::cout << "Finish writing screenshot to file \n" << std::endl;
 }
 
-
+/*
+ * Fills color data and generates colorbuffer
+ */
 void Plot2d::genColor(){
+	float red;
+	float green;
 	GLfloat color_data[VERTEX_COORDINATE_COUNT*NUM_PLOTS*SAMPLES_PER_FRAME];
-	this->color_data = color; 
-  glGenBuffers(1, &colorbuffer);
+	for (int i=1; i<=NUM_PLOTS; i++) {
+		std::cout << "fills color data " << i << std::endl;
+		if (i == 1) {
+			red = 1.0f;
+			green = 0.0f;
+		}
+		if (i == 2) {
+			red = 0.0f;
+			green = 1.0f;
+		}
+
+		for (int v=0; v<SAMPLES_PER_FRAME; v++){
+			color_data[3*v*i + 0] = red;
+			color_data[3*v*i + 1] = green;
+			color_data[3*v*i + 2] = 0.0f;
+		}
+	}
+ 
   glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(color_data), color_data, GL_STATIC_DRAW);
-  
+  glBufferData(GL_ARRAY_BUFFER, sizeof(color_data), color_data, GL_DYNAMIC_DRAW);
+
+ // glEnableVertexAttribArray(1);
+  glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+  glVertexAttribPointer(1, VERTEX_COORDINATE_COUNT, GL_FLOAT, GL_FALSE, 0, (void*)0);
   glEnableVertexAttribArray(1);
-  glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-}
-
-
-
-void Plot2d::fillColorBuffer(float red, float green, float blue){
-	GLfloat color_data[VERTEX_COORDINATE_COUNT*NUM_PLOTS*SAMPLES_PER_FRAME];
-	for (int v=0; v<SAMPLES_PER_FRAME; v++){
-		color_data[3*v + 0] = red;
-		color_data[3*v+1] = green;
-		color_data[3*v + 2] = blue;
-	}
-	for (int v=SAMPLES_PER_FRAME; v<2*SAMPLES_PER_FRAME; v++){
-		this->color_data[3*v + 0] = red-1.0f;
-		color_data[3*v+1] = green+1.0f;
-		color_data[3*v + 2] = blue;
-	}
+  std::cout << "generetad color ok" << std::endl;
 }
 
 
 /*
  * Initialise buffer
  */
-void Plot2d::initializeBuffer(int numBuff)
+void Plot2d::initializeBuffer()
 {
 	glGenVertexArrays(1, &dataArray);
 	glGenBuffers(1, &dataBuffer);
-
+	glGenBuffers(1, &colorbuffer);
 //  glewExperimental = true;
 	glBindVertexArray(dataArray);
 
 	glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
-	glBufferData(GL_ARRAY_BUFFER, buffersize*numBuff, NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, buffersize*NUM_PLOTS, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(
 		0,                        // attribute. No particular reason for 0, but must match the layout in the shader.
 		VERTEX_COORDINATE_COUNT,  // size (3 coordinates)
@@ -223,8 +214,6 @@ void Plot2d::initializeBuffer(int numBuff)
 		(void*)0            // array buffer offset
 	);
 	glEnableVertexAttribArray(0);
-
-	fillColorBuffer(1.0f, 0.0f, 0.0f);
 	genColor();
 }
 
@@ -272,52 +261,24 @@ void Plot2d::drawGrid() {
 /*
  * Updates the buffer with the new values
  */
-void Plot2d::graph_update(double mainValue) {
+void Plot2d::graph_update(double values[]) {
+	GLfloat point[3];
   //vertexDataBuffer = vertexBuffers;
   glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
-  float value = (float) mainValue;
-	// Calculate x and y position for mainValue and creates a 2D point
-	GLfloat point[VERTEX_COORDINATE_COUNT] = {
-		GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f,
-    2 * (value - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f, // [1,-1]
-		0.0f
-	};
-
-	// Put the point in current index of buffer
+ // float value = (float) mainValue;
 	float current_index_of_buffer = sizeof(GLfloat) * INDEX_OF_LAST_ENTRY * VERTEX_COORDINATE_COUNT;
 	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT;
-	glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer,
+	//double values[NUM_PLOTS];
+	for(int i=0; i<NUM_PLOTS; i++) {
+		point[0] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
+		point[1] = 2 * ((float)values[i] - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
+		point[2] = 0.0f;
+
+		glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize*i,
 		size_of_new_data, point);
-	
+	}
 	// Increment buffer position, start writing to the start of the buffer again when the end is reached
 	INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1) % (SAMPLES_PER_FRAME);
-}
-
-/*
- * Updates the buffer with the new values
- */
-void Plot2d::graph_update(double mainValue, double value2) {
-	graph_update(mainValue);
-	glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
-
-	// Put the point in current index of buffer
-	float current_index_of_buffer = sizeof(GLfloat) * (INDEX_OF_LAST_ENTRY-1) * VERTEX_COORDINATE_COUNT;
-	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT;
-
-	float value = (float) value2;
-	// Calculate x and y position for mainValue and creates a 2D point
-	GLfloat point2[VERTEX_COORDINATE_COUNT] = {
-		GRAPH_WIDTH * (INDEX_OF_LAST_ENTRY-1) / SAMPLES_PER_FRAME -1.0f,
-    2 * (value - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f, // [1,-1]
-		0.0f
-	};
-
-	// Put the point in current index of buffer
-	glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize,
-		size_of_new_data, point2);
-	
-	// Increment buffer position, start writing to the start of the buffer again when the end is reached
-//	INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1) % (SAMPLES_PER_FRAME);
 }
 
 
@@ -335,13 +296,16 @@ void Plot2d::drawGraph()
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
 	glBindVertexArray(dataArray);
 
 	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
-	glDrawArrays(GL_LINE_STRIP, 0, INDEX_OF_LAST_ENTRY);
-	glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
+	for (int i=0; i<NUM_PLOTS; i++) {
+		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
+	}
+	
+	//glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
 	//glUniform1f(1, -C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME);
 	//glDrawArrays(GL_LINE_STRIP, INDEX_OF_LAST_ENTRY, C_SAMPLES_PER_FRAME - INDEX_OF_LAST_ENTRY);
 }
@@ -357,7 +321,11 @@ void Plot2d::swapBuffers() {
 }
 
 void Plot2d::deleteBuffers() {
+	//std::cout << "deleting buffers" << std::endl;
 	glDisableVertexAttribArray(0);	// unbind 
+	glDisableVertexAttribArray(1);
+	glDeleteBuffers(1, &colorbuffer);
 	glDeleteBuffers(1, &dataBuffer); // delete buffer
-  glDeleteBuffers(1, &dataArray);
+ 	glDeleteBuffers(1, &dataArray);
+	
 }

@@ -1,1 +1,1 @@
-/usr/bin/cc -O3 -DNDEBUG  -rdynamic CMakeFiles/title.dir/title.c.o  -o title ../src/libglfw3.a -lrt -lm -lX11 -pthread -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -ldl 
+/usr/bin/gcc-7 -O3 -DNDEBUG  -rdynamic CMakeFiles/title.dir/title.c.o  -o title ../src/libglfw3.a -lrt -lm -lX11 -pthread -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -ldl 

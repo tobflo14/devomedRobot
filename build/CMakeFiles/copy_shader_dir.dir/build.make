@@ -55,7 +55,7 @@ include CMakeFiles/copy_shader_dir.dir/progress.make
 
 CMakeFiles/copy_shader_dir:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nakkeslengprosjekt/asdf/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "copy shaders to build directory"
-	/usr/bin/cmake -E copy_directory /home/nakkeslengprosjekt/asdf/src/shaders /home/nakkeslengprosjekt/asdf/build
+	/usr/bin/cmake -E copy_directory /home/nakkeslengprosjekt/asdf/graphics/shaders /home/nakkeslengprosjekt/asdf/build
 
 copy_shader_dir: CMakeFiles/copy_shader_dir
 copy_shader_dir: CMakeFiles/copy_shader_dir.dir/build.make

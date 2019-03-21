@@ -1,42 +1,37 @@
 #include "plot_thread.h"
 #include "global_struct.h"
 #include "plot2d.h"
+
 #include <iostream>
 #include <unistd.h>
+#include <sys/syscall.h>
 
 void* PlotThread(void* arg) {
     std::cout << "Starting plot thread" << std::endl;
+    std::cout << "Plot thread ID : " << syscall(SYS_gettid) << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Plot2d plot = Plot2d(1000, 1);
-
-    bool has_started = false;
-    double dt;
-    double last_time;
-
+    Plot2d plot = Plot2d(200, 1.0f, 1);
+  
+   // plot.deleteBuffers();
     plot.initPlotWindow();
-    plot.initializeBuffer(1);
-
-    while (!has_started) {
-        if (robot_data->run) {
-            has_started = true;
-            std::cout << "velocity lopp started" << std::endl;
-            dt = 0.001;
-            last_time = robot_data->timer;
+    plot.initializeBuffer();
+    while (!(robot_data->shutdown)) {
+        while (robot_data->run) {
+            double values[] = {robot_data->robot_velocity[2], 0.5};
+            plot.graph_update(values);
+            plot.drawGraph();
+            plot.swapBuffers();
+            sleep(0.5);
         }
-        usleep(10000); //Sleep for 10ms
+
+        usleep(100000);
+        robot_data->run = true;
+        std::cout << "outer plot loop" << std::endl;
     }
 
-    while (robot_data->run) {
-        dt = robot_data->timer - last_time;
-        last_time = robot_data->timer;
-        plot.graph_update(robot_data->robot_velocity[2], robot_data->desired_velocity[2]);
-        plot.drawGraph();
-        plot.swapBuffers();
-        usleep(10000); //sleep for 10ms
-    }
     plot.deleteBuffers();
-
+    std::cout << "Plot thread shutting down" << std::endl;
     return NULL;
 
 }

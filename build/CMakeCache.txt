@@ -14,9 +14,6 @@
 # EXTERNAL cache entries
 ########################
 
-//Build with code coverage
-BUILD_COVERAGE:BOOL=OFF
-
 //Build shared libraries
 BUILD_SHARED_LIBS:BOOL=OFF
 
@@ -25,13 +22,13 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None(CMAKE_CXX_FLAGS or
 // CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.
-CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_BUILD_TYPE:STRING=
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
-//CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
+//No help, variable specified on the command line.
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++-7
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -57,8 +54,8 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the compiler during release builds with debug info.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//C compiler
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+//No help, variable specified on the command line.
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc-7
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -190,9 +187,6 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 //Doxygen documentation generation tool (http://www.doxygen.org)
 DOXYGEN_EXECUTABLE:FILEPATH=/usr/bin/doxygen
 
-//Path to a file.
-EIGEN3_INCLUDE_DIR:PATH=/usr/local/include/eigen3
-
 //The directory containing a CMake configuration file for Eigen3.
 Eigen3_DIR:PATH=/usr/local/share/eigen3/cmake
 
@@ -200,7 +194,7 @@ Eigen3_DIR:PATH=/usr/local/share/eigen3/cmake
 Franka_DIR:PATH=/usr/local/lib/cmake/Franka
 
 //Dependencies for the target
-GLEW_1130_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libGL.so;general;/usr/lib/x86_64-linux-gnu/libGLU.so;general;-lGL;general;-lGLU;general;-lXrandr;general;-lXext;general;-lX11;general;-lrt;general;dl;general;/usr/lib/x86_64-linux-gnu/librt.so;general;/usr/lib/x86_64-linux-gnu/libm.so;general;/usr/lib/x86_64-linux-gnu/libX11.so;general;-lpthread;general;/usr/lib/x86_64-linux-gnu/libXrandr.so;general;/usr/lib/x86_64-linux-gnu/libXinerama.so;general;/usr/lib/x86_64-linux-gnu/libXi.so;general;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;general;/usr/lib/x86_64-linux-gnu/libXcursor.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;dl;
+GLEW_1130_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libGL.so;general;/usr/lib/x86_64-linux-gnu/libGLU.so;general;-lGL;general;-lGLU;general;-lXrandr;general;-lXext;general;-lX11;general;-lrt;general;dl;general;/usr/lib/x86_64-linux-gnu/librt.so;general;/usr/lib/x86_64-linux-gnu/libm.so;general;/usr/lib/x86_64-linux-gnu/libX11.so;general;-pthread;general;/usr/lib/x86_64-linux-gnu/libXrandr.so;general;/usr/lib/x86_64-linux-gnu/libXinerama.so;general;/usr/lib/x86_64-linux-gnu/libXi.so;general;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;general;/usr/lib/x86_64-linux-gnu/libXcursor.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;dl;
 
 //Value Computed by CMake
 GLFW_BINARY_DIR:STATIC=/home/nakkeslengprosjekt/asdf/build/externalGL/glfw-3.1.2
@@ -221,7 +215,7 @@ GLFW_DOCUMENT_INTERNALS:BOOL=OFF
 GLFW_INSTALL:BOOL=ON
 
 //Dependencies of GLFW
-GLFW_LIBRARIES:STRING=/usr/lib/x86_64-linux-gnu/librt.so;/usr/lib/x86_64-linux-gnu/libm.so;/usr/lib/x86_64-linux-gnu/libX11.so;-lpthread;/usr/lib/x86_64-linux-gnu/libXrandr.so;/usr/lib/x86_64-linux-gnu/libXinerama.so;/usr/lib/x86_64-linux-gnu/libXi.so;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;/usr/lib/x86_64-linux-gnu/libXcursor.so;/usr/lib/x86_64-linux-gnu/libGL.so;dl
+GLFW_LIBRARIES:STRING=/usr/lib/x86_64-linux-gnu/librt.so;/usr/lib/x86_64-linux-gnu/libm.so;/usr/lib/x86_64-linux-gnu/libX11.so;-pthread;/usr/lib/x86_64-linux-gnu/libXrandr.so;/usr/lib/x86_64-linux-gnu/libXinerama.so;/usr/lib/x86_64-linux-gnu/libXi.so;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;/usr/lib/x86_64-linux-gnu/libXcursor.so;/usr/lib/x86_64-linux-gnu/libGL.so;dl
 
 //Value Computed by CMake
 GLFW_SOURCE_DIR:STATIC=/home/nakkeslengprosjekt/asdf/externalGL/glfw-3.1.2
@@ -280,9 +274,6 @@ Poco_DIR:PATH=/usr/lib/cmake/Poco
 
 //Path to a library.
 RT_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.so
-
-//Treat warnings as errors
-STRICT:BOOL=OFF
 
 //Path to a file.
 X11_ICE_INCLUDE_PATH:PATH=X11_ICE_INCLUDE_PATH-NOTFOUND
@@ -468,12 +459,6 @@ X11_xf86misc_INCLUDE_PATH:PATH=X11_xf86misc_INCLUDE_PATH-NOTFOUND
 X11_xf86vmode_INCLUDE_PATH:PATH=/usr/include
 
 //Value Computed by CMake
-asdcd_BINARY_DIR:STATIC=/home/nakkeslengprosjekt/asdf/build
-
-//Value Computed by CMake
-asdcd_SOURCE_DIR:STATIC=/home/nakkeslengprosjekt/asdf
-
-//Value Computed by CMake
 asdf_BINARY_DIR:STATIC=/home/nakkeslengprosjekt/asdf/build
 
 //Value Computed by CMake
@@ -568,10 +553,6 @@ CMAKE_HAVE_CONNECT:INTERNAL=1
 CMAKE_HAVE_GETHOSTBYNAME:INTERNAL=1
 //Have symbol pthread_create
 CMAKE_HAVE_LIBC_CREATE:INTERNAL=
-//Have library pthreads
-CMAKE_HAVE_PTHREADS_CREATE:INTERNAL=
-//Have library pthread
-CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
 //Have include pthread.h
 CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Have function remove
@@ -643,8 +624,6 @@ CMAKE_UNAME:INTERNAL=/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DOXYGEN_EXECUTABLE
 DOXYGEN_EXECUTABLE-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: EIGEN3_INCLUDE_DIR
-EIGEN3_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Eigen3_DIR
 Eigen3_DIR-ADVANCED:INTERNAL=1
 //Details about finding Doxygen
