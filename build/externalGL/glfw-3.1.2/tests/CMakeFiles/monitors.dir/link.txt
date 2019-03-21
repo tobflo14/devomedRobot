@@ -1,1 +1,0 @@
-/usr/bin/gcc-7 -O3 -DNDEBUG  -rdynamic CMakeFiles/monitors.dir/monitors.c.o CMakeFiles/monitors.dir/__/deps/getopt.c.o  -o monitors ../src/libglfw3.a -lrt -lm -lX11 -pthread -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -ldl 

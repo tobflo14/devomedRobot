@@ -1,1 +1,0 @@
-/usr/bin/gcc-7 -O3 -DNDEBUG  -rdynamic CMakeFiles/iconify.dir/iconify.c.o CMakeFiles/iconify.dir/__/deps/getopt.c.o  -o iconify ../src/libglfw3.a -lrt -lm -lX11 -pthread -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -ldl 
