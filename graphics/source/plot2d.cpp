@@ -271,7 +271,7 @@ void Plot2d::drawGrid() {
 /*
  * Updates the buffer with the new values
  */
-void Plot2d::graph_update(double values[]) {
+void Plot2d::graph_update(Point values[]) {
 	GLfloat point[3];
   //vertexDataBuffer = vertexBuffers;
   glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
@@ -280,9 +280,10 @@ void Plot2d::graph_update(double values[]) {
 	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT;
 	//double values[NUM_PLOTS];
 	for(int i=0; i<NUM_PLOTS; i++) {
-		float value = (float) values[i];
+		float value_x = (float) values[i].first;
+		float value_y = (float) values[i].second;
 		point[0] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
-		point[1] = 2 * (value - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
+		point[1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
 		point[2] = 0.0f;
 
 		glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize*i,
@@ -291,7 +292,6 @@ void Plot2d::graph_update(double values[]) {
 	// Increment buffer position, start writing to the start of the buffer again when the end is reached
 	INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1) % (SAMPLES_PER_FRAME);
 }
-
 
 
 /*

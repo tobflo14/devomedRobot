@@ -1,6 +1,8 @@
 #ifndef PLOT2D_H
 #define PLOT2D_H
 
+#include "functions.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
@@ -15,7 +17,7 @@ class Plot2d {
         void initializeBuffer();
         void CreateGrid();
         void drawGrid();
-        void graph_update(double values[]);
+        void graph_update(Point values[]);
         void drawGraph();
         void setValueLimits(int min, int max);
         void swapBuffers();

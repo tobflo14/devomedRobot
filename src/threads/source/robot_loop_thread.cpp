@@ -22,7 +22,7 @@ void* RobotLoopThread(void* arg) {
     std::cout << "robot loop thread ID : " << syscall(SYS_gettid) << std::endl;
     Eigen::Vector3d vel_desired;
     vel_desired.setZero();
-    double jerk_limit = 3000;
+    double jerk_limit = 1500;
     double acceleration_limit = 10;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
@@ -51,7 +51,7 @@ void* RobotLoopThread(void* arg) {
             //MotionGenerator motion_generator(0.5, q_goal);
 
             //robot.control(motion_generator);
-            std::cout << "Finished moving to initial joint configuration." << std::endl;
+            //std::cout << "Finished moving to initial joint configuration." << std::endl;
             
             // Set additional parameters always before the control loop, NEVER in the control loop!
             // Set collision behavior.
@@ -61,44 +61,45 @@ void* RobotLoopThread(void* arg) {
 
             // Load the kinematics and dynamics model.
             franka::Model model = robot.loadModel();
+            double time = 0.0;
             
             // Define callback function to send Cartesian pose goals to get inverse kinematics solved.
-            auto cartesian_pose_callback = [=, &robot_data, &vel_desired]
-            (const franka::RobotState& robot_state, franka::Duration period) -> franka::JointVelocities {
+            auto cartesian_pose_callback = [=, &robot_data, &vel_desired, &time]
+            (const franka::RobotState& robot_state, franka::Duration period) -> franka::CartesianVelocities {
 
-                double dt = period.toSec();
-                robot_data->timer += dt;
+                robot_data->timer += period.toSec();
                 robot_data->robot_velocity = get_velocity(robot_state);
                 robot_data->robot_acceleration = get_acceleration(robot_state);
+
+
                 //Get forces on the flange
                 // Eigen::Map<const Eigen::Matrix<double, 6, 1>> force_input(robot_state.K_F_ext_hat_K.data());
 
-                //Only run if dt > 0 because limits derive on dt
-                if (dt) { 
-                    //dt = 0.001;
-                    vel_desired = robot_data->desired_velocity;
+                //Franka states that the dt=0.001 when computing limiting values. Ref: https://frankaemika.github.io/docs/libfranka.html#errors-due-to-noncompliant-commanded-values
+                double dt = 0.001;
 
-                    Eigen::Vector3d acc = (vel_desired - robot_data->robot_velocity) / dt;
-                    Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
-                    
-                    if (jerk.norm() > jerk_limit) {
-                        jerk.normalize();
-                        jerk *= jerk_limit;
-                    }
+                Eigen::Vector3d acc = (robot_data->external_velocity - robot_data->robot_velocity) / dt;
+                Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
+                
+                if (jerk.norm() > jerk_limit) {
+                    jerk.normalize();
+                    jerk *= jerk_limit;
+                }
+                
+                //robot_data->plot1.push_back(Point(robot_data->timer,jerk.norm()));
 
-                    acc = robot_data->robot_acceleration + jerk*dt;
+                acc = robot_data->robot_acceleration + jerk*dt;
+                //robot_data->plot2.push_back(Point(robot_data->timer,acc.norm()*100));
 
-                    if (acc.norm() > acceleration_limit) {
-                        acc.normalize();
-                        acc *= acceleration_limit;
-                    }
-
-                    vel_desired = robot_data->robot_velocity + acc * dt;
-    
+                if (acc.norm() > acceleration_limit) {
+                    acc.normalize();
+                    acc *= acceleration_limit;
                 }
 
+                vel_desired = robot_data->robot_velocity + acc * dt;
+
                 robot_data->run = true;
-                return franka::JointVelocities{{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}};
+                return franka::CartesianVelocities{{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
             };
             // Start real-time control loop.
             robot.control(cartesian_pose_callback);
@@ -118,7 +119,7 @@ void* RobotLoopThread(void* arg) {
             }
             
             retries--;
-            sleep(5);
+            sleep(3);
         }
     }
     robot_data->shutdown = true;

@@ -10,17 +10,33 @@ void* CalculateVelocityThread(void* arg) {
     std::cout << "Starting calculateVelocity thread" << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Pid pid = Pid(0.5, 0, 0.001);
+    Pid pid = Pid(1.0, 0.0, 0.0);
   //  bool has_started = false;
-    double dt = 0.001;
+    double dt;
     double last_time = robot_data->timer;
+    double time = 0.0;
+    int pid_frequency = 1000; //Frequency of the PID loop in Hz
 
     while (!(robot_data->shutdown)) {
         while (robot_data->run) {
             dt = robot_data->timer - last_time;
             last_time = robot_data->timer;
+            time += dt;
+            if (time > 1.0) {
+                robot_data->external_velocity(0,0) = 0.05;
+            }
+            if (time > 2.0) {
+                robot_data->external_velocity(0,0) = 0.0;
+            }
+            if (time > 3.0) {
+                robot_data->external_velocity(0,0) = -0.05;
+            }
+            if (time > 4.0) {
+                robot_data->external_velocity(0,0) = 0.0;
+                time = 0.0;
+            }
             pid.regulateVelocity(dt, arg);
-            usleep(1000); //sleep for 1ms
+            usleep(1000000/pid_frequency); //Set frequency of PID loop
         }
         usleep(100000);
     }
