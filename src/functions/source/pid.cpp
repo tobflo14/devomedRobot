@@ -27,9 +27,9 @@ void Pid::regulateVelocity(double dt, void* arg){
         shared_robot_data *robot_data = (shared_robot_data *)arg;
 
         this->past_velocity = vel_commanded_previous;
-        //this->vel_commanded_previous = robot_data->robot_velocity;
+        this->vel_commanded_previous = robot_data->robot_velocity;
     
-        this->vel_commanded_previous(0,0) = franka::lowpassFilter(dt, robot_data->robot_velocity[0], past_velocity[0], 1);
+        //this->vel_commanded_previous(0,0) = franka::lowpassFilter(dt, robot_data->robot_velocity[0], past_velocity[0], 1);
 
         this->error = robot_data->external_velocity - vel_commanded_previous;
 

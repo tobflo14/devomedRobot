@@ -66,6 +66,7 @@ src/functions/source/functions.cpp
 src/threads/source/robot_loop_thread.cpp
 src/threads/source/calculate_velocity_thread.cpp
 src/threads/source/plot_thread.cpp
+src/threads/source/keyboard_input_thread.cpp
 )
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL

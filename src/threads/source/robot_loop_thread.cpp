@@ -5,6 +5,7 @@
 #include "pid.h"
 
 #include <iostream>
+#include <fstream>
 #include <Eigen/Dense>
 #include <unistd.h>
 #include <sys/syscall.h>
@@ -21,9 +22,24 @@ void* RobotLoopThread(void* arg) {
     std::cout << "Starting robot thread" << std::endl;
     std::cout << "robot loop thread ID : " << syscall(SYS_gettid) << std::endl;
     Eigen::Vector3d vel_desired;
+    Eigen::Vector3d acc;
     vel_desired.setZero();
-    double jerk_limit = 1500;
-    double acceleration_limit = 10;
+    double jerk_limit = 500;
+    double acceleration_limit = 2;
+
+    struct {
+        std::vector<double> dt;
+        std::vector<double> desired_velocity;
+        std::vector<double> desired_acc;
+        std::vector<double> desired_jerk;
+        std::vector<double> limited_jerk;
+        std::vector<double> acc_limited_of_jerk;
+        std::vector<double> limited_acc;
+        std::vector<double> robot_velocity;
+        std::vector<double> robot_acc;
+        std::vector<double> commanded_velocity;
+        std::vector<double> ext_force;
+    } writeData{};
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
     std::cout << "Created shared robot data" << std::endl;
@@ -31,7 +47,7 @@ void* RobotLoopThread(void* arg) {
     franka::Robot robot(ROBOT_IP);
     std::cout << "Connected to robot" << std::endl;
 
-    while (retries > 0) {
+    while (retries > 0 && !robot_data->shutdown) {
 
         try {
             //setDefaultBehavior(robot);
@@ -64,42 +80,64 @@ void* RobotLoopThread(void* arg) {
             double time = 0.0;
             
             // Define callback function to send Cartesian pose goals to get inverse kinematics solved.
-            auto cartesian_pose_callback = [=, &robot_data, &vel_desired, &time]
+            auto cartesian_pose_callback = [=, &robot_data, &vel_desired, &acc, &time, &writeData]
             (const franka::RobotState& robot_state, franka::Duration period) -> franka::CartesianVelocities {
 
                 robot_data->timer += period.toSec();
+                
                 robot_data->robot_velocity = get_velocity(robot_state);
+                writeData.commanded_velocity.push_back(robot_data->robot_velocity[0]);
                 robot_data->robot_acceleration = get_acceleration(robot_state);
-
+                writeData.robot_acc.push_back(robot_data->robot_acceleration[0]);
+                /*
+                robot_data->robot_velocity = vel_desired;
+                robot_data->robot_acceleration = acc;
+*/
 
                 //Get forces on the flange
-                // Eigen::Map<const Eigen::Matrix<double, 6, 1>> force_input(robot_state.K_F_ext_hat_K.data());
-
+                robot_data->external_force = get_ext_force(robot_state);
+                writeData.ext_force.push_back(robot_data->external_force[0]);
+               
                 //Franka states that the dt=0.001 when computing limiting values. Ref: https://frankaemika.github.io/docs/libfranka.html#errors-due-to-noncompliant-commanded-values
                 double dt = 0.001;
 
-                Eigen::Vector3d acc = (robot_data->external_velocity - robot_data->robot_velocity) / dt;
+                writeData.dt.push_back(dt);
+                writeData.desired_velocity.push_back(robot_data->desired_velocity[0]);
+
+                acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
+                writeData.desired_acc.push_back(acc[0]);
                 Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
+                writeData.desired_jerk.push_back(jerk[0]);
                 
                 if (jerk.norm() > jerk_limit) {
                     jerk.normalize();
                     jerk *= jerk_limit;
                 }
+                writeData.limited_jerk.push_back(jerk[0]);
                 
-                //robot_data->plot1.push_back(Point(robot_data->timer,jerk.norm()));
 
                 acc = robot_data->robot_acceleration + jerk*dt;
-                //robot_data->plot2.push_back(Point(robot_data->timer,acc.norm()*100));
+                writeData.acc_limited_of_jerk.push_back(acc[0]);
 
                 if (acc.norm() > acceleration_limit) {
                     acc.normalize();
                     acc *= acceleration_limit;
                 }
+                writeData.limited_acc.push_back(acc[0]);
+                acc *= 2.59155;
 
                 vel_desired = robot_data->robot_velocity + acc * dt;
+                writeData.robot_velocity.push_back(vel_desired[0]);
+                robot_data->plot2.push_back(Point(robot_data->timer,robot_data->external_force[0]));
+                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_acceleration[0]));
 
                 robot_data->run = true;
-                return franka::CartesianVelocities{{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
+
+                franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
+                if (robot_data->shutdown) {
+                    return franka::MotionFinished(robot_command);
+                }
+                return robot_command;
             };
             // Start real-time control loop.
             robot.control(cartesian_pose_callback);
@@ -122,7 +160,28 @@ void* RobotLoopThread(void* arg) {
             sleep(3);
         }
     }
-    robot_data->shutdown = true;
+    robot_data->run = false;
+
+    std::ofstream file_to_write;
+    file_to_write.open("output.csv");
+    if (file_to_write.is_open()) {
+        file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;External Force\n";
+        for (int i = 990; i < 1210; i++) {
+            file_to_write << writeData.dt[i] << ";";
+            file_to_write << writeData.desired_velocity[i] << ";";
+            file_to_write << writeData.desired_acc[i] << ";";
+            file_to_write << writeData.desired_jerk[i] << ";";
+            file_to_write << writeData.limited_jerk[i] << ";";
+            file_to_write << writeData.acc_limited_of_jerk[i] << ";";
+            file_to_write << writeData.limited_acc[i] << ";";
+            file_to_write << writeData.robot_velocity[i] << ";";
+            file_to_write << writeData.robot_acc[i] << ";";
+            file_to_write << writeData.commanded_velocity[i] << ";";
+            file_to_write << writeData.ext_force[i] << ";\n";
+        }
+        file_to_write.close();
+    }
+    else std::cout << "Unable to open file. :(" << std::endl;
 
     std::cout << "Robot loop thread shutting down " << std::endl;
     return NULL;

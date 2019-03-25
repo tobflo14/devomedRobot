@@ -3,12 +3,13 @@
 #include "robot_loop_thread.h"
 #include "calculate_velocity_thread.h"
 #include "plot_thread.h"
+#include "keyboard_input_thread.h"
 
 #include <iostream>
 #include <thread>
 
 
-#define NUM_THREADS 3
+#define NUM_THREADS 4
 
 
 static shared_robot_data robot_data;
@@ -19,6 +20,7 @@ Eigen::Vector3d robot_acceleration;
 Eigen::Vector3d robot_jerk;
 Eigen::Vector3d desired_velocity;
 Eigen::Vector3d external_velocity;
+Eigen::Vector3d external_force;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
 double timer;
@@ -38,6 +40,7 @@ int main(int argc, char** argv) {
     robot_data.robot_jerk = robot_jerk;
     robot_data.desired_velocity = desired_velocity;
     robot_data.external_velocity = external_velocity;
+    robot_data.external_force = external_force;
     robot_data.plot1 = plot1;
     robot_data.plot2 = plot2;
     robot_data.timer = timer;
@@ -56,6 +59,9 @@ int main(int argc, char** argv) {
         }
         else if (i == 2) {
             rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
+        }
+        else if (i == 3) {
+            rc = pthread_create(&threads[i], NULL, KeyboardInputThread, &robot_data);
         }
 
         if (rc) {

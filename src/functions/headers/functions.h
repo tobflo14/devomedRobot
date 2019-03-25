@@ -21,6 +21,7 @@ typedef std::pair<double, double> Point;
 
 Vector3d get_velocity(const franka::RobotState& robot_state);
 Vector3d get_acceleration(const franka::RobotState& robot_state);
+Vector3d get_ext_force(const franka::RobotState& robot_state);
 
 double limitValue(double value, double limit);
 

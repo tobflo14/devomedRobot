@@ -17,6 +17,7 @@ struct shared_robot_data
     Eigen::Vector3d robot_jerk;
     Eigen::Vector3d desired_velocity;
     Eigen::Vector3d external_velocity;
+    Eigen::Vector3d external_force;
     std::vector<Point> plot1;
     std::vector<Point> plot2;
     double timer;

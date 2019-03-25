@@ -11,7 +11,7 @@ void* PlotThread(void* arg) {
     std::cout << "Plot thread ID : " << syscall(SYS_gettid) << std::endl;
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
-    Plot2d plot = Plot2d(2500, 3100.0f, 2);
+    Plot2d plot = Plot2d(1500, 3.0f, 2);
   
    // plot.deleteBuffers();
     plot.initPlotWindow();

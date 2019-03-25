@@ -14,6 +14,11 @@ Vector3d get_acceleration(const franka::RobotState& robot_state) {
                              robot_state.O_ddP_EE_c[2]);
 }
 
+Vector3d get_ext_force(const franka::RobotState& robot_state) {
+      		return Vector3d(robot_state.K_F_ext_hat_K[0], robot_state.K_F_ext_hat_K[1],
+                             robot_state.K_F_ext_hat_K[2]);
+}
+
 double limitValue(double value, double limit) {
   value = min(value, limit);
   value = max(value, -limit);
