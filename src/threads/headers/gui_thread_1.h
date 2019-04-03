@@ -34,10 +34,12 @@ class Gui {
         Gtk::Label  *lbl_p_value;
         Gtk::Label  *lbl_i_value;
         Gtk::Label  *lbl_d_value;
+        Gtk::Label  *lbl_mass_value;
         shared_robot_data *robot_data;
         double p_value;
         double i_value;
         double d_value;
+        double mass_value;
         double change_value;
         
         Glib::RefPtr<Gtk::Application> app;
@@ -48,6 +50,7 @@ class Gui {
         char p_value_char[30] = {};
         char i_value_char[30] = {};
         char d_value_char[30] = {};
+        char mass_value_char[30] = {};
 
 
 };

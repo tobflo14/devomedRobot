@@ -21,10 +21,11 @@ struct shared_robot_data
     Eigen::Vector3d setpoint_acc;
     std::vector<Point> plot1;
     std::vector<Point> plot2;
-    double timer;
-    double kp;
     double ki;
+    double kp;
     double kd;
+    double timer;
+    double fake_mass;
     bool run;
     bool shutdown;
 };

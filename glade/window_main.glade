@@ -152,12 +152,23 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScale" id="scale_p">
+          <object class="GtkButton" id="btn_mass_up">
+            <property name="label" translatable="yes">m+</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="orientation">vertical</property>
-            <property name="round_digits">2</property>
-            <property name="digits">2</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">4</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_mass_down">
+            <property name="label" translatable="yes">m-</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
           </object>
           <packing>
             <property name="left_attach">4</property>
@@ -165,10 +176,15 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
+          <object class="GtkLabel" id="lbl_mass_value">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">mass</property>
+          </object>
+          <packing>
+            <property name="left_attach">4</property>
+            <property name="top_attach">3</property>
+          </packing>
         </child>
         <child>
           <placeholder/>

@@ -25,9 +25,10 @@ Eigen::Vector3d external_force;
 Eigen::Vector3d setpoint_acc;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
-double kp = 2.0;
+double kp = 0.9;
 double ki = 0.0;
-double kd = 0.1;
+double kd = 0.01;
+double fake_mass = 1.0; //Simulated mass in kg
 double timer;
 bool run;
 bool shutdown;
@@ -52,6 +53,7 @@ int main(int argc, char** argv) {
     robot_data.kp = kp;
     robot_data.ki = ki;
     robot_data.kd = kd;
+    robot_data.fake_mass = fake_mass;
     robot_data.timer = timer;
     robot_data.run = run;
     robot_data.shutdown = shutdown;

@@ -38,6 +38,7 @@ void* RobotLoopThread(void* arg) {
         std::vector<double> robot_velocity;
         std::vector<double> robot_acc;
         std::vector<double> commanded_velocity;
+        std::vector<double> setpoint_velocity;
         std::vector<double> ext_force;
     } writeData{};
 
@@ -127,6 +128,7 @@ void* RobotLoopThread(void* arg) {
 
                 vel_desired = robot_data->robot_velocity + acc * dt;
                 writeData.robot_velocity.push_back(vel_desired[0]);
+                writeData.setpoint_velocity.push_back(robot_data->setpoint_velocity[0]);
                 robot_data->plot2.push_back(Point(robot_data->timer,robot_data->setpoint_velocity[0]));
                 robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_velocity[0]));
 
@@ -136,7 +138,7 @@ void* RobotLoopThread(void* arg) {
                 //franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
                 
                 //If we are trying to shut down, wait for the robot to reach zero speed before finishing.
-                if (robot_data->shutdown && robot_data->robot_velocity.norm() < 0.001) {
+                if (robot_data->shutdown && robot_data->robot_velocity.norm() < 0.01) {
                     std::cout << "Speed is now zero, and we are shutting down." << std::endl;
                     robot_data->run = false;
                     return franka::MotionFinished(franka::CartesianVelocities{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}});
@@ -169,8 +171,8 @@ void* RobotLoopThread(void* arg) {
     std::ofstream file_to_write;
     file_to_write.open("output.csv");
     if (file_to_write.is_open()) {
-        file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;External Force\n";
-        for (int i = 990; i < 1210; i++) {
+        file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;Setpoint velocity;External Force\n";
+        for (int i = 1100; i < 1300; i++) {
             file_to_write << writeData.dt[i] << ";";
             file_to_write << writeData.desired_velocity[i] << ";";
             file_to_write << writeData.desired_acc[i] << ";";
@@ -181,6 +183,7 @@ void* RobotLoopThread(void* arg) {
             file_to_write << writeData.robot_velocity[i] << ";";
             file_to_write << writeData.robot_acc[i] << ";";
             file_to_write << writeData.commanded_velocity[i] << ";";
+            file_to_write << writeData.setpoint_velocity[i] << ";";
             file_to_write << writeData.ext_force[i] << ";\n";
         }
         file_to_write.close();
