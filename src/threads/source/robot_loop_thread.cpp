@@ -115,7 +115,6 @@ void* RobotLoopThread(void* arg) {
                 }
                 writeData.limited_jerk.push_back(jerk[0]);
                 
-
                 acc = robot_data->robot_acceleration + jerk*dt;
                 writeData.acc_limited_of_jerk.push_back(acc[0]);
 
@@ -124,18 +123,23 @@ void* RobotLoopThread(void* arg) {
                     acc *= acceleration_limit;
                 }
                 writeData.limited_acc.push_back(acc[0]);
-                acc *= 2.59155;
+                acc *= 2.59155; //Desired and performed acceleration is different by this constant for some reason.
 
                 vel_desired = robot_data->robot_velocity + acc * dt;
                 writeData.robot_velocity.push_back(vel_desired[0]);
-                robot_data->plot2.push_back(Point(robot_data->timer,robot_data->external_force[0]));
-                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_acceleration[0]));
+                robot_data->plot2.push_back(Point(robot_data->timer,robot_data->setpoint_velocity[0]));
+                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_velocity[0]));
 
                 robot_data->run = true;
 
                 franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
-                if (robot_data->shutdown) {
-                    return franka::MotionFinished(robot_command);
+                //franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
+                
+                //If we are trying to shut down, wait for the robot to reach zero speed before finishing.
+                if (robot_data->shutdown && robot_data->robot_velocity.norm() < 0.001) {
+                    std::cout << "Speed is now zero, and we are shutting down." << std::endl;
+                    robot_data->run = false;
+                    return franka::MotionFinished(franka::CartesianVelocities{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}});
                 }
                 return robot_command;
             };
@@ -157,7 +161,7 @@ void* RobotLoopThread(void* arg) {
             }
             
             retries--;
-            sleep(3);
+            sleep(5);
         }
     }
     robot_data->run = false;

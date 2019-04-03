@@ -8,14 +8,11 @@ class Pid {
     Eigen::Vector3d vel_desired;
 
     public:
-        Pid(double Kp, double Ki, double Kd);
+        Pid();
         void init();
         void regulateVelocity(double dt, void* arg);
 
     private:
-        double Kp;
-        double Ki;
-        double Kd;
         double jerk_limit;
         double acceleration_limit;
         double force_limit;
@@ -27,6 +24,7 @@ class Pid {
         Eigen::Vector3d acc_previous;
         Eigen::Vector3d past_velocity;
         Eigen::Vector3d error;
+        Eigen::Vector3d past_error;
         Eigen::Vector3d integral;
         Eigen::Vector3d derivative;
         Eigen::Vector3d external_velocity;

@@ -342,5 +342,8 @@ void Plot2d::deleteBuffers() {
 	glDeleteBuffers(1, &colorbuffer);
 	glDeleteBuffers(1, &dataBuffer); // delete buffer
  	glDeleteBuffers(1, &dataArray);
+	glDeleteProgram(programID);
+	glfwDestroyWindow(window);
+	glfwTerminate();
 	
 }

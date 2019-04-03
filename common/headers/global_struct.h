@@ -16,11 +16,15 @@ struct shared_robot_data
     Eigen::Vector3d robot_acceleration;
     Eigen::Vector3d robot_jerk;
     Eigen::Vector3d desired_velocity;
-    Eigen::Vector3d external_velocity;
+    Eigen::Vector3d setpoint_velocity;
     Eigen::Vector3d external_force;
+    Eigen::Vector3d setpoint_acc;
     std::vector<Point> plot1;
     std::vector<Point> plot2;
     double timer;
+    double kp;
+    double ki;
+    double kd;
     bool run;
     bool shutdown;
 };

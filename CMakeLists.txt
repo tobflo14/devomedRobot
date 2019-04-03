@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_BUILD_TYPE Release)
 
-add_compile_options(-Wall -Wextra)
+# add_compile_options(-Wall -Wextra -g)
 
 ## Dependencies
 find_package(Franka REQUIRED)
@@ -19,7 +19,8 @@ find_package(OpenGL REQUIRED) #ogl
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-
+find_package(PkgConfig)
+pkg_check_modules(GTKMM gtkmm-3.0)
 
 add_library(examples_common STATIC
   src/functions/source/examples_common.cpp
@@ -37,11 +38,12 @@ include_directories(
 	externalGL/glew-1.13.0/include/
 	graphics/headers/
 	.
+	${EIGEN3_INCLUDE_DIR}
+  ${GTKMM_INCLUDE_DIRS}
 )
 
 target_link_libraries(examples_common PUBLIC Franka::Franka Eigen3::Eigen3) # la til eigentest
 
-include_directories(${EIGEN3_INCLUDE_DIR})
 
 set(EXAMPLES 
 	#communication_test
@@ -67,6 +69,8 @@ src/threads/source/robot_loop_thread.cpp
 src/threads/source/calculate_velocity_thread.cpp
 src/threads/source/plot_thread.cpp
 src/threads/source/keyboard_input_thread.cpp
+src/threads/source/gui_thread.cpp
+src/threads/source/gui_thread_1.cpp
 )
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL
@@ -75,10 +79,16 @@ COMMAND ${CMAKE_COMMAND} -E copy_directory
 COMMENT "copy shaders to build directory"
 VERBATIM)
 
+ADD_CUSTOM_TARGET(copy_glade_dir ALL
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+"${CMAKE_CURRENT_SOURCE_DIR}/glade" "${CMAKE_BINARY_DIR}"
+COMMENT "copy glade to build directory"
+VERBATIM)
+
 foreach(example ${EXAMPLES})
 	add_executable(${example} src/apps/${example}.cpp ${SOURCES})
   target_link_libraries(${example} OpenGL  Franka::Franka
-	Threads::Threads glfw GLEW_1130 examples_common Eigen3::Eigen3) 
+	Threads::Threads glfw GLEW_1130 examples_common Eigen3::Eigen3 ${GTKMM_LIBRARIES}) 
   ADD_DEPENDENCIES(${example} copy_shader_dir)
 endforeach()
 
