@@ -35,6 +35,7 @@ class Gui {
         Gtk::Label  *lbl_i_value;
         Gtk::Label  *lbl_d_value;
         Gtk::Label  *lbl_mass_value;
+        Gtk::Label  *lbl_status;
         shared_robot_data *robot_data;
         double p_value;
         double i_value;

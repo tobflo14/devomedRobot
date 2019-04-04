@@ -30,10 +30,12 @@ void Gui::update_values() {
     lbl_i_value->set_text(i_value_char);
     lbl_d_value->set_text(d_value_char);
     lbl_mass_value->set_text(mass_value_char);
+    lbl_status setText(robot_data1->robot_status)
     robot_data1->kp = p_value;
     robot_data1->ki = i_value;
     robot_data1->kd = d_value;
     robot_data1->fake_mass = mass_value;
+    
     //return true;
 }
 
@@ -75,6 +77,7 @@ void* Gui::GuiThread() {
     builder->get_widget("lbl_i_value", lbl_i_value);
     builder->get_widget("lbl_d_value", lbl_d_value);
     builder->get_widget("lbl_mass_value", lbl_mass_value);
+    builder->get_widget("lbl_status", lbl_status);
 
 
   //  create_button("btn_p_up", &p_value, 0.01);
