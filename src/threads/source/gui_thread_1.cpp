@@ -2,9 +2,18 @@
 #include "global_struct.h"
 #include <gtkmm.h>
 #include <string.h>
+#include <gtkmm/glarea.h>
+#include <plot2d.h>
 
 //shared_robot_data *robot_data1;
 //auto app
+
+
+  
+
+
+
+
 
  Gui::Gui(void *arg) {
     this->robot_data1 = (shared_robot_data *)arg;
@@ -30,7 +39,7 @@ void Gui::update_values() {
     lbl_i_value->set_text(i_value_char);
     lbl_d_value->set_text(d_value_char);
     lbl_mass_value->set_text(mass_value_char);
-    lbl_status setText(robot_data1->robot_status)
+    //lbl_status setText(robot_data1->robot_status)
     robot_data1->kp = p_value;
     robot_data1->ki = i_value;
     robot_data1->kd = d_value;
@@ -78,23 +87,58 @@ void* Gui::GuiThread() {
     builder->get_widget("lbl_d_value", lbl_d_value);
     builder->get_widget("lbl_mass_value", lbl_mass_value);
     builder->get_widget("lbl_status", lbl_status);
+    builder->get_widget("gl_area", gl_area);
 
 
   //  create_button("btn_p_up", &p_value, 0.01);
     create_button("btn_p_up", p_value, 0.1);
     create_button("btn_p_down", p_value, -0.1);
-    create_button("btn_i_up", i_value, 0.1);
-    create_button("btn_i_down", i_value, -0.1);
-    create_button("btn_d_up", d_value, 0.01);
-    create_button("btn_d_down", d_value, -0.01);
+    create_button("btn_i_up", i_value, 1);
+    create_button("btn_i_down", i_value, -1);
+    create_button("btn_d_up", d_value, 0.0001);
+    create_button("btn_d_down", d_value, -0.0001);
     create_button("btn_mass_up", mass_value, 0.1);
     create_button("btn_mass_down", mass_value, -0.1);
 
   
     btn_shutdown->signal_clicked().connect(sigc::mem_fun(*this, &Gui::shutdown));
+
     
  //Glib::signal_timeout().connect(sigc::ptr_fun(&update_values), 40);
 
     app->run(*mainWindow);
     return NULL;
 }
+
+/*
+
+void Gui::draw_triangle()
+{
+  if (this->program == 0 || this->vao == 0)
+    return;
+
+  glUseProgram (this->program);
+
+  glUniformMatrix4fv (self->mvp_location, 1, GL_FALSE, &(self->mvp[0]));
+
+  glBindVertexArray (self->vao);
+
+  glDrawArrays (GL_TRIANGLES, 0, 3);
+
+  glBindVertexArray (0);
+  glUseProgram (0);
+}
+
+static gboolean
+gl_draw ()
+{
+  glClearColor (0.5, 0.5, 0.5, 1.0);
+  glClear (GL_COLOR_BUFFER_BIT);
+
+  draw_triangle (self);
+
+  glFlush ();
+
+  return FALSE;
+}
+*/

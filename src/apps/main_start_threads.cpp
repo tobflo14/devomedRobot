@@ -15,6 +15,7 @@
 
 static shared_robot_data robot_data;
 
+franka::RobotState robot_state;
 Eigen::Vector3d robot_position;
 Eigen::Vector3d robot_velocity;
 Eigen::Vector3d robot_acceleration;
@@ -26,9 +27,9 @@ Eigen::Vector3d setpoint_acc;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
 double kp = 0.9;
-double ki = 0.0;
-double kd = 0.01;
-double fake_mass = 1.0; //Simulated mass in kg
+double ki = 5.0;
+double kd = 0.0;
+double fake_mass = 5.5; //Simulated mass in kg
 double timer;
 bool run;
 bool shutdown;
@@ -40,6 +41,7 @@ int main(int argc, char** argv) {
     run = false;
     shutdown = false;
 
+    robot_data.robot_state = robot_state;
     robot_data.robot_position = robot_position;
     robot_data.robot_velocity = robot_velocity;
     robot_data.robot_acceleration = robot_acceleration;

@@ -3,6 +3,7 @@
 
 #include <gtkmm.h>
 #include "global_struct.h"
+#include <gtkmm/glarea.h>
 
 
 class Gui {
@@ -14,6 +15,8 @@ class Gui {
         void shutdown();
         void change(double &value_ptr, double value);
         void create_button(std::string name, double &value_ptr, double change_value);
+        void draw_triangle();
+        static bool gl_draw();
         //void create_button(std::string name, double *value_ptr, double change_value, void (Gui::*f)());
 
     private:
@@ -24,6 +27,7 @@ class Gui {
         void d_down();
         shared_robot_data *robot_data1;
         Gtk::Window *mainWindow;
+        Gtk::GLArea *gl_area;
         Gtk::Button *btn_p_up;
         Gtk::Button *btn_p_down ;
         Gtk::Button *btn_i_up;
@@ -52,6 +56,16 @@ class Gui {
         char i_value_char[30] = {};
         char d_value_char[30] = {};
         char mass_value_char[30] = {};
+
+        GtkWidget *gl_drawing_area;
+
+        float mvp[16];
+
+        guint vao;
+        guint program;
+        guint mvp_location;
+        guint position_index;
+        guint color_index;
 
 
 };

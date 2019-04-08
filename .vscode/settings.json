@@ -55,7 +55,8 @@
         "valarray": "cpp",
         "*.fragmentshader": "cpp",
         "dense": "cpp",
-        "*.vertexshader": "cpp"
+        "*.vertexshader": "cpp",
+        "hash_map": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

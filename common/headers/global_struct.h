@@ -11,6 +11,7 @@
 
 struct shared_robot_data
 {
+    franka::RobotState robot_state;
     Eigen::Vector3d robot_position;
     Eigen::Vector3d robot_velocity;
     Eigen::Vector3d robot_acceleration;

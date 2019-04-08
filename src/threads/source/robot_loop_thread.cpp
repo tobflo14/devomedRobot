@@ -1,7 +1,7 @@
 #include "robot_loop_thread.h"
 #include "global_struct.h"
 #include "functions.h"
-//#include "examples_common.h"
+#include "examples_common.h"
 #include "pid.h"
 
 #include <iostream>
@@ -24,7 +24,7 @@ void* RobotLoopThread(void* arg) {
     Eigen::Vector3d vel_desired;
     Eigen::Vector3d acc;
     vel_desired.setZero();
-    double jerk_limit = 500;
+    double jerk_limit = 1000;
     double acceleration_limit = 2;
 
     struct {
@@ -54,7 +54,8 @@ void* RobotLoopThread(void* arg) {
             //setDefaultBehavior(robot);
 
             try {
-                robot.setJointImpedance({ {3000, 3000, 3000, 2500, 2500, 2000, 2000} });
+                //robot.setJointImpedance({ {100, 100, 100, 50, 50, 50, 50} });
+                robot.setJointImpedance({ {6000, 6000, 6000, 4500, 4500, 4000, 4000} });
                 std::cout << "set joint impedance" << std::endl;
 
             }
@@ -64,11 +65,13 @@ void* RobotLoopThread(void* arg) {
             
             // First move the robot to a suitable joint configuration
             //std::array<double, 7> q_goal = {{0, -M_PI_4, 0, -3 * M_PI_4, 0, M_PI_2, M_PI_4}};
-            //std::array<double, 7> q_goal = {{0, M_PI_4, 0, -2 * M_PI_4, 0, 3 * M_PI_4, M_PI_4}};
-            //MotionGenerator motion_generator(0.5, q_goal);
+            std::array<double, 7> q_goal = {{0, M_PI_4/2, 0, -3 * M_PI_4, 0, 3.5 * M_PI_4, 0}};
+            MotionGenerator motion_generator(0.2, q_goal);
 
-            //robot.control(motion_generator);
-            //std::cout << "Finished moving to initial joint configuration." << std::endl;
+            robot.control(motion_generator);
+            std::cout << "Finished moving to initial joint configuration." << std::endl;
+            franka::RobotState initial_state = robot.readOnce();
+            std::cout << initial_state << std::endl;
             
             // Set additional parameters always before the control loop, NEVER in the control loop!
             // Set collision behavior.
@@ -79,63 +82,131 @@ void* RobotLoopThread(void* arg) {
             // Load the kinematics and dynamics model.
             franka::Model model = robot.loadModel();
             double time = 0.0;
+            Pid velocityPid = Pid();
+
+            auto zero_torques = [&](const franka::RobotState& robot_state,
+                                                    franka::Duration /*duration*/) -> franka::Torques {
+                robot_data->robot_state = robot_state;
+                return {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+            };
+
+
+            auto joint_velocities = [&](const franka::RobotState& robot_state, franka::Duration period) -> franka::JointVelocities {
+
+                double dt = period.toSec();
+
+                std::array<double, 42> jacobian_array = model.zeroJacobian(franka::Frame::kEndEffector, robot_state);
+                std::array<double, 7> gravity_array = model.gravity(robot_state);
+                std::array<double, 7> coriolis_array = model.coriolis(robot_state);
+                std::array<double, 49> mass_array = model.mass(robot_state);
+                Eigen::Map<const Eigen::Matrix<double, 6, 7> > jacobian(jacobian_array.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > q(robot_state.q.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq(robot_state.dq.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > ddq_d(robot_state.ddq_d.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > tau_J(robot_state.tau_J.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > tau_ext_hat_filtered(robot_state.tau_ext_hat_filtered.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > gravity(gravity_array.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > coriolis(coriolis_array.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 7> > mass(mass_array.data());
+                const Eigen::Matrix<double, 7, 1> tau_J_comp = tau_J - gravity - mass*ddq_d + coriolis;
+                const Eigen::Matrix<double, 6, 1> F = jacobian * tau_ext_hat_filtered;
+
+
+                robot_data->timer += dt;
+                robot_data->plot2.push_back(Point(robot_data->timer,F[2]));
+                robot_data->plot1.push_back(Point(robot_data->timer,-robot_state.K_F_ext_hat_K[2]));
+                robot_data->run = true;
+
+                if (robot_data->shutdown ) {
+                    robot_data->run = false;
+                    return franka::MotionFinished(franka::JointVelocities {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
+                }
+                double v = 0.4*sin(robot_data->timer*8);
+                return franka::JointVelocities {0.0, v, 0.0, 0.0 ,0.0, 0.0, 0.0};
+            };
             
             // Define callback function to send Cartesian pose goals to get inverse kinematics solved.
-            auto cartesian_pose_callback = [=, &robot_data, &vel_desired, &acc, &time, &writeData]
+            auto cartesian_pose_callback = [&]
             (const franka::RobotState& robot_state, franka::Duration period) -> franka::CartesianVelocities {
+
+                //Franka states that the dt=0.001 when computing limiting values. Ref: https://frankaemika.github.io/docs/libfranka.html#errors-due-to-noncompliant-commanded-values
+                double dt = 0.001;
+/*
+                time += dt;
+                if (time > 1.0) {
+                    robot_data->setpoint_velocity(0,0) = 0.2;
+                }
+                if (time > 2.0) {
+                    robot_data->setpoint_velocity(0,0) = 0.0;
+                }
+                if (time > 3.0) {
+                    robot_data->setpoint_velocity(0,0) = -0.2;
+                }
+                if (time > 4.0) {
+                    robot_data->setpoint_velocity(0,0) = 0.0;
+                    time = 0.0;
+                }*/
 
                 robot_data->timer += period.toSec();
                 
                 robot_data->robot_velocity = get_velocity(robot_state);
-                writeData.commanded_velocity.push_back(robot_data->robot_velocity[0]);
+                writeData.commanded_velocity.push_back(robot_data->robot_velocity.norm());
                 robot_data->robot_acceleration = get_acceleration(robot_state);
-                writeData.robot_acc.push_back(robot_data->robot_acceleration[0]);
-                /*
-                robot_data->robot_velocity = vel_desired;
-                robot_data->robot_acceleration = acc;
-*/
+                writeData.robot_acc.push_back(robot_data->robot_acceleration.norm());
 
                 //Get forces on the flange
-                robot_data->external_force = get_ext_force(robot_state);
-                writeData.ext_force.push_back(robot_data->external_force[0]);
-               
-                //Franka states that the dt=0.001 when computing limiting values. Ref: https://frankaemika.github.io/docs/libfranka.html#errors-due-to-noncompliant-commanded-values
-                double dt = 0.001;
+                robot_data->external_force = get_ext_force_filtered(robot_state, robot_data->external_force, 10);
+                //robot_data->external_force = get_ext_force(robot_state);
+                writeData.ext_force.push_back(robot_data->external_force.norm());
+                robot_data->setpoint_acc = (1.0/robot_data->fake_mass)*(robot_data->external_force - robot_data->ki*robot_data->robot_velocity); //a=1/m * (F - Bv) Admittance controller
+                //Set velocity setpoint to be fed to PID from acceleration setpoint
+                robot_data->setpoint_velocity = robot_data->robot_velocity + robot_data->setpoint_acc * dt;
+                //robot_data->setpoint_velocity.setZero();
+                double flattened = flattenZero(robot_data->setpoint_velocity.norm(), 0.001);
+                robot_data->setpoint_velocity.normalize();
+                robot_data->setpoint_velocity *= flattened;
 
+                //
+                //velocityPid.setParameters(robot_data->kp, 0.0, robot_data->kd);
+                //robot_data->desired_velocity = velocityPid.computePID(robot_data->setpoint_velocity-robot_data->robot_velocity ,dt);
+                robot_data->desired_velocity = robot_data->setpoint_velocity;
+                //
+               
                 writeData.dt.push_back(dt);
-                writeData.desired_velocity.push_back(robot_data->desired_velocity[0]);
+                writeData.desired_velocity.push_back(robot_data->desired_velocity.norm());
 
                 acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
-                writeData.desired_acc.push_back(acc[0]);
+                writeData.desired_acc.push_back(acc.norm());
                 Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
-                writeData.desired_jerk.push_back(jerk[0]);
+                writeData.desired_jerk.push_back(jerk.norm());
                 
                 if (jerk.norm() > jerk_limit) {
                     jerk.normalize();
                     jerk *= jerk_limit;
                 }
-                writeData.limited_jerk.push_back(jerk[0]);
+                writeData.limited_jerk.push_back(jerk.norm());
                 
                 acc = robot_data->robot_acceleration + jerk*dt;
-                writeData.acc_limited_of_jerk.push_back(acc[0]);
+                writeData.acc_limited_of_jerk.push_back(acc.norm());
 
                 if (acc.norm() > acceleration_limit) {
                     acc.normalize();
                     acc *= acceleration_limit;
                 }
-                writeData.limited_acc.push_back(acc[0]);
+                writeData.limited_acc.push_back(acc.norm());
                 acc *= 2.59155; //Desired and performed acceleration is different by this constant for some reason.
 
                 vel_desired = robot_data->robot_velocity + acc * dt;
-                writeData.robot_velocity.push_back(vel_desired[0]);
-                writeData.setpoint_velocity.push_back(robot_data->setpoint_velocity[0]);
-                robot_data->plot2.push_back(Point(robot_data->timer,robot_data->setpoint_velocity[0]));
-                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_velocity[0]));
+                writeData.robot_velocity.push_back(vel_desired.norm());
+                writeData.setpoint_velocity.push_back(robot_data->setpoint_velocity.norm());
+
+                robot_data->plot2.push_back(Point(robot_data->timer,robot_data->external_force.norm()));
+                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_acceleration.norm()));
 
                 robot_data->run = true;
 
-                franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
-                //franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
+                //franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
+                franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
                 
                 //If we are trying to shut down, wait for the robot to reach zero speed before finishing.
                 if (robot_data->shutdown && robot_data->robot_velocity.norm() < 0.01) {
@@ -172,7 +243,7 @@ void* RobotLoopThread(void* arg) {
     file_to_write.open("output.csv");
     if (file_to_write.is_open()) {
         file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;Setpoint velocity;External Force\n";
-        for (int i = 1100; i < 1300; i++) {
+        for (int i = 900; i < 1300; i++) {
             file_to_write << writeData.dt[i] << ";";
             file_to_write << writeData.desired_velocity[i] << ";";
             file_to_write << writeData.desired_acc[i] << ";";

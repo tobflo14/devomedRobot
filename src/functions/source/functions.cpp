@@ -5,24 +5,46 @@
 #include "functions.h"
 
 Vector3d get_velocity(const franka::RobotState& robot_state) {
-      		return Vector3d(robot_state.O_dP_EE_c[0], robot_state.O_dP_EE_c[1],
-                             robot_state.O_dP_EE_c[2]);
+  return Vector3d(
+    robot_state.O_dP_EE_c[0],
+    robot_state.O_dP_EE_c[1],
+    robot_state.O_dP_EE_c[2]
+  );
 }
 
 Vector3d get_acceleration(const franka::RobotState& robot_state) {
-      		return Vector3d(robot_state.O_ddP_EE_c[0], robot_state.O_ddP_EE_c[1],
-                             robot_state.O_ddP_EE_c[2]);
+  return Vector3d(
+    robot_state.O_ddP_EE_c[0],
+    robot_state.O_ddP_EE_c[1],
+    robot_state.O_ddP_EE_c[2]
+  );
+}
+
+Vector3d get_ext_force_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff) {
+  return Vector3d(
+    franka::lowpassFilter(0.001, -robot_state.K_F_ext_hat_K[0]-0.33, prev_force[0], cutoff),
+    franka::lowpassFilter(0.001, robot_state.K_F_ext_hat_K[1]+0.66, prev_force[1], cutoff),
+    franka::lowpassFilter(0.001, robot_state.K_F_ext_hat_K[2]+1.65, prev_force[2], cutoff)
+  );
 }
 
 Vector3d get_ext_force(const franka::RobotState& robot_state) {
-      		return Vector3d(robot_state.K_F_ext_hat_K[0], robot_state.K_F_ext_hat_K[1],
-                             robot_state.K_F_ext_hat_K[2]);
+  return Vector3d(
+    -robot_state.K_F_ext_hat_K[0]-0.33,
+    robot_state.K_F_ext_hat_K[1]+0.7,
+    robot_state.K_F_ext_hat_K[2]+1.65
+  );
 }
 
 double limitValue(double value, double limit) {
   value = min(value, limit);
   value = max(value, -limit);
   return value;
+}
+
+//Flattens the area around zero values with a size of 'range'
+double flattenZero(double value, double range) {
+  return (1- exp(-pow(value, 2)/pow(range, 2)))*value;
 }
 
 double PerpendicularDistance(const Point &pt, const Point &lineStart, const Point &lineEnd)
