@@ -17,6 +17,9 @@ class Gui {
         void create_button(std::string name, double &value_ptr, double change_value);
         void draw_triangle();
         static bool gl_draw();
+        void onRealize();
+        void onUnrealize();
+        bool onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */);
         //void create_button(std::string name, double *value_ptr, double change_value, void (Gui::*f)());
 
     private:
@@ -58,15 +61,6 @@ class Gui {
         char mass_value_char[30] = {};
 
         GtkWidget *gl_drawing_area;
-
-        float mvp[16];
-
-        guint vao;
-        guint program;
-        guint mvp_location;
-        guint position_index;
-        guint color_index;
-
 
 };
 

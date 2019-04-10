@@ -14,12 +14,18 @@ struct shared_robot_data
     franka::RobotState robot_state;
     Eigen::Vector3d robot_position;
     Eigen::Vector3d robot_velocity;
+    Eigen::Vector3d robot_ang_velocity;
     Eigen::Vector3d robot_acceleration;
+    Eigen::Vector3d robot_ang_acceleration;
     Eigen::Vector3d robot_jerk;
+    Eigen::Vector3d robot_ang_jerk;
     Eigen::Vector3d desired_velocity;
     Eigen::Vector3d setpoint_velocity;
+    Eigen::Vector3d setpoint_ang_velocity;
     Eigen::Vector3d external_force;
+    Eigen::Vector3d external_ang_force;
     Eigen::Vector3d setpoint_acc;
+    Eigen::Vector3d setpoint_ang_acc;
     std::vector<Point> plot1;
     std::vector<Point> plot2;
     double ki;

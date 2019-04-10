@@ -19,11 +19,16 @@ using namespace Eigen;
 
 typedef std::pair<double, double> Point;
 
+Vector3d get_position(const franka::RobotState& robot_state);
 Vector3d get_velocity(const franka::RobotState& robot_state);
 Vector3d get_acceleration(const franka::RobotState& robot_state);
+Vector3d get_ang_velocity(const franka::RobotState& robot_state);
+Vector3d get_ang_acceleration(const franka::RobotState& robot_state);
 Vector3d get_ext_force_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff);
 Vector3d get_ext_force(const franka::RobotState& robot_state);
+Vector3d get_ext_ang_force(const franka::RobotState& robot_state);
 
+void limitVector(Eigen::Vector3d& v, double limit);
 double limitValue(double value, double limit);
 double flattenZero(double value, double range);
 

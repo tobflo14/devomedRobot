@@ -22,6 +22,15 @@ class Plot2d {
         void setValueLimits(int min, int max);
         void swapBuffers();
         void deleteBuffers();
+        void draw_triangle();
+        bool gl_draw();
+        void init_buffers (GLuint  position_index,
+              GLuint  color_index,
+              GLuint *vao_out);
+        static void gl_init ();
+        void init_buffers();
+        void init_shaders();
+        void realize();
 
     private:
         void init();
@@ -49,6 +58,15 @@ class Plot2d {
         glm::mat4 MVP;
         GLFWwindow* window;
 	    GLint uniform_color;
+       // float mvp[16];
+        glm::mat4 mvp;
+
+
+        GLuint vao;
+        GLuint program;
+        GLuint mvp_location;
+        GLuint position_index;
+        GLuint color_index;
         
 
 };

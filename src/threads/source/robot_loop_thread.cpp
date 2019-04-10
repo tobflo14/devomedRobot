@@ -22,7 +22,9 @@ void* RobotLoopThread(void* arg) {
     std::cout << "Starting robot thread" << std::endl;
     std::cout << "robot loop thread ID : " << syscall(SYS_gettid) << std::endl;
     Eigen::Vector3d vel_desired;
+    Eigen::Vector3d vel_desired_ang;
     Eigen::Vector3d acc;
+    Eigen::Vector3d acc_ang;
     vel_desired.setZero();
     double jerk_limit = 1000;
     double acceleration_limit = 2;
@@ -40,6 +42,7 @@ void* RobotLoopThread(void* arg) {
         std::vector<double> commanded_velocity;
         std::vector<double> setpoint_velocity;
         std::vector<double> ext_force;
+        std::vector<double> robot_position;
     } writeData{};
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
@@ -124,6 +127,8 @@ void* RobotLoopThread(void* arg) {
                 double v = 0.4*sin(robot_data->timer*8);
                 return franka::JointVelocities {0.0, v, 0.0, 0.0 ,0.0, 0.0, 0.0};
             };
+
+            double damping = 500.0;
             
             // Define callback function to send Cartesian pose goals to get inverse kinematics solved.
             auto cartesian_pose_callback = [&]
@@ -131,40 +136,55 @@ void* RobotLoopThread(void* arg) {
 
                 //Franka states that the dt=0.001 when computing limiting values. Ref: https://frankaemika.github.io/docs/libfranka.html#errors-due-to-noncompliant-commanded-values
                 double dt = 0.001;
+                writeData.dt.push_back(dt);
 /*
                 time += dt;
                 if (time > 1.0) {
-                    robot_data->setpoint_velocity(0,0) = 0.2;
+                    robot_data->setpoint_ang_velocity(0,0) = 0.2;
                 }
                 if (time > 2.0) {
-                    robot_data->setpoint_velocity(0,0) = 0.0;
+                    robot_data->setpoint_ang_velocity(0,0) = 0.0;
                 }
                 if (time > 3.0) {
-                    robot_data->setpoint_velocity(0,0) = -0.2;
+                    robot_data->setpoint_ang_velocity(0,0) = -0.2;
                 }
                 if (time > 4.0) {
-                    robot_data->setpoint_velocity(0,0) = 0.0;
+                    robot_data->setpoint_ang_velocity(0,0) = 0.0;
                     time = 0.0;
-                }*/
-
+                }
+*/
                 robot_data->timer += period.toSec();
                 
+                writeData.robot_position.push_back(get_position(robot_state).norm());
                 robot_data->robot_velocity = get_velocity(robot_state);
+                robot_data->robot_ang_velocity = get_ang_velocity(robot_state);
                 writeData.commanded_velocity.push_back(robot_data->robot_velocity.norm());
                 robot_data->robot_acceleration = get_acceleration(robot_state);
+                robot_data->robot_ang_acceleration = get_ang_acceleration(robot_state);
                 writeData.robot_acc.push_back(robot_data->robot_acceleration.norm());
 
                 //Get forces on the flange
-                robot_data->external_force = get_ext_force_filtered(robot_state, robot_data->external_force, 10);
-                //robot_data->external_force = get_ext_force(robot_state);
+                //robot_data->external_force = get_ext_force_filtered(robot_state, robot_data->external_force, robot_data->kd);
+                robot_data->external_force = get_ext_force(robot_state);
+                robot_data->external_ang_force = get_ext_ang_force(robot_state);
                 writeData.ext_force.push_back(robot_data->external_force.norm());
-                robot_data->setpoint_acc = (1.0/robot_data->fake_mass)*(robot_data->external_force - robot_data->ki*robot_data->robot_velocity); //a=1/m * (F - Bv) Admittance controller
+                double wanted_force = robot_data->kp*9.81; 
+                Eigen::Vector3d total_force = robot_data->external_force.normalized()*std::max(robot_data->external_force.norm() - wanted_force, 0.0);
+                
+                Eigen::Vector3d total_ang_force = robot_data->external_ang_force.normalized()*std::max(robot_data->external_ang_force.norm() - wanted_force, 0.0);
+        
+                //Gradually increase damping to a high value if external force is zero to prevent drifting
+                damping = std::min(damping + 0.5, 500.0);
+                if (total_force.norm() > 0.0) {
+                    damping = robot_data->ki;
+                }
+                robot_data->setpoint_acc = (1.0/robot_data->fake_mass)*(total_force - damping*robot_data->robot_velocity); //a=1/m * (F - Bv) Admittance controller
+                
+                double inertia = 0.66*robot_data->fake_mass*pow(0.05,2); //Inertia for a ball with certain radius
+                robot_data->setpoint_ang_acc = (1.0/inertia)*(robot_data->external_ang_force - 3.0*robot_data->robot_ang_velocity); //a=1/m * (F - Bv) Admittance controller
+                
                 //Set velocity setpoint to be fed to PID from acceleration setpoint
-                robot_data->setpoint_velocity = robot_data->robot_velocity + robot_data->setpoint_acc * dt;
-                //robot_data->setpoint_velocity.setZero();
-                double flattened = flattenZero(robot_data->setpoint_velocity.norm(), 0.001);
-                robot_data->setpoint_velocity.normalize();
-                robot_data->setpoint_velocity *= flattened;
+                //robot_data->setpoint_velocity = robot_data->robot_velocity + robot_data->setpoint_acc * dt;
 
                 //
                 //velocityPid.setParameters(robot_data->kp, 0.0, robot_data->kd);
@@ -172,41 +192,44 @@ void* RobotLoopThread(void* arg) {
                 robot_data->desired_velocity = robot_data->setpoint_velocity;
                 //
                
-                writeData.dt.push_back(dt);
                 writeData.desired_velocity.push_back(robot_data->desired_velocity.norm());
 
-                acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
+                acc = robot_data->setpoint_acc;
+                //acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
+                //acc_ang = (robot_data->setpoint_ang_velocity - robot_data->robot_ang_velocity) / dt;
+                acc_ang = robot_data->setpoint_ang_acc;
                 writeData.desired_acc.push_back(acc.norm());
                 Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
+                Eigen::Vector3d jerk_ang = (acc_ang - robot_data->robot_ang_acceleration) / dt;
                 writeData.desired_jerk.push_back(jerk.norm());
                 
-                if (jerk.norm() > jerk_limit) {
-                    jerk.normalize();
-                    jerk *= jerk_limit;
-                }
+                limitVector(jerk, jerk_limit);
+                limitVector(jerk_ang, jerk_limit);
                 writeData.limited_jerk.push_back(jerk.norm());
                 
                 acc = robot_data->robot_acceleration + jerk*dt;
+                acc_ang = robot_data->robot_ang_acceleration + jerk_ang*dt;
                 writeData.acc_limited_of_jerk.push_back(acc.norm());
 
-                if (acc.norm() > acceleration_limit) {
-                    acc.normalize();
-                    acc *= acceleration_limit;
-                }
+                limitVector(acc, acceleration_limit);
+                limitVector(acc_ang, acceleration_limit);
                 writeData.limited_acc.push_back(acc.norm());
                 acc *= 2.59155; //Desired and performed acceleration is different by this constant for some reason.
 
                 vel_desired = robot_data->robot_velocity + acc * dt;
+                vel_desired_ang = robot_data->robot_ang_velocity + acc_ang * dt;
                 writeData.robot_velocity.push_back(vel_desired.norm());
                 writeData.setpoint_velocity.push_back(robot_data->setpoint_velocity.norm());
 
-                robot_data->plot2.push_back(Point(robot_data->timer,robot_data->external_force.norm()));
-                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_acceleration.norm()));
+                robot_data->plot2.push_back(Point(robot_data->timer,acc_ang.norm()));
+                std::cout << acc_ang.norm()/robot_data->robot_ang_acceleration.norm() << std::endl;
+                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_ang_acceleration.norm()));
 
                 robot_data->run = true;
 
-                //franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, 0.0, 0.0, 0.0}};
-                franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
+                franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], vel_desired_ang[0], vel_desired_ang[1], vel_desired_ang[2]}};
+                //franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, vel_desired_ang[0], vel_desired_ang[1], vel_desired_ang[2]}};
+                //franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
                 
                 //If we are trying to shut down, wait for the robot to reach zero speed before finishing.
                 if (robot_data->shutdown && robot_data->robot_velocity.norm() < 0.01) {
@@ -221,14 +244,13 @@ void* RobotLoopThread(void* arg) {
             
         } catch (const franka::Exception& e) {
             robot_data->run = false;
-            std::cout << e.what() << std::endl;
-            std::cout << "Running error recovery..." << std::endl;
-
+            std::cerr << e.what() << std::endl;
+            std::cerr << "Running error recovery..." << std::endl;
             try{
                 robot.automaticErrorRecovery();
             }
             catch(const franka::Exception& er){
-                std::cout << "Recovery failed: " << er.what() << std::endl;
+                std::cerr << "Recovery failed: " << er.what() << std::endl;
                 exit(EXIT_FAILURE);
                 return nullptr;
             }
@@ -242,7 +264,7 @@ void* RobotLoopThread(void* arg) {
     std::ofstream file_to_write;
     file_to_write.open("output.csv");
     if (file_to_write.is_open()) {
-        file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;Setpoint velocity;External Force\n";
+        file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;Setpoint velocity;External Force;Robot position\n";
         for (int i = 900; i < 1300; i++) {
             file_to_write << writeData.dt[i] << ";";
             file_to_write << writeData.desired_velocity[i] << ";";
@@ -255,7 +277,8 @@ void* RobotLoopThread(void* arg) {
             file_to_write << writeData.robot_acc[i] << ";";
             file_to_write << writeData.commanded_velocity[i] << ";";
             file_to_write << writeData.setpoint_velocity[i] << ";";
-            file_to_write << writeData.ext_force[i] << ";\n";
+            file_to_write << writeData.ext_force[i] << ";";
+            file_to_write << writeData.robot_position[i] << ";\n";
         }
         file_to_write.close();
     }

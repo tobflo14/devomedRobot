@@ -4,6 +4,14 @@
 //https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 #include "functions.h"
 
+Vector3d get_position(const franka::RobotState& robot_state) {
+  return Vector3d(
+    robot_state.O_T_EE[12],
+    robot_state.O_T_EE[13],
+    robot_state.O_T_EE[14]
+  );
+}
+
 Vector3d get_velocity(const franka::RobotState& robot_state) {
   return Vector3d(
     robot_state.O_dP_EE_c[0],
@@ -17,6 +25,22 @@ Vector3d get_acceleration(const franka::RobotState& robot_state) {
     robot_state.O_ddP_EE_c[0],
     robot_state.O_ddP_EE_c[1],
     robot_state.O_ddP_EE_c[2]
+  );
+}
+
+Vector3d get_ang_velocity(const franka::RobotState& robot_state) {
+  return Vector3d(
+    robot_state.O_dP_EE_c[3],
+    robot_state.O_dP_EE_c[4],
+    robot_state.O_dP_EE_c[5]
+  );
+}
+
+Vector3d get_ang_acceleration(const franka::RobotState& robot_state) {
+  return Vector3d(
+    robot_state.O_ddP_EE_c[3],
+    robot_state.O_ddP_EE_c[4],
+    robot_state.O_ddP_EE_c[5]
   );
 }
 
@@ -34,6 +58,22 @@ Vector3d get_ext_force(const franka::RobotState& robot_state) {
     robot_state.K_F_ext_hat_K[1]+0.7,
     robot_state.K_F_ext_hat_K[2]+1.65
   );
+}
+
+Vector3d get_ext_ang_force(const franka::RobotState& robot_state) {
+  return Vector3d(
+    -(robot_state.K_F_ext_hat_K[3]+0.95),
+    robot_state.K_F_ext_hat_K[4]+0.05,
+    robot_state.K_F_ext_hat_K[5]-0.08
+  );
+}
+
+//Limit the length of a 3D vector to a specific value
+void limitVector(Eigen::Vector3d& v, double limit) {
+  if (v.norm() > limit) {
+    v.normalize();
+    v *= limit;
+  }
 }
 
 double limitValue(double value, double limit) {

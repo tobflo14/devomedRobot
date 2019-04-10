@@ -229,17 +229,6 @@ Motstand:                     1.5 kg</property>
                     <property name="row_homogeneous">True</property>
                     <property name="column_homogeneous">True</property>
                     <child>
-                      <object class="GtkIconView">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="margin">6</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkGLArea" id="gl_area">
                         <property name="visible">True</property>
                         <property name="app_paintable">True</property>
@@ -247,7 +236,8 @@ Motstand:                     1.5 kg</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
+                        <property name="top_attach">0</property>
+                        <property name="height">2</property>
                       </packing>
                     </child>
                   </object>

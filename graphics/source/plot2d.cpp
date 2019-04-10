@@ -21,6 +21,7 @@ using namespace glm;
 #include <common/headers/shader.hpp>
 #include "plot2d.h"
 
+//#include <epoxy/gl.h>
 
 
 // grid
@@ -346,4 +347,233 @@ void Plot2d::deleteBuffers() {
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	
+}
+
+
+
+void Plot2d::draw_triangle()
+{
+  if (program == 0 || vao == 0)
+    return;
+
+  glUseProgram (program);
+
+  glUniformMatrix4fv (mvp_location, 1, GL_FALSE, &mvp[0][0]);
+
+  glBindVertexArray (vao);
+
+  glDrawArrays (GL_TRIANGLES, 0, 3);
+
+  glBindVertexArray (0);
+  glUseProgram (0);
+}
+
+bool Plot2d::gl_draw ()
+{
+
+	glClearColor (0.6, 0.6, 0.6, 1.0);
+  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glUseProgram(program);
+  
+	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+	// Camera matrix
+	glm::mat4 View = glm::lookAt(
+		glm::vec3(3, 3, 1.5), // Camera is at (4,4,-5), in World Space
+		glm::vec3(0, 0, 0), // and looks at the origin
+		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+	);
+	// Model matrix : an identity matrix (model will be at the origin)
+	glm::mat4 Model = glm::mat4(1.0f);
+	// Our ModelViewProjection : multiplication of our 3 matrices
+	mvp = Projection * View * Model; // Remember, matrix multiplication is the other way around
+
+
+  glUniformMatrix4fv(mvp_location, 1, GL_FALSE, &mvp[0][0]);
+//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+//  mvp_location = glGetUniformLocation(program, "MVP");	
+
+  glBindBuffer(GL_ARRAY_BUFFER, vao);
+  glEnableVertexAttribArray(0);
+ // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+
+	GLfloat red[4] = {1, 0, 0, 1};
+	glUniform4fv(uniform_color, 1, red);
+	std::cout << "drawing is happening" << std::endl;
+  glDrawArrays(GL_LINES, 0, 4);
+
+  glDisableVertexAttribArray(0);
+  //glBindBuffer(GL_ARRAY_BUFFER, 0);
+  //glUseProgram(0);
+
+
+	glFlush();
+  return true;;
+}
+
+
+/* the vertex data is constant */
+struct vertex_info {
+  float position[3];
+  float color[3];
+};
+
+static const struct vertex_info vertex_data[] = {
+  { {  0.0f,  0.500f, 0.0f }, { 1.f, 0.f, 0.f } },
+  { {  0.5f, -0.366f, 0.0f }, { 0.f, 1.f, 0.f } },
+  { { -0.5f, -0.366f, 0.0f }, { 0.f, 0.f, 1.f } },
+};
+
+GLfloat xgrid[4][3] = {
+	-1.0f, 0.0f, 0.0f,
+	 1.0f, 0.0f, 0.0f,
+	-1.0f, 0.2f, 0.0f,
+	 1.0f, 0.2f, 0.0f, 
+};
+
+
+#define G_STRUCT_OFFSET(struct_type, member) \
+      ((long) offsetof (struct_type, member))
+
+
+void Plot2d::init_buffers (GLuint  position_index,
+              GLuint  color_index,
+              GLuint *vao_out)
+{
+  GLuint vao, buffer;
+
+  /* we need to create a VAO to store the other buffers */
+  glGenVertexArrays (1, &vao);
+  glBindVertexArray (vao);
+
+	std::cout << "size of vao before buffring " << sizeof(vao) << std::endl;
+
+  /* this is the VBO that holds the vertex data */
+  glGenBuffers (1, &buffer);
+  glBindBuffer (GL_ARRAY_BUFFER, buffer);
+  glBufferData (GL_ARRAY_BUFFER, sizeof (xgrid), xgrid, GL_STATIC_DRAW);
+
+  /* enable and set the position attribute */
+  glEnableVertexAttribArray (0);
+  glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE,
+                         sizeof (xgrid),
+                         (GLvoid*) 0);
+
+						 std::cout << "size of vao after buffring " << sizeof(vao) << std::endl;
+/*
+  // enable and set the color attribute 
+  glEnableVertexAttribArray (color_index);
+  glVertexAttribPointer (color_index, 3, GL_FLOAT, GL_FALSE,
+                         sizeof (struct vertex_info),
+                         (GLvoid *) (G_STRUCT_OFFSET (struct vertex_info, color)));
+*/
+  /* reset the state; we will re-enable the VAO when needed */
+//  glBindBuffer (GL_ARRAY_BUFFER, 0);
+ // glBindVertexArray (0);
+
+  /* the VBO is referenced by the VAO */
+ // glDeleteBuffers (1, &buffer);
+
+  if (vao_out != NULL)
+    *vao_out = vao;
+}
+
+void Plot2d::gl_init()
+{
+
+}
+
+
+void Plot2d::realize() {
+
+	init_buffers();
+	init_shaders();
+}
+
+void Plot2d::init_buffers() {
+
+	glewExperimental = GL_TRUE;
+	glewInit();
+
+	struct vertex_info {
+		float position[3];
+		float color[3];
+	};
+
+	static const struct vertex_info vertex_data[] = {
+	{ {  0.0f,  0.500f, 0.0f }, { 1.f, 0.f, 0.f } },
+	{ {  0.5f, -0.366f, 0.0f }, { 0.f, 1.f, 0.f } },
+	{ { -0.5f, -0.366f, 0.0f }, { 0.f, 0.f, 1.f } },
+	};
+
+GLfloat xgrid[4][3] = {
+	-1.0f, 0.0f, 0.0f,
+	 1.0f, 0.0f, 0.0f,
+	-1.0f, 0.2f, 0.0f,
+	 1.0f, 0.2f, 0.0f, 
+};
+	
+
+
+  /* we need to create a VAO to store the other buffers */
+  glGenVertexArrays (1, &vao);
+  glBindVertexArray (vao);
+
+std::cout << "size of vao before buffring " << sizeof(vao) << std::endl;
+
+
+  /* this is the VBO that holds the vertex data */
+  glGenBuffers (1, &position_index);
+  glBindBuffer (GL_ARRAY_BUFFER, position_index);
+  glBufferData (GL_ARRAY_BUFFER, sizeof (xgrid), xgrid, GL_STATIC_DRAW);
+
+  /* enable and set the position attribute */
+  glEnableVertexAttribArray (0);
+  glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE,
+                         sizeof (xgrid),
+                         (GLvoid *) 0);
+
+						  std::cout << "size of xgrid after buffring " << sizeof(xgrid) << std::endl;
+/*
+/*
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	glGenBuffers(1, &position_index);
+	glBindBuffer(GL_ARRAY_BUFFER, position_index);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+	  // enable and set the position attribute 
+  glEnableVertexAttribArray (position_index);
+  glVertexAttribPointer (position_index, 3, GL_FLOAT, GL_FALSE,
+                         sizeof (struct vertex_info),
+                         (GLvoid *) (G_STRUCT_OFFSET (struct vertex_info, position)));
+
+  // enable and set the color attribute 
+  glEnableVertexAttribArray (color_index);
+  glVertexAttribPointer (color_index, 3, GL_FLOAT, GL_FALSE,
+                         sizeof (struct vertex_info),
+                         (GLvoid *) (G_STRUCT_OFFSET (struct vertex_info, color)));
+
+  // reset the state; we will re-enable the VAO when needed 
+  glBindBuffer (GL_ARRAY_BUFFER, 0);
+  glBindVertexArray (0);
+
+/**/
+}
+
+void Plot2d::init_shaders() {
+	program = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	//auto vshader_bytes = Gio::Resource::lookup_data_global("/glarea/glarea-vertex.glsl");
+
+	mvp_location = glGetUniformLocation(program, "MVP");	
+
+	uniform_color = glGetUniformLocation(program, "uniformcolor");
+  int status;
+  glGetProgramiv(program, GL_LINK_STATUS, &status);
+  //glDeleteProgram(program);
 }

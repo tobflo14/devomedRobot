@@ -11,25 +11,31 @@
 
 
 #define NUM_THREADS 5
-
+//
 
 static shared_robot_data robot_data;
 
 franka::RobotState robot_state;
 Eigen::Vector3d robot_position;
 Eigen::Vector3d robot_velocity;
+Eigen::Vector3d robot_ang_velocity;
 Eigen::Vector3d robot_acceleration;
+Eigen::Vector3d robot_ang_acceleration;
 Eigen::Vector3d robot_jerk;
+Eigen::Vector3d robot_ang_jerk;
 Eigen::Vector3d desired_velocity;
 Eigen::Vector3d setpoint_velocity;
+Eigen::Vector3d setpoint_ang_velocity;
 Eigen::Vector3d external_force;
+Eigen::Vector3d external_ang_force;
 Eigen::Vector3d setpoint_acc;
+Eigen::Vector3d setpoint_ang_acc;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
-double kp = 0.9;
-double ki = 5.0;
-double kd = 0.0;
-double fake_mass = 5.5; //Simulated mass in kg
+double kp = 0.2;
+double ki = 8.0;
+double kd = 50.0;
+double fake_mass = 5.0; //Simulated mass in kg
 double timer;
 bool run;
 bool shutdown;
@@ -44,12 +50,18 @@ int main(int argc, char** argv) {
     robot_data.robot_state = robot_state;
     robot_data.robot_position = robot_position;
     robot_data.robot_velocity = robot_velocity;
+    robot_data.robot_ang_velocity = robot_ang_velocity;
     robot_data.robot_acceleration = robot_acceleration;
+    robot_data.robot_ang_acceleration = robot_ang_acceleration;
     robot_data.robot_jerk = robot_jerk;
+    robot_data.robot_jerk = robot_ang_jerk;
     robot_data.desired_velocity = desired_velocity;
     robot_data.setpoint_velocity = setpoint_velocity;
+    robot_data.setpoint_ang_velocity = setpoint_ang_velocity;
     robot_data.external_force = external_force;
+    robot_data.external_ang_force = external_ang_force;
     robot_data.setpoint_acc = setpoint_acc;
+    robot_data.setpoint_ang_acc = setpoint_ang_acc;
     robot_data.plot1 = plot1;
     robot_data.plot2 = plot2;
     robot_data.kp = kp;
