@@ -3,6 +3,23 @@
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkAction" id="action1"/>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Exercise 1: fremoverbøy</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Exercise 2: Sidebøy</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Exercise 3: Hoderull</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkMenu" id="menu1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -19,6 +36,7 @@
   <object class="GtkWindow" id="window_main">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Hello Gtk Test</property>
+    <property name="resizable">False</property>
     <property name="default_width">1440</property>
     <property name="default_height">900</property>
     <signal name="destroy" handler="on_window_main_destroy" swapped="no"/>
@@ -125,7 +143,7 @@
                         <property name="margin_left">20</property>
                         <property name="margin_right">20</property>
                         <property name="margin_top">40</property>
-                        <property name="pixbuf">../build/images/Fri Mar  8 16:14:59 2019
+                        <property name="pixbuf">..\build\images\Fri Mar  8 16:14:59 2019
 .tga</property>
                       </object>
                       <packing>
@@ -430,6 +448,143 @@ Motstand:                     1.5 kg</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
+                    <property name="tab_fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="row_homogeneous">True</property>
+                    <property name="column_homogeneous">True</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Her kan du velge øvelse fra
+en database, eller ta opp en egen 
+øvelse med roboten</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                        <property name="width">3</property>
+                        <property name="height">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">21</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkButton" id="btn_record">
+                            <property name="label" translatable="yes">Ta opp bevegelse</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="btn_save_exercise">
+                            <property name="label" translatable="yes">Lagre bevegelse</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">3</property>
+                        <property name="width">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="dropdown_exercises">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">40</property>
+                        <property name="margin_bottom">40</property>
+                        <property name="model">liststore1</property>
+                        <child>
+                          <object class="GtkCellRendererText"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">2</property>
+                        <property name="width">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Forhåndsvisning av øvelse lagd eller valgt</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">3</property>
+                        <property name="top_attach">3</property>
+                        <property name="width">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_choose_exercise">
+                        <property name="label" translatable="yes">Velg Øvelse</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="margin_left">10</property>
+                        <property name="margin_right">10</property>
+                        <property name="margin_top">40</property>
+                        <property name="margin_bottom">40</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixbuf">..\..\..\OneDrive - NTNU\Div dokumenter\Skole\master\franka-emika-s.jpg</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">3</property>
+                        <property name="top_attach">0</property>
+                        <property name="width">6</property>
+                        <property name="height">3</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child type="tab">
+                  <object class="GtkLabel" id="new_exercise_tab">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Ny Øvelse</property>
+                  </object>
+                  <packing>
+                    <property name="position">4</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
