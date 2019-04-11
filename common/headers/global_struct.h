@@ -28,6 +28,7 @@ struct shared_robot_data
     Eigen::Vector3d setpoint_ang_acc;
     std::vector<Point> plot1;
     std::vector<Point> plot2;
+    std::vector<std::vector<double>> tracking_data;
     double ki;
     double kp;
     double kd;
@@ -35,6 +36,7 @@ struct shared_robot_data
     double fake_mass;
     bool run;
     bool shutdown;
+    bool track_position;
 };
 
 #endif

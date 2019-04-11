@@ -20,6 +20,7 @@ using namespace glm;
 
 #include <common/headers/shader.hpp>
 #include "plot2d.h"
+#include "OBJ_Loader.h"
 
 //#include <epoxy/gl.h>
 
@@ -40,6 +41,8 @@ GLfloat xgrid_color[] = {
 	 0.0f, 1.0f, 0.0f, 
 };
 */
+
+#define TEST_RUN 0
 
 Plot2d::Plot2d(int samples_per_frame, float y_range, int number_of_plots) {
 	this->SAMPLES_PER_FRAME = samples_per_frame;
@@ -128,6 +131,7 @@ void Plot2d::initPlotWindow() {
 
 	// Get a handle for our "MVP" uniform
 	MatrixID = glGetUniformLocation(programID, "MVP");	
+	uniform_color = glGetUniformLocation(programID, "uniformcolor");
 }
 
 
@@ -224,8 +228,8 @@ void Plot2d::initializeBuffer()
 		(void*)0            // array buffer offset
 	);
 	glEnableVertexAttribArray(0);
-	genColor();
-	uniform_color = glGetUniformLocation(programID, "uniformcolor");
+	//genColor();
+//	uniform_color = glGetUniformLocation(programID, "uniformcolor");
 }
 
 /*
@@ -275,6 +279,7 @@ void Plot2d::drawGrid() {
 void Plot2d::graph_update(Point values[]) {
 	GLfloat point[3];
   //vertexDataBuffer = vertexBuffers;
+	glBindVertexArray(dataArray);
   glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
  // float value = (float) mainValue;
 	float current_index_of_buffer = sizeof(GLfloat) * INDEX_OF_LAST_ENTRY * VERTEX_COORDINATE_COUNT;
@@ -351,57 +356,52 @@ void Plot2d::deleteBuffers() {
 
 
 
-void Plot2d::draw_triangle()
-{
-  if (program == 0 || vao == 0)
-    return;
-
-  glUseProgram (program);
-
-  glUniformMatrix4fv (mvp_location, 1, GL_FALSE, &mvp[0][0]);
-
-  glBindVertexArray (vao);
-
-  glDrawArrays (GL_TRIANGLES, 0, 3);
-
-  glBindVertexArray (0);
-  glUseProgram (0);
-}
 
 bool Plot2d::gl_draw ()
 {
 
-	glClearColor (0.6, 0.6, 0.6, 1.0);
+	glClearColor (1.0, 1.0, 1.0, 1.0);
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glUseProgram(program);
   
-	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-	// Camera matrix
-	glm::mat4 View = glm::lookAt(
-		glm::vec3(3, 3, 1.5), // Camera is at (4,4,-5), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);
-	// Model matrix : an identity matrix (model will be at the origin)
-	glm::mat4 Model = glm::mat4(1.0f);
-	// Our ModelViewProjection : multiplication of our 3 matrices
-	mvp = Projection * View * Model; // Remember, matrix multiplication is the other way around
-
-
   glUniformMatrix4fv(mvp_location, 1, GL_FALSE, &mvp[0][0]);
 //glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 //  mvp_location = glGetUniformLocation(program, "MVP");	
 
-  glBindBuffer(GL_ARRAY_BUFFER, vao);
+
+
+if (TEST_RUN == 1) {
+	glBindVertexArray(vao);
   glEnableVertexAttribArray(0);
  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
 
 	GLfloat red[4] = {1, 0, 0, 1};
-	glUniform4fv(uniform_color, 1, red);
+	GLfloat green[4] = {0, 1, 0, 1};
+	glUniform4fv(uniform_color, 1, green);
 	std::cout << "drawing is happening" << std::endl;
   glDrawArrays(GL_LINES, 0, 4);
+	glUniform4fv(uniform_color, 1, red);
+  glDrawArrays(GL_LINE_STRIP, 4, 8);
+
+
+}
+else if (TEST_RUN == 0) {
+
+	glBindVertexArray(dataArray);
+glEnableVertexAttribArray(0);
+	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
+	//for (int i=0; i<NUM_PLOTS; i++) {
+//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
+//	}
+	GLfloat color1[4] = {152.f/255.f, 0, 186.f/255.f, 1};
+	GLfloat color2[4] = {50.f/255.f, 145.f/255.f, 0, 1};
+	glUniform4fv(uniform_color, 1, color1);
+	glDrawArrays(GL_LINE_STRIP, 0, INDEX_OF_LAST_ENTRY);
+	glUniform4fv(uniform_color, 1, color2);
+	glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
+}
 
   glDisableVertexAttribArray(0);
   //glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -413,76 +413,14 @@ bool Plot2d::gl_draw ()
 }
 
 
-/* the vertex data is constant */
-struct vertex_info {
-  float position[3];
-  float color[3];
-};
 
-static const struct vertex_info vertex_data[] = {
-  { {  0.0f,  0.500f, 0.0f }, { 1.f, 0.f, 0.f } },
-  { {  0.5f, -0.366f, 0.0f }, { 0.f, 1.f, 0.f } },
-  { { -0.5f, -0.366f, 0.0f }, { 0.f, 0.f, 1.f } },
-};
 
-GLfloat xgrid[4][3] = {
-	-1.0f, 0.0f, 0.0f,
-	 1.0f, 0.0f, 0.0f,
-	-1.0f, 0.2f, 0.0f,
-	 1.0f, 0.2f, 0.0f, 
-};
+
 
 
 #define G_STRUCT_OFFSET(struct_type, member) \
       ((long) offsetof (struct_type, member))
 
-
-void Plot2d::init_buffers (GLuint  position_index,
-              GLuint  color_index,
-              GLuint *vao_out)
-{
-  GLuint vao, buffer;
-
-  /* we need to create a VAO to store the other buffers */
-  glGenVertexArrays (1, &vao);
-  glBindVertexArray (vao);
-
-	std::cout << "size of vao before buffring " << sizeof(vao) << std::endl;
-
-  /* this is the VBO that holds the vertex data */
-  glGenBuffers (1, &buffer);
-  glBindBuffer (GL_ARRAY_BUFFER, buffer);
-  glBufferData (GL_ARRAY_BUFFER, sizeof (xgrid), xgrid, GL_STATIC_DRAW);
-
-  /* enable and set the position attribute */
-  glEnableVertexAttribArray (0);
-  glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE,
-                         sizeof (xgrid),
-                         (GLvoid*) 0);
-
-						 std::cout << "size of vao after buffring " << sizeof(vao) << std::endl;
-/*
-  // enable and set the color attribute 
-  glEnableVertexAttribArray (color_index);
-  glVertexAttribPointer (color_index, 3, GL_FLOAT, GL_FALSE,
-                         sizeof (struct vertex_info),
-                         (GLvoid *) (G_STRUCT_OFFSET (struct vertex_info, color)));
-*/
-  /* reset the state; we will re-enable the VAO when needed */
-//  glBindBuffer (GL_ARRAY_BUFFER, 0);
- // glBindVertexArray (0);
-
-  /* the VBO is referenced by the VAO */
- // glDeleteBuffers (1, &buffer);
-
-  if (vao_out != NULL)
-    *vao_out = vao;
-}
-
-void Plot2d::gl_init()
-{
-
-}
 
 
 void Plot2d::realize() {
@@ -491,79 +429,56 @@ void Plot2d::realize() {
 	init_shaders();
 }
 
+void Plot2d::unrealize() {
+	  glDeleteBuffers(1, &vao);
+    glDeleteProgram(program);
+}
+
 void Plot2d::init_buffers() {
 
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	struct vertex_info {
-		float position[3];
-		float color[3];
-	};
+	if (TEST_RUN == 1) {
 
-	static const struct vertex_info vertex_data[] = {
-	{ {  0.0f,  0.500f, 0.0f }, { 1.f, 0.f, 0.f } },
-	{ {  0.5f, -0.366f, 0.0f }, { 0.f, 1.f, 0.f } },
-	{ { -0.5f, -0.366f, 0.0f }, { 0.f, 0.f, 1.f } },
-	};
-
-GLfloat xgrid[4][3] = {
-	-1.0f, 0.0f, 0.0f,
-	 1.0f, 0.0f, 0.0f,
-	-1.0f, 0.2f, 0.0f,
+GLfloat xgrid[] = {
+	1.0f, 3.0f, 0.0f,
+	 1.0f, 1.0f, 0.0f,
+	-1.0f, 1.0f, 0.0f,
 	 1.0f, 0.2f, 0.0f, 
+	 2.0f, 0.5f, 0.3f, 
+	 1.0f, 0.2f, 0.6f, 
+	 -1.0f, 0.6f, 0.0f, 
+	 1.0f, 0.2f, 0.3f, 
+	 -1.0f, 1.2f, 0.0f, 
 };
-	
-
 
   /* we need to create a VAO to store the other buffers */
   glGenVertexArrays (1, &vao);
   glBindVertexArray (vao);
 
-std::cout << "size of vao before buffring " << sizeof(vao) << std::endl;
+	std::cout << "size of vao before buffring " << sizeof(vao) << std::endl;
 
 
   /* this is the VBO that holds the vertex data */
   glGenBuffers (1, &position_index);
   glBindBuffer (GL_ARRAY_BUFFER, position_index);
-  glBufferData (GL_ARRAY_BUFFER, sizeof (xgrid), xgrid, GL_STATIC_DRAW);
+  glBufferData (GL_ARRAY_BUFFER, sizeof (xgrid), xgrid, GL_DYNAMIC_DRAW);
 
   /* enable and set the position attribute */
   glEnableVertexAttribArray (0);
   glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE,
-                         sizeof (xgrid),
+                         0,
                          (GLvoid *) 0);
 
-						  std::cout << "size of xgrid after buffring " << sizeof(xgrid) << std::endl;
-/*
-/*
-
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	glGenBuffers(1, &position_index);
-	glBindBuffer(GL_ARRAY_BUFFER, position_index);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
-	  // enable and set the position attribute 
-  glEnableVertexAttribArray (position_index);
-  glVertexAttribPointer (position_index, 3, GL_FLOAT, GL_FALSE,
-                         sizeof (struct vertex_info),
-                         (GLvoid *) (G_STRUCT_OFFSET (struct vertex_info, position)));
-
-  // enable and set the color attribute 
-  glEnableVertexAttribArray (color_index);
-  glVertexAttribPointer (color_index, 3, GL_FLOAT, GL_FALSE,
-                         sizeof (struct vertex_info),
-                         (GLvoid *) (G_STRUCT_OFFSET (struct vertex_info, color)));
-
-  // reset the state; we will re-enable the VAO when needed 
-  glBindBuffer (GL_ARRAY_BUFFER, 0);
+	std::cout << "size of xgrid after buffring " << sizeof(xgrid) << std::endl;
+	glBindBuffer (GL_ARRAY_BUFFER, 0);
   glBindVertexArray (0);
+	}
+else if (TEST_RUN == 0) {
+	initializeBuffer();
+}
 
-/**/
 }
 
 void Plot2d::init_shaders() {
@@ -572,8 +487,63 @@ void Plot2d::init_shaders() {
 
 	mvp_location = glGetUniformLocation(program, "MVP");	
 
+	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+	// Camera matrix
+	glm::mat4 View = glm::lookAt(
+		glm::vec3(0, 0, 1.5), // Camera is at (4,4,-5), in World Space
+		glm::vec3(0, 0, 0), // and looks at the origin
+		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+	);
+	// Model matrix : an identity matrix (model will be at the origin)
+	glm::mat4 Model = glm::mat4(1.0f);
+	// Our ModelViewProjection : multiplication of our 3 matrices
+	mvp = Projection * View * Model; // Remember, matrix multiplication is the other way around
+
+
 	uniform_color = glGetUniformLocation(program, "uniformcolor");
   int status;
   glGetProgramiv(program, GL_LINK_STATUS, &status);
   //glDeleteProgram(program);
+}
+
+void Plot2d::loadModel() {
+	objl::Loader Loader;
+	bool loadout = Loader.LoadFile("suzanne.obj");
+	if (loadout) {
+		objl::Mesh curMesh = Loader.LoadedMeshes[0];
+		glGenVertexArrays(1, &model_vao);
+		glBindVertexArray(model_vao);
+		glGenBuffers(1, &modelbuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, modelbuffer);
+		glBufferData(GL_ARRAY_BUFFER, curMesh.Vertices.size() * sizeof(glm::vec3), &curMesh.Vertices[0], GL_STATIC_DRAW);
+	} else {
+		std::cerr << "Model could not be loaded :(" << std::endl;
+	}
+}
+
+void Plot2d::drawModel() {
+	 	// Clear the screen
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Use our shader
+	glUseProgram(programID);
+
+	// Send our transformation to the currently bound shader, 
+	// in the "MVP" uniform
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+
+	glBindVertexArray(model_vao);
+
+	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
+	//for (int i=0; i<NUM_PLOTS; i++) {
+//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
+//	}
+	GLfloat white[4] = {1, 1, 1, 1};
+	GLfloat red[4] = {1, 0, 0, 1};
+	glUniform4fv(uniform_color, 1, red);
+	glDrawElements(GL_TRIANGLES, 100/sizeof(GLushort), GL_UNSIGNED_SHORT, 0);
+
+	//glUniform1f(1, -C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME);
+	//glDrawArrays(GL_LINE_STRIP, INDEX_OF_LAST_ENTRY, C_SAMPLES_PER_FRAME - INDEX_OF_LAST_ENTRY);
+
 }

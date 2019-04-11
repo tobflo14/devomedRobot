@@ -31,6 +31,10 @@ class Plot2d {
         void init_buffers();
         void init_shaders();
         void realize();
+        void unrealize();
+        void loadModel();
+        void drawModel();
+        
 
     private:
         void init();
@@ -53,6 +57,7 @@ class Plot2d {
         GLuint dataArray;
         GLuint dataBuffer;
         GLuint colorbuffer;
+        GLuint modelbuffer;
         GLuint programID;
         GLuint MatrixID;
         glm::mat4 MVP;
@@ -67,6 +72,7 @@ class Plot2d {
         GLuint mvp_location;
         GLuint position_index;
         GLuint color_index;
+        GLuint model_vao;
         
 
 };

@@ -15,6 +15,7 @@ void* PlotThread(void* arg) {
   
    // plot.deleteBuffers();
     plot.initPlotWindow();
+    plot.loadModel();
     plot.initializeBuffer();
     while (!(robot_data->shutdown)) {
         while (robot_data->run) {
@@ -26,7 +27,8 @@ void* PlotThread(void* arg) {
             }
             robot_data->plot1.clear();
             robot_data->plot2.clear();
-            plot.drawGraph();
+            //plot.drawGraph();
+            plot.drawModel();
             plot.swapBuffers();
             usleep(16000);
         }

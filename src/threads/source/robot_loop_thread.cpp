@@ -154,8 +154,15 @@ void* RobotLoopThread(void* arg) {
                 }
 */
                 robot_data->timer += period.toSec();
+
+                if (robot_data->timer > 2.0 && robot_data->timer < 4.0) {
+                    robot_data->track_position = true;
+                } else {
+                    robot_data->track_position = false;
+                }
                 
-                writeData.robot_position.push_back(get_position(robot_state).norm());
+                robot_data->robot_position = get_position(robot_state);
+                writeData.robot_position.push_back(robot_data->robot_position.norm());
                 robot_data->robot_velocity = get_velocity(robot_state);
                 robot_data->robot_ang_velocity = get_ang_velocity(robot_state);
                 writeData.commanded_velocity.push_back(robot_data->robot_velocity.norm());
@@ -184,7 +191,10 @@ void* RobotLoopThread(void* arg) {
                 robot_data->setpoint_ang_acc = (1.0/inertia)*(robot_data->external_ang_force - 3.0*robot_data->robot_ang_velocity); //a=1/m * (F - Bv) Admittance controller
                 
                 //Set velocity setpoint to be fed to PID from acceleration setpoint
-                //robot_data->setpoint_velocity = robot_data->robot_velocity + robot_data->setpoint_acc * dt;
+                robot_data->setpoint_velocity = robot_data->robot_velocity + robot_data->setpoint_acc * dt;
+                
+                Vector3d constrain_direction = {0.5774,0.5774,0.5774};
+                robot_data->setpoint_velocity = robot_data->setpoint_velocity.dot(constrain_direction)*constrain_direction;
 
                 //
                 //velocityPid.setParameters(robot_data->kp, 0.0, robot_data->kd);
@@ -194,8 +204,8 @@ void* RobotLoopThread(void* arg) {
                
                 writeData.desired_velocity.push_back(robot_data->desired_velocity.norm());
 
-                acc = robot_data->setpoint_acc;
-                //acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
+                //acc = robot_data->setpoint_acc;
+                acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
                 //acc_ang = (robot_data->setpoint_ang_velocity - robot_data->robot_ang_velocity) / dt;
                 acc_ang = robot_data->setpoint_ang_acc;
                 writeData.desired_acc.push_back(acc.norm());
@@ -221,16 +231,25 @@ void* RobotLoopThread(void* arg) {
                 writeData.robot_velocity.push_back(vel_desired.norm());
                 writeData.setpoint_velocity.push_back(robot_data->setpoint_velocity.norm());
 
-                robot_data->plot2.push_back(Point(robot_data->timer,acc_ang.norm()));
-                std::cout << acc_ang.norm()/robot_data->robot_ang_acceleration.norm() << std::endl;
-                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_ang_acceleration.norm()));
+                robot_data->plot2.push_back(Point(robot_data->timer,acc.norm()));
+                //std::cout << acc_ang.norm()/robot_data->robot_ang_acceleration.norm() << std::endl;
+                robot_data->plot1.push_back(Point(robot_data->timer,robot_data->robot_acceleration.norm()));
 
                 robot_data->run = true;
 
-                franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], vel_desired_ang[0], vel_desired_ang[1], vel_desired_ang[2]}};
+                //franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], vel_desired_ang[0], vel_desired_ang[1], vel_desired_ang[2]}};
                 //franka::CartesianVelocities robot_command = {{vel_desired[0], 0.0, 0.0, vel_desired_ang[0], vel_desired_ang[1], vel_desired_ang[2]}};
-                //franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
+                franka::CartesianVelocities robot_command = {{vel_desired[0], vel_desired[1], vel_desired[2], 0.0, 0.0, 0.0}};
                 
+                if (robot_data->track_position) {
+                    robot_data->tracking_data.push_back({
+                        robot_data->timer,
+                        robot_data->robot_position[0],
+                        robot_data->robot_position[1],
+                        robot_data->robot_position[2]
+                    });
+                }
+
                 //If we are trying to shut down, wait for the robot to reach zero speed before finishing.
                 if (robot_data->shutdown && robot_data->robot_velocity.norm() < 0.01) {
                     std::cout << "Speed is now zero, and we are shutting down." << std::endl;
@@ -260,29 +279,6 @@ void* RobotLoopThread(void* arg) {
         }
     }
     robot_data->run = false;
-
-    std::ofstream file_to_write;
-    file_to_write.open("output.csv");
-    if (file_to_write.is_open()) {
-        file_to_write << "dt;Desired velocity;Desired acceleration;Desired jerk;Limited jerk;Acc limited of jerk;Limited acceleration;Robot velocity;Robot acceleration;Commanded velocity;Setpoint velocity;External Force;Robot position\n";
-        for (int i = 900; i < 1300; i++) {
-            file_to_write << writeData.dt[i] << ";";
-            file_to_write << writeData.desired_velocity[i] << ";";
-            file_to_write << writeData.desired_acc[i] << ";";
-            file_to_write << writeData.desired_jerk[i] << ";";
-            file_to_write << writeData.limited_jerk[i] << ";";
-            file_to_write << writeData.acc_limited_of_jerk[i] << ";";
-            file_to_write << writeData.limited_acc[i] << ";";
-            file_to_write << writeData.robot_velocity[i] << ";";
-            file_to_write << writeData.robot_acc[i] << ";";
-            file_to_write << writeData.commanded_velocity[i] << ";";
-            file_to_write << writeData.setpoint_velocity[i] << ";";
-            file_to_write << writeData.ext_force[i] << ";";
-            file_to_write << writeData.robot_position[i] << ";\n";
-        }
-        file_to_write.close();
-    }
-    else std::cout << "Unable to open file. :(" << std::endl;
 
     std::cout << "Robot loop thread shutting down " << std::endl;
     return NULL;

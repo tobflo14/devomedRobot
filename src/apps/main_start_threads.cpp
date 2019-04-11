@@ -3,7 +3,7 @@
 #include "robot_loop_thread.h"
 #include "calculate_velocity_thread.h"
 #include "plot_thread.h"
-#include "keyboard_input_thread.h"
+#include "track_thread.h"
 #include "gui_thread.h"
 
 #include <iostream>
@@ -32,13 +32,15 @@ Eigen::Vector3d setpoint_acc;
 Eigen::Vector3d setpoint_ang_acc;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
-double kp = 0.2;
-double ki = 8.0;
+std::vector<std::vector<double>> tracking_data;
+double kp = 0.1;
+double ki = 5.0;
 double kd = 50.0;
-double fake_mass = 5.0; //Simulated mass in kg
+double fake_mass = 3.0; //Simulated mass in kg
 double timer;
 bool run;
 bool shutdown;
+bool track_position = false;
 
 int main(int argc, char** argv) {
     int rc;
@@ -64,6 +66,7 @@ int main(int argc, char** argv) {
     robot_data.setpoint_ang_acc = setpoint_ang_acc;
     robot_data.plot1 = plot1;
     robot_data.plot2 = plot2;
+    robot_data.tracking_data = tracking_data;
     robot_data.kp = kp;
     robot_data.ki = ki;
     robot_data.kd = kd;
@@ -71,6 +74,7 @@ int main(int argc, char** argv) {
     robot_data.timer = timer;
     robot_data.run = run;
     robot_data.shutdown = shutdown;
+    robot_data.track_position = track_position;
 
     pthread_t threads[NUM_THREADS];
 
@@ -83,10 +87,10 @@ int main(int argc, char** argv) {
             rc = pthread_create(&threads[i], NULL, CalculateVelocityThread, &robot_data);
         }
         else if (i == 2) {
-            rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
+            //rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
         }
         else if (i == 3) {
-            rc = pthread_create(&threads[i], NULL, KeyboardInputThread, &robot_data);
+            rc = pthread_create(&threads[i], NULL, TrackThread, &robot_data);
         }
         else if (i == 4) {
             rc = pthread_create(&threads[i], NULL, RobotLoopThread, &robot_data);

@@ -68,7 +68,7 @@ src/functions/source/functions.cpp
 src/threads/source/robot_loop_thread.cpp
 src/threads/source/calculate_velocity_thread.cpp
 src/threads/source/plot_thread.cpp
-src/threads/source/keyboard_input_thread.cpp
+src/threads/source/track_thread.cpp
 src/threads/source/gui_thread.cpp
 src/threads/source/gui_thread_1.cpp
 )

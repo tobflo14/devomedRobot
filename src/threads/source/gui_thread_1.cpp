@@ -8,7 +8,7 @@
 //shared_robot_data *robot_data1;
 //auto app
 
-Plot2d plot = Plot2d(100,5,2);
+Plot2d plot = Plot2d(500,5,2);
 
  Gui::Gui(void *arg) {
     this->robot_data1 = (shared_robot_data *)arg;
@@ -100,10 +100,14 @@ void* Gui::GuiThread() {
     btn_shutdown->signal_clicked().connect(sigc::mem_fun(*this, &Gui::shutdown));
 
     //plot.gl_draw();
- //Glib::signal_timeout().connect(sigc::ptr_fun(&update_values), 40);
+    //Glib::signal_timeout().connect(sigc::mem_fun(*this, &update_values), 40);
     gl_area->set_auto_render();
     gl_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealize));
+    gl_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealize));
     gl_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRender), false);
+    Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_plot), 400);
+    //Glib::signal_timeout().connect([this]() {
+    //  Gui::update_plot();}, 1000);
     /* gl_area->signal_render().connect([this]() {
       //  *value_ptr += change_value; 
         Gui::onRender();
@@ -128,6 +132,16 @@ void Gui::onRealize(){
 
 void Gui::onUnrealize(){
     //clean up 
+    gl_area->make_current();
+    try {
+      gl_area->throw_if_error();
+      plot.unrealize();
+    }
+    catch(const Gdk::GLError& gle)
+    {
+    cerr << "An error occured making the context current during unrealize" << endl;
+    cerr << gle.domain() << "-" << gle.code() << "-" << gle.what() << endl;
+    }
 }
 
 bool Gui::onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
@@ -135,6 +149,7 @@ bool Gui::onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
      try
   {
     gl_area->throw_if_error();
+    update_plot();
     plot.gl_draw();
   }
   catch(const Gdk::GLError& gle)
@@ -145,35 +160,16 @@ bool Gui::onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
     
     return true;
 }
-/*
 
-void Gui::draw_triangle()
-{
-  if (this->program == 0 || this->vao == 0)
-    return;
 
-  glUseProgram (this->program);
-
-  glUniformMatrix4fv (self->mvp_location, 1, GL_FALSE, &(self->mvp[0]));
-
-  glBindVertexArray (self->vao);
-
-  glDrawArrays (GL_TRIANGLES, 0, 3);
-
-  glBindVertexArray (0);
-  glUseProgram (0);
+bool Gui::update_plot() {
+  if (robot_data1->plot1.size() > 0) {
+    Point values[] = {robot_data1->plot1[0], robot_data1->plot2[0]};
+    std::cout << "updates real values" << std::endl;
+    plot.graph_update(values);
+  }
+  //onRender(*this);
+  gl_area->queue_render();
+ 
+  return true;
 }
-
-static gboolean
-gl_draw ()
-{
-  glClearColor (0.5, 0.5, 0.5, 1.0);
-  glClear (GL_COLOR_BUFFER_BIT);
-
-  draw_triangle (self);
-
-  glFlush ();
-
-  return FALSE;
-}
-*/

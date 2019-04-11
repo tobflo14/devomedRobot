@@ -19,6 +19,7 @@ class Gui {
         static bool gl_draw();
         void onRealize();
         void onUnrealize();
+        bool update_plot();
         bool onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */);
         //void create_button(std::string name, double *value_ptr, double change_value, void (Gui::*f)());
 
