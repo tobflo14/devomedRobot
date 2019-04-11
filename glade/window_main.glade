@@ -563,7 +563,7 @@ en database, eller ta opp en egen
                       <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="pixbuf">..\..\..\OneDrive - NTNU\Div dokumenter\Skole\master\franka-emika-s.jpg</property>
+                        <property name="pixbuf">franka-emika-s.jpg</property>
                       </object>
                       <packing>
                         <property name="left_attach">3</property>
@@ -589,7 +589,7 @@ en database, eller ta opp en egen
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkGLArea" id="gl_model_are">
+                  <object class="GtkGLArea" id="gl_model_area">
                     <property name="visible">True</property>
                     <property name="app_paintable">True</property>
                     <property name="can_focus">False</property>
