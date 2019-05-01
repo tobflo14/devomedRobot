@@ -1,9 +1,11 @@
+
 // OpenGL-stuff
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <vector>
 #include <cstring> // string function definitions
 
 // Include GLEW
@@ -16,11 +18,14 @@
 // Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-using namespace glm;
+#include <glm/gtx/euler_angles.hpp>
+//using namespace glm;
 
 #include <common/headers/shader.hpp>
 #include "plot2d.h"
+#include "common/headers/controls.h"
 #include "OBJ_Loader.h"
+#include "common/headers/texture.hpp"
 
 //#include <epoxy/gl.h>
 
@@ -34,15 +39,13 @@ using namespace glm;
 	-1.0f, 0.2f, 0.0f,
 	 1.0f, 0.2f, 0.0f, 
 };
-GLfloat xgrid_color[] = {
-	 1.0f, 1.0f, 1.0f,
-	 1.0f, 1.0f, 1.0f,
-	 0.0f, 1.0f, 0.0f,
-	 0.0f, 1.0f, 0.0f, 
-};
 */
 
 #define TEST_RUN 0
+
+//GLfloat last_100[100*3];
+GLfloat current_100[100*3];
+
 
 Plot2d::Plot2d(int samples_per_frame, float y_range, int number_of_plots) {
 	this->SAMPLES_PER_FRAME = samples_per_frame;
@@ -68,18 +71,26 @@ void Plot2d::init() {
 	this->buffersize = sizeof(GLfloat)*SAMPLES_PER_FRAME*VERTEX_COORDINATE_COUNT;
 }
 
-void Plot2d::initPlotWindow() {
+
+void Plot2d::initGLFW() {
 	// Initialise GLFW
 	if (!glfwInit())
 	{
 		fprintf(stderr, "Failed to initialize GLFW\n");
 		getchar();
 	}
+}
+
+
+void Plot2d::initPlotWindow() {
+	
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+/*
 
 	// Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -93,7 +104,7 @@ void Plot2d::initPlotWindow() {
 	glm::mat4 Model = glm::mat4(1.0f);
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
-	
+	*/
 	//initGLFW();
 
 	// Open a window and create its OpenGL context
@@ -106,6 +117,7 @@ void Plot2d::initPlotWindow() {
 	}
 	glfwMakeContextCurrent(window);
 
+	// Initialize GLEW
 	glewExperimental = true; // Needed for core profile
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
@@ -116,8 +128,13 @@ void Plot2d::initPlotWindow() {
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
+// Set the mouse at the center of the screen
+	glfwPollEvents();
+	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+
+
 	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -126,12 +143,24 @@ void Plot2d::initPlotWindow() {
 	glDepthFunc(GL_LESS);
 	
 
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
+ 
+ 	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+
 	// Create and compile our GLSL program from the shaders
-  	programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+//  programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
 
 	// Get a handle for our "MVP" uniform
-	MatrixID = glGetUniformLocation(programID, "MVP");	
-	uniform_color = glGetUniformLocation(programID, "uniformcolor");
+	MatrixID = glGetUniformLocation(programID, "MVP");
+	ViewMatrixID = glGetUniformLocation(programID, "V");
+	ModelMatrixID = glGetUniformLocation(programID, "M");	
+	//uniform_color = glGetUniformLocation(programID, "uniformcolor");
+
+	
 }
 
 
@@ -283,20 +312,44 @@ void Plot2d::graph_update(Point values[]) {
   glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
  // float value = (float) mainValue;
 	float current_index_of_buffer = sizeof(GLfloat) * INDEX_OF_LAST_ENTRY * VERTEX_COORDINATE_COUNT;
-	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT;
+	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT*100;
 	//double values[NUM_PLOTS];
-	for(int i=0; i<NUM_PLOTS; i++) {
-		float value_x = (float) values[i].first;
-		float value_y = (float) values[i].second;
+//	for(int i=0; i<NUM_PLOTS; i++) {
+		float value_x = (float) values[0].first;
+		float value_y = (float) values[0].second;
 		point[0] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
 		point[1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
 		point[2] = 0.0f;
 
-		glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize*i,
-		size_of_new_data, point);
-	}
+	
+
+	//	glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize*i,
+	//	size_of_new_data, point);
+	//}
+
+		if (INDEX_OF_LAST_ENTRY < 100) {
+			current_100[INDEX_OF_LAST_ENTRY*3] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
+			current_100[INDEX_OF_LAST_ENTRY*3 + 1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f;
+			current_100[INDEX_OF_LAST_ENTRY*3 + 2] = 0.0f;
+		}
+		else {
+			//GLfloat last_100[100*3] = current_100;
+		//	last_100-> current_100;
+			for (int i=0; i<99; i++) {
+			 current_100[i*3] = GRAPH_WIDTH * i / SAMPLES_PER_FRAME -1.0f;;
+			 current_100[i*3+1] = current_100[(i+1)*3 + 1];
+			 current_100[i*3+2] = current_100[(i+1)*3 + 2];
+			}
+			current_100[99*3] = GRAPH_WIDTH * 99 / SAMPLES_PER_FRAME -1.0f;
+			current_100[99*3 + 1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f;
+			current_100[99*3 + 2] = 0.0f;
+		}
+		
+
+		glBufferSubData(GL_ARRAY_BUFFER, 0,
+		size_of_new_data, current_100);	
 	// Increment buffer position, start writing to the start of the buffer again when the end is reached
-	INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1) % (SAMPLES_PER_FRAME);
+	INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1); //% (SAMPLES_PER_FRAME);
 }
 
 
@@ -355,8 +408,6 @@ void Plot2d::deleteBuffers() {
 }
 
 
-
-
 bool Plot2d::gl_draw ()
 {
 
@@ -366,42 +417,48 @@ bool Plot2d::gl_draw ()
   glUseProgram(program);
   
   glUniformMatrix4fv(mvp_location, 1, GL_FALSE, &mvp[0][0]);
-//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-//  mvp_location = glGetUniformLocation(program, "MVP");	
+	//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	//  mvp_location = glGetUniformLocation(program, "MVP");	
 
 
 
-if (TEST_RUN == 1) {
-	glBindVertexArray(vao);
-  glEnableVertexAttribArray(0);
- // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+	if (TEST_RUN == 1) {
+		glBindVertexArray(vao);
+		glEnableVertexAttribArray(0);
+	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
 
-	GLfloat red[4] = {1, 0, 0, 1};
-	GLfloat green[4] = {0, 1, 0, 1};
-	glUniform4fv(uniform_color, 1, green);
-	std::cout << "drawing is happening" << std::endl;
-  glDrawArrays(GL_LINES, 0, 4);
-	glUniform4fv(uniform_color, 1, red);
-  glDrawArrays(GL_LINE_STRIP, 4, 8);
+		GLfloat red[4] = {1, 0, 0, 1};
+		GLfloat green[4] = {0, 1, 0, 1};
+		glUniform4fv(uniform_color, 1, green);
+		//std::cout << "drawing is happening" << std::endl;
+		glDrawArrays(GL_LINES, 0, 4);
+		glUniform4fv(uniform_color, 1, red);
+		glDrawArrays(GL_LINE_STRIP, 4, 8);
 
 
-}
-else if (TEST_RUN == 0) {
+	}
+	else if (TEST_RUN == 0) {
 
-	glBindVertexArray(dataArray);
-glEnableVertexAttribArray(0);
-	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
-	//for (int i=0; i<NUM_PLOTS; i++) {
-//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
-//	}
-	GLfloat color1[4] = {152.f/255.f, 0, 186.f/255.f, 1};
-	GLfloat color2[4] = {50.f/255.f, 145.f/255.f, 0, 1};
-	glUniform4fv(uniform_color, 1, color1);
-	glDrawArrays(GL_LINE_STRIP, 0, INDEX_OF_LAST_ENTRY);
-	glUniform4fv(uniform_color, 1, color2);
-	glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
-}
+		glBindVertexArray(dataArray);
+	glEnableVertexAttribArray(0);
+		//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
+		//for (int i=0; i<NUM_PLOTS; i++) {
+	//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
+	//	}
+		GLfloat color1[4] = {152.f/255.f, 0, 186.f/255.f, 1};
+		GLfloat color2[4] = {50.f/255.f, 145.f/255.f, 0, 1};
+		glUniform4fv(uniform_color, 1, color1);
+		if (INDEX_OF_LAST_ENTRY < 100) {
+			glDrawArrays(GL_LINE_STRIP, 0, INDEX_OF_LAST_ENTRY);
+		}
+		else {
+			glDrawArrays(GL_LINE_STRIP, 0, 100);
+		}
+		
+	//	glUniform4fv(uniform_color, 1, color2);
+	//	glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
+	}
 
   glDisableVertexAttribArray(0);
   //glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -507,43 +564,176 @@ void Plot2d::init_shaders() {
 }
 
 void Plot2d::loadModel() {
-	objl::Loader Loader;
-	bool loadout = Loader.LoadFile("suzanne.obj");
-	if (loadout) {
-		objl::Mesh curMesh = Loader.LoadedMeshes[0];
-		glGenVertexArrays(1, &model_vao);
-		glBindVertexArray(model_vao);
-		glGenBuffers(1, &modelbuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, modelbuffer);
-		glBufferData(GL_ARRAY_BUFFER, curMesh.Vertices.size() * sizeof(glm::vec3), &curMesh.Vertices[0], GL_STATIC_DRAW);
-	} else {
-		std::cerr << "Model could not be loaded :(" << std::endl;
+
+	loadTexture();
+
+	glBindVertexArray(VertexArrayID);
+	std::cout << "loading model" << std::endl;
+	
+	objl::Loader loader;
+	loader.LoadFile("panda_franka.obj");
+
+	size_t total_vertices = loader.LoadedVertices.size();
+	size_t cur_total_vertices = 0;
+	std::cout << total_vertices << std::endl;
+	std::vector<glm::vec3> vertices(total_vertices);
+	std::vector<glm::vec2> uvs(total_vertices);
+	std::vector<glm::vec3> normals(total_vertices);
+	std::cout << loader.LoadedMeshes.size() << std::endl;
+	for (int j = 0; j < loader.LoadedMeshes.size(); j++) {
+
+	
+	objl::Mesh mesh = loader.LoadedMeshes[j];
+	
+//	std::cout << mesh.Vertices.size() << std::endl;
+	
+	size_t num_vertices = mesh.Vertices.size();
+	
+	std::cout << num_vertices << std::endl;
+	for (int i = 0; i < num_vertices; i++) {
+				if (i < 10) {
+					std::cout << i << ": " << mesh.Vertices[i].Position.X << std::endl;
+				}
+		//std::cout << mesh.Vertices[i].Position.X << std::endl;
+		vertices[cur_total_vertices + i] = glm::vec3(mesh.Vertices[i].Position.X, 
+								mesh.Vertices[i].Position.Y, 
+								mesh.Vertices[i].Position.Z);
+
+		normals[cur_total_vertices + i] = glm::vec3(mesh.Vertices[i].Normal.X,
+			mesh.Vertices[i].Normal.Y,
+			mesh.Vertices[i].Normal.Z);
+
+		uvs[cur_total_vertices + i] = glm::vec2(mesh.Vertices[i].TextureCoordinate.X,
+			mesh.Vertices[i].TextureCoordinate.Y);
 	}
+	cur_total_vertices += num_vertices;
+	}
+
+		// load in buffers
+	
+	num_model_vertices = vertices.size();
+
+//	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, num_model_vertices * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+
+glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+
+	// Get a handle for our "LightPosition" uniform
+	glUseProgram(programID);
+	LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+
+	std::cout << "num model vertices " << num_model_vertices << std::endl;
+//	} else {
+//		std::cerr << "Model could not be loaded :(" << std::endl;
+//	}
 }
 
 void Plot2d::drawModel() {
+glBindVertexArray(VertexArrayID);
+	//std::cout << "draw model" << std::endl;
 	 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use our shader
 	glUseProgram(programID);
 
+	// Compute the MVP matrix from keyboard and mouse input
+	computeMatricesFromInputs(this->window);
+
+	glm::mat4 ProjectionMatrix = getProjectionMatrix();
+	glm::mat4 ViewMatrix = getViewMatrix();
+	glm::mat4 ModelMatrix = glm::mat4(1.0);
+	//glm::mat4 ModelMatrix = glm::mat4(1.0);
+	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+
+
+
+	
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+	glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-	glBindVertexArray(model_vao);
+	glm::vec3 lightPos = glm::vec3(4, 4, 4);
+	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
-	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
-	//for (int i=0; i<NUM_PLOTS; i++) {
-//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
-//	}
-	GLfloat white[4] = {1, 1, 1, 1};
-	GLfloat red[4] = {1, 0, 0, 1};
-	glUniform4fv(uniform_color, 1, red);
-	glDrawElements(GL_TRIANGLES, 100/sizeof(GLushort), GL_UNSIGNED_SHORT, 0);
+	// Bind our texture in Texture Unit 0
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture);
+		// Set our "myTextureSampler" sampler to use Texture Unit 0
+		glUniform1i(TextureID, 0);
 
-	//glUniform1f(1, -C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME);
-	//glDrawArrays(GL_LINE_STRIP, INDEX_OF_LAST_ENTRY, C_SAMPLES_PER_FRAME - INDEX_OF_LAST_ENTRY);
 
+	// 1rst attribute buffer : vertices
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+		glVertexAttribPointer(
+			0,                  // attribute
+			3,                  // size
+			GL_FLOAT,           // type
+			GL_FALSE,           // normalized?
+			0,                  // stride
+			(void*)0            // array buffer offset
+		);
+
+		// 2nd attribute buffer : UVs
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+		glVertexAttribPointer(
+			1,                                // attribute
+			2,                                // size
+			GL_FLOAT,                         // type
+			GL_FALSE,                         // normalized?
+			0,                                // stride
+			(void*)0                          // array buffer offset
+		);
+
+		// 3rd attribute buffer : normals
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+		glVertexAttribPointer(
+			2,                                // attribute
+			3,                                // size
+			GL_FLOAT,                         // type
+			GL_FALSE,                         // normalized?
+			0,                                // stride
+			(void*)0                          // array buffer offset
+		);
+
+// Draw the triangles !
+	glDrawArrays(GL_TRIANGLES, 0, num_model_vertices);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+}
+
+void Plot2d::cleanupModel(){
+	// Cleanup VBO and shader
+	glDeleteBuffers(1, &vertexbuffer);
+	glDeleteBuffers(1, &uvbuffer);
+	glDeleteBuffers(1, &normalbuffer);
+	glDeleteProgram(programID);
+	glDeleteTextures(1, &Texture);
+	glDeleteVertexArrays(1, &VertexArrayID);
+
+	// Close OpenGL window and terminate GLFW
+	glfwTerminate();
+}
+
+void Plot2d::loadTexture(){
+	// Load the texture
+	Texture = loadDDS("uvmap.DDS");
+
+	// Get a handle for our "myTextureSampler" uniform
+	TextureID = glGetUniformLocation(programID, "myTextureSampler");
 }

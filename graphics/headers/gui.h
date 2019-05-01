@@ -1,5 +1,6 @@
-#ifndef GUI_THREAD_1_H
-#define GUI_THREAD_1_H
+#ifndef GUI_H
+#define GUI_H
+
 
 #include <gtkmm.h>
 #include "global_struct.h"
@@ -29,7 +30,7 @@ class Gui {
         void i_down();
         void d_up();
         void d_down();
-        shared_robot_data *robot_data1;
+       // shared_robot_data *robot_data1;
         Gtk::Window *mainWindow;
         Gtk::GLArea *gl_area;
         Gtk::Button *btn_p_up;
@@ -39,6 +40,7 @@ class Gui {
         Gtk::Button *btn_d_up;
         Gtk::Button *btn_d_down;
         Gtk::Button *btn_shutdown;
+        Gtk::Button *btn_record;
         Gtk::Label  *lbl_p_value;
         Gtk::Label  *lbl_i_value;
         Gtk::Label  *lbl_d_value;

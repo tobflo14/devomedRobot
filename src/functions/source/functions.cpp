@@ -3,7 +3,7 @@
 //Released under CC0
 //https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 #include "functions.h"
-
+/*
 Vector3d get_position(const franka::RobotState& robot_state) {
   return Vector3d(
     robot_state.O_T_EE[12],
@@ -11,23 +11,22 @@ Vector3d get_position(const franka::RobotState& robot_state) {
     robot_state.O_T_EE[14]
   );
 }
+*/
+Vector3d get_measured_cartesian_velocity(const franka::RobotState& robot_state, const Eigen::Matrix<double, 6, 7> jacobian) {
 
-Vector3d get_velocity(const franka::RobotState& robot_state) {
+  Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq(robot_state.dq_d.data());
+  VectorXd cartesian_velocity = jacobian * dq;
+  return cartesian_velocity.head(3);
+}
+/*
+Vector3d get_desired_acceleration(const franka::RobotState& robot_state) {
   return Vector3d(
-    robot_state.O_dP_EE_c[0],
-    robot_state.O_dP_EE_c[1],
-    robot_state.O_dP_EE_c[2]
+    robot_state.O_ddP_EE_d[0],
+    robot_state.O_ddP_EE_d[1],
+    robot_state.O_ddP_EE_d[2]
   );
 }
-
-Vector3d get_acceleration(const franka::RobotState& robot_state) {
-  return Vector3d(
-    robot_state.O_ddP_EE_c[0],
-    robot_state.O_ddP_EE_c[1],
-    robot_state.O_ddP_EE_c[2]
-  );
-}
-
+*/
 Vector3d get_ang_velocity(const franka::RobotState& robot_state) {
   return Vector3d(
     robot_state.O_dP_EE_c[3],
@@ -62,7 +61,7 @@ Vector3d get_ext_force(const franka::RobotState& robot_state) {
 
 Vector3d get_ext_ang_force(const franka::RobotState& robot_state) {
   return Vector3d(
-    -(robot_state.K_F_ext_hat_K[3]+0.95),
+    -(robot_state.K_F_ext_hat_K[3]+0.23),
     robot_state.K_F_ext_hat_K[4]+0.05,
     robot_state.K_F_ext_hat_K[5]-0.08
   );
@@ -73,6 +72,13 @@ void limitVector(Eigen::Vector3d& v, double limit) {
   if (v.norm() > limit) {
     v.normalize();
     v *= limit;
+  }
+}
+
+//Limit each value of a vector of size n, with corresponding limits from an equal sized vector
+void limitEach(Eigen::VectorXd& v, std::vector<double> limit) {
+  for (size_t i = 0; i < v.size(); i++) {
+    v[i] = limitValue(v[i], limit[i]);
   }
 }
 
@@ -115,11 +121,11 @@ double PerpendicularDistance(const Point &pt, const Point &lineStart, const Poin
 
 	return pow(pow(ax,2.0)+pow(ay,2.0),0.5);
 }
-
-void RamerDouglasPeucker(const vector<Point> &pointList, double epsilon, vector<Point> &out)
-{
-	if(pointList.size()<2) {
-		out = pointList;
+/*
+MatrixXd RamerDouglasPeucker(const MatrixXd pointList, double epsilon) {
+  std::vector<Vector3d> output;
+	if(pointList.cols()<3) {
+		return pointList;
   } else {
     // Find the point with the maximum distance from line between start and end
     double dmax = 0.0;
@@ -161,3 +167,21 @@ void RamerDouglasPeucker(const vector<Point> &pointList, double epsilon, vector<
     }
   }
 }
+*/
+MatrixXd readMatrix(const char *filename)
+    {
+    std::ifstream indata;
+    indata.open(filename);
+    std::string line;
+    std::vector<double> values;
+    uint rows = 0;
+    while (std::getline(indata, line)) {
+        std::stringstream lineStream(line);
+        std::string cell;
+        while (std::getline(lineStream, cell, ';')) {
+            values.push_back(std::stod(cell));
+        }
+        ++rows;
+    }
+    return Map<const MatrixXd>(values.data(), rows, values.size()/rows);
+  };

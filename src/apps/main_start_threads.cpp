@@ -10,7 +10,7 @@
 #include <thread>
 
 
-#define NUM_THREADS 5
+#define NUM_THREADS 1
 //
 
 static shared_robot_data robot_data;
@@ -33,10 +33,10 @@ Eigen::Vector3d setpoint_ang_acc;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
 std::vector<std::vector<double>> tracking_data;
-double kp = 0.1;
-double ki = 5.0;
+double kp = 0.0;
+double ki = 10.0;
 double kd = 50.0;
-double fake_mass = 3.0; //Simulated mass in kg
+double fake_mass = 0.1; //Simulated mass in kg
 double timer;
 bool run;
 bool shutdown;
@@ -78,16 +78,17 @@ int main(int argc, char** argv) {
 
     pthread_t threads[NUM_THREADS];
 
+    try {
     int i;
     for( i = 0; i < NUM_THREADS; i++ ) {
         if (i == 0) {
-            rc = pthread_create(&threads[i], NULL, GuiThread, &robot_data);
+            rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
         }
         else if (i == 1) {
             rc = pthread_create(&threads[i], NULL, CalculateVelocityThread, &robot_data);
         }
         else if (i == 2) {
-            //rc = pthread_create(&threads[i], NULL, PlotThread, &robot_data);
+            rc = pthread_create(&threads[i], NULL, GuiThread, &robot_data);
         }
         else if (i == 3) {
             rc = pthread_create(&threads[i], NULL, TrackThread, &robot_data);
@@ -109,6 +110,9 @@ int main(int argc, char** argv) {
     }
     std::cout << "DONE DONE DONE" << std::endl;
     //pthread_exit(NULL);
+    } catch (std::exception& e) {
+        cerr << "Main start threads error: " << e.what() << endl;
+    }
 
     return 0;
 

@@ -1,17 +1,17 @@
-#include "gui_thread_1.h"
+#include "gui.h"
 #include "global_struct.h"
 #include <gtkmm.h>
 #include <string.h>
 #include <gtkmm/glarea.h>
 #include <plot2d.h>
 
-//shared_robot_data *robot_data1;
+//shared_robot_data *robot_data;
 //auto app
 
-Plot2d plot = Plot2d(500,5,2);
+Plot2d plot = Plot2d(200,5,2);
 
  Gui::Gui(void *arg) {
-    this->robot_data1 = (shared_robot_data *)arg;
+    this->robot_data = (shared_robot_data *)arg;
     Gui::init();
  }
 
@@ -22,7 +22,7 @@ Plot2d plot = Plot2d(500,5,2);
 
 
 void Gui::shutdown() {
-    robot_data1->shutdown = true;
+    robot_data->shutdown = true;
 }
 
 void Gui::update_values() {
@@ -34,11 +34,11 @@ void Gui::update_values() {
     lbl_i_value->set_text(i_value_char);
     lbl_d_value->set_text(d_value_char);
     lbl_mass_value->set_text(mass_value_char);
-    //lbl_status setText(robot_data1->robot_status)
-    robot_data1->kp = p_value;
-    robot_data1->ki = i_value;
-    robot_data1->kd = d_value;
-    robot_data1->fake_mass = mass_value;
+    //lbl_status setText(robot_data->robot_status)
+    robot_data->kp = p_value;
+    robot_data->ki = i_value;
+    robot_data->kd = d_value;
+    robot_data->fake_mass = mass_value;
     
     //return true;
 }
@@ -66,18 +66,17 @@ void Gui::create_button(std::string name, double &value_ptr, double change_value
 
 void* Gui::GuiThread() {
 
-    
-
     //auto app
-    p_value = robot_data1->kp;
-    i_value = robot_data1->ki;
-    d_value = robot_data1->kd;
-    mass_value = robot_data1->fake_mass;
+    p_value = robot_data->kp;
+    i_value = robot_data->ki;
+    d_value = robot_data->kd;
+    mass_value = robot_data->fake_mass;
 
     printf("running");
 
     builder->get_widget("window_main", mainWindow);
     builder->get_widget("btn_shutdown", btn_shutdown);
+    builder->get_widget("btn_record", btn_record);
     builder->get_widget("lbl_p_value", lbl_p_value);
     builder->get_widget("lbl_i_value", lbl_i_value);
     builder->get_widget("lbl_d_value", lbl_d_value);
@@ -98,6 +97,9 @@ void* Gui::GuiThread() {
 
   
     btn_shutdown->signal_clicked().connect(sigc::mem_fun(*this, &Gui::shutdown));
+    btn_record->signal_clicked().connect([&]() {
+      robot_data->track_position = !robot_data->track_position;
+    });
 
     //plot.gl_draw();
     //Glib::signal_timeout().connect(sigc::mem_fun(*this, &update_values), 40);
@@ -105,7 +107,7 @@ void* Gui::GuiThread() {
     gl_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealize));
     gl_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealize));
     gl_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRender), false);
-    Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_plot), 400);
+    Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_plot), 40);
     //Glib::signal_timeout().connect([this]() {
     //  Gui::update_plot();}, 1000);
     /* gl_area->signal_render().connect([this]() {
@@ -163,13 +165,28 @@ bool Gui::onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
 
 
 bool Gui::update_plot() {
-  if (robot_data1->plot1.size() > 0) {
-    Point values[] = {robot_data1->plot1[0], robot_data1->plot2[0]};
-    std::cout << "updates real values" << std::endl;
+
+
+  //for (size_t i = 0; i < robot_data->plot1.size(); i++) {
+  if (robot_data->plot1.size() > 0) {
+      Point values[] = {robot_data->plot1[0], robot_data->plot2[0]};
+      plot.graph_update(values);
+  }
+ // }
+  robot_data->plot1.clear();
+  robot_data->plot2.clear();
+ //onRender(*this);
+  gl_area->queue_render();
+
+
+/*
+  if (robot_data->plot1.size() > 0) {
+    Point values[] = {robot_data->plot1[0], robot_data->plot2[0]};
+    //std::cout << "updates real values" << std::endl;
     plot.graph_update(values);
   }
   //onRender(*this);
   gl_area->queue_render();
- 
+ */
   return true;
 }

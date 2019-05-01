@@ -14,19 +14,22 @@ void* PlotThread(void* arg) {
     Plot2d plot = Plot2d(5000, 50.0f, 2);
   
    // plot.deleteBuffers();
+    plot.initGLFW();
     plot.initPlotWindow();
     plot.loadModel();
-    plot.initializeBuffer();
+    //plot.initializeBuffer();
     while (!(robot_data->shutdown)) {
-        while (robot_data->run) {
+        while (true){//robot_data->run) {
             //double values[] = {robot_data->robot_velocity[0], robot_data->robot_acceleration[0]};
             //plot.graph_update(values);
+            /*
             for (size_t i = 0; i < robot_data->plot1.size(); i++) {
                 Point values[] = {robot_data->plot1[i], robot_data->plot2[i]};
                 plot.graph_update(values);
             }
             robot_data->plot1.clear();
             robot_data->plot2.clear();
+            */
             //plot.drawGraph();
             plot.drawModel();
             plot.swapBuffers();
@@ -36,6 +39,7 @@ void* PlotThread(void* arg) {
     }
 
     plot.deleteBuffers();
+    plot.cleanupModel();
     std::cout << "Plot thread shutting down" << std::endl;
     return NULL;
 

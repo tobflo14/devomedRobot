@@ -1,16 +1,18 @@
 #ifndef PLOT2D_H
 #define PLOT2D_H
 
-#include "functions.h"
+//#include "functions.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
-using namespace glm;
+//using namespace glm;
+typedef std::pair<double, double> Point;
 
 class Plot2d {
     public:
         Plot2d(int samples_per_frame, float y_range, int number_of_plots);
+        void initGLFW();
         void initPlotWindow(); 
         void saveScreenshotToFile(std::string filename);
         void genColor(); 
@@ -34,6 +36,8 @@ class Plot2d {
         void unrealize();
         void loadModel();
         void drawModel();
+        void cleanupModel();
+        void loadTexture();
         
 
     private:
@@ -73,6 +77,17 @@ class Plot2d {
         GLuint position_index;
         GLuint color_index;
         GLuint model_vao;
+
+        GLuint ModelMatrixID;
+        GLuint ViewMatrixID;
+        GLuint LightID;
+        GLuint TextureID;
+        GLuint Texture;
+        GLuint vertexbuffer;
+        GLuint normalbuffer;
+        GLuint uvbuffer;
+        GLuint VertexArrayID;
+        size_t num_model_vertices;
         
 
 };

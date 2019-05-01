@@ -58,10 +58,16 @@ set(EXAMPLES
 	#gnuplot
 	#joint_impedance_control
 	main_start_threads
+	#playground
+	#merged
 )
 
 set(SOURCES
 common/source/shader.cpp 
+common/source/utils.cpp 
+common/source/common.cpp 
+common/source/controls.cpp
+common/source/texture.cpp
 graphics/source/plot2d.cpp 
 src/functions/source/pid.cpp
 src/functions/source/functions.cpp
@@ -71,6 +77,14 @@ src/threads/source/plot_thread.cpp
 src/threads/source/track_thread.cpp
 src/threads/source/gui_thread.cpp
 src/threads/source/gui_thread_1.cpp
+src/threads/source/cartesian_velocity_thread.cpp
+src/threads/source/solver_thread.cpp
+src/threads/source/solver.cpp
+src/threads/source/pd_vec3d.cpp
+src/threads/source/pd_quat.cpp
+src/threads/source/qp_control.cpp
+src/threads/source/matrix_support.cpp
+src/threads/source/ldl.cpp
 )
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL
@@ -99,11 +113,11 @@ endforeach()
 #  common/*.h
 #)
 
-file(GLOB_RECURSE SOURCES
-  src/*.cpp
-  src/threads/source/*.cpp
-  common/*.cpp
-)
+#file(GLOB_RECURSE SOURCES
+#  src/*.cpp
+#  src/threads/source/*.cpp
+#  common/*.cpp
+#)
 
 
 
