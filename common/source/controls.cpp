@@ -37,6 +37,8 @@ float y = 0;
 float z = 0;
 
 
+
+
 void computeMatricesFromInputs(GLFWwindow* window){
 
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
@@ -89,6 +91,75 @@ void computeMatricesFromInputs(GLFWwindow* window){
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
 		vector_length -= 0.02f;
 	}
+	x = vector_length * cos(angle);
+	z = vector_length * sin(angle);
+
+	position = glm::vec3(x, y, z);
+
+
+	//OrientationY += (xrot, 1.0f, 1.0f);
+	//glRotatef(xrot, 1.0f, 0.0f, 0.0f); // deprecated
+
+	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
+	ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
+	// Camera matrix
+	ViewMatrix       = glm::lookAt(
+								position,           // Camera is here
+								glm::vec3(0,y,0), // and looks here : at the same position, plus "direction"
+								up                  // Head is up (set to 0,-1,0 to look upside-down)
+						   );
+
+
+}
+
+
+void computeMatricesFromKeyInputs(int keyval){
+
+	// Direction : Spherical coordinates to Cartesian coordinates conversion
+	glm::vec3 direction(
+		cos(verticalAngle) * sin(horizontalAngle), 
+		sin(verticalAngle),
+		cos(verticalAngle) * cos(horizontalAngle)
+	);
+	
+	// Right vector
+	glm::vec3 right = glm::vec3(
+		sin(horizontalAngle - 3.14f/2.0f), 
+		0,
+		cos(horizontalAngle - 3.14f/2.0f)
+	);
+
+	// Up vector
+	glm::vec3 up = glm::cross( right, direction );
+
+	// Move Up
+	if (keyval == 119){
+		//std::cout << "Key_Up was pressed" << std::endl;
+		y -= 0.01f;
+	}
+	// Move down
+	if (keyval == 115){
+		y += 0.01f;
+	}
+	// Turn right
+	if (keyval == 97){
+		angle -= 0.01;
+	}
+	// Turn left
+	if (keyval == 100){
+		angle += 0.01;
+	}
+
+	// Zoom out
+	if (keyval == 109) {
+		vector_length += 0.02f;
+	}
+
+	// Zoom in
+	if (keyval == 110) {
+		vector_length -= 0.02f;
+	}
+
 	x = vector_length * cos(angle);
 	z = vector_length * sin(angle);
 

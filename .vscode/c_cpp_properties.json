@@ -34,7 +34,11 @@
                 "/usr/lib/x86_64-linux-gnu/pangomm-1.4/include",
                 "/usr/include/sigc++-2.0",
                 "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include",
-                "${workspaceFolder}/common/headers"
+                "${workspaceFolder}/common/headers",
+                "${workspaceFolder}/externalGL/glm-0.9.7.1",
+                "${workspaceFolder}/externalGL/glew-1.13.0/include",
+                "${workspaceFolder}/externalGL/glm-0.9.7.1",
+                "${workspaceFolder}/externalGL/glfw-3.1.2/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

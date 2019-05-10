@@ -44,11 +44,9 @@ Vector3d get_ang_acceleration(const franka::RobotState& robot_state) {
 }
 
 Vector3d get_ext_force_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff) {
-  return Vector3d(
-    franka::lowpassFilter(0.001, -robot_state.K_F_ext_hat_K[0]-0.33, prev_force[0], cutoff),
-    franka::lowpassFilter(0.001, robot_state.K_F_ext_hat_K[1]+0.66, prev_force[1], cutoff),
-    franka::lowpassFilter(0.001, robot_state.K_F_ext_hat_K[2]+1.65, prev_force[2], cutoff)
-  );
+  Vector3d force = get_ext_force(robot_state);
+  //Filters the magnitude of the vector
+  return force.normalized()*franka::lowpassFilter(0.001, force.norm(), prev_force.norm(), cutoff);
 }
 
 Vector3d get_ext_force(const franka::RobotState& robot_state) {

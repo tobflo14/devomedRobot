@@ -30,11 +30,17 @@ void* RobotLoopThread(void* arg) {
     vel_desired.setZero();
     double jerk_limit = 6500;
     double acceleration_limit = 13;
+    double velocity_limit = 1.7;
     double ang_jerk_limit = 1000;
     double ang_acceleration_limit = 3;
     std::vector<double> qd_limit = {2.1750, 2.1750, 2.1750, 2.1750, 2.6100 , 2.6100 , 2.6100};
     std::vector<double> qdd_limit = {15.0, 7.5, 10.0, 12.5, 15.0, 20.0, 20.0};
     std::vector<double> qddd_limit = {7500.0, 3750.0, 5000.0, 6250.0, 7500.0, 10000.0, 10000.0};
+
+    double damping_high = 500.0;
+    double damping_low = 10.0;
+    double damping_time = 0.2; //Time in s to change damping from high-low
+    double damping_rate = (damping_high - damping_low)/damping_time;
 
     struct {
         std::vector<double> dt;
@@ -57,17 +63,17 @@ void* RobotLoopThread(void* arg) {
     // Connect to robot.
     franka::Robot robot(ROBOT_IP);
     std::cout << "Connected to robot" << std::endl;
-
+/*
     MatrixXd track_path = readMatrix("output.csv");
     track_path.transpose();
     track_path = track_path.colwise() - track_path.col(0);
-
+*/
     while (tries > 0 && !robot_data->shutdown) {
 
         try {
             setDefaultBehavior(robot);
-            //robot.setJointImpedance({ {100, 100, 100, 50, 50, 50, 50} });
-            robot.setJointImpedance({ {6000, 6000, 6000, 4500, 4500, 4000, 4000} });
+            robot.setJointImpedance({ {600, 600, 600, 450, 450, 400, 400} });
+            //robot.setJointImpedance({ {6000, 6000, 6000, 4500, 4500, 4000, 4000} });
             std::cout << "set joint impedance" << std::endl;
             robot.setCollisionBehavior(
                 {{20.0, 20.0, 18.0, 18.0, 16.0, 14.0, 12.0}}, {{20.0, 20.0, 18.0, 18.0, 16.0, 14.0, 12.0}},
@@ -80,9 +86,8 @@ void* RobotLoopThread(void* arg) {
             robot.control(motion_generator);
             std::cout << "Finished moving to initial joint configuration." << std::endl;
             franka::RobotState initial_state = robot.readOnce();
-
-            // Load the kinematics and dynamics model.
             franka::Model model = robot.loadModel();
+
             double time = 0.0;
             Pid velocityPid = Pid();
 
@@ -110,13 +115,15 @@ void* RobotLoopThread(void* arg) {
                 Eigen::Map<const Eigen::Matrix<double, 7, 1> > gravity(gravity_array.data());
                 Eigen::Map<const Eigen::Matrix<double, 7, 1> > coriolis(coriolis_array.data());
                 Eigen::Map<const Eigen::Matrix<double, 7, 7> > mass(mass_array.data());
-                const Eigen::Matrix<double, 7, 1> tau_J_comp = tau_J - gravity - mass*ddq_d + coriolis;
+                std::vector<double> tau_J_corr_arr = {-0.63, 0.53, -0.32, -0.06, 0.3, -0.08, -0.18};
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > tau_J_corr(tau_J_corr_arr.data());
+                const Eigen::Matrix<double, 7, 1> tau_J_comp = tau_J - gravity - mass*ddq_d + coriolis + tau_J_corr;
                 const Eigen::Matrix<double, 6, 1> F = jacobian * tau_ext_hat_filtered;
 
-
+                cout << tau_J_comp[0] << "," << tau_J_comp[1] << "," << tau_J_comp[2] << "," << tau_J_comp[3] << "," << tau_J_comp[4] << "," << tau_J_comp[5] << "," << tau_J_comp[6] << endl;
                 robot_data->timer += dt;
-                robot_data->plot2.push_back(Point(robot_data->timer,F[2]));
-                robot_data->plot1.push_back(Point(robot_data->timer,-robot_state.K_F_ext_hat_K[2]));
+                //robot_data->plot2.push_back(Point(robot_data->timer,F[2]));
+                //robot_data->plot1.push_back(Point(robot_data->timer,-robot_state.K_F_ext_hat_K[2]));
                 robot_data->run = true;
 
                 if (robot_data->shutdown ) {
@@ -124,7 +131,7 @@ void* RobotLoopThread(void* arg) {
                     return franka::MotionFinished(franka::JointVelocities {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
                 }
                 double v = 0.4*sin(robot_data->timer*8);
-                return franka::JointVelocities {0.0, v, 0.0, 0.0 ,0.0, 0.0, 0.0};
+                return franka::JointVelocities {0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0};
             };
 
             double damping = 500.0;
@@ -291,10 +298,12 @@ void* RobotLoopThread(void* arg) {
 
             Eigen::Vector3d vel_prev;
             vel_prev.setZero();
-            Eigen::Vector3d qd_prev;
-            qd_prev.setZero();
-            Eigen::Vector3d qdd_prev;
-            qdd_prev.setZero();
+            //Eigen::Vector3d qd_prev;
+            //qd_prev.setZero();
+            //Eigen::Vector3d qdd_prev;
+            //qdd_prev.setZero();
+            Eigen::Vector3d force_prev;
+            force_prev.setZero();
             Eigen::VectorXd qd_desired(7);
             qd_desired.setZero();
 
@@ -302,70 +311,85 @@ void* RobotLoopThread(void* arg) {
                 double dt = 0.001;
                 std::array<double, 42> jacobian_array = model.zeroJacobian(franka::Frame::kEndEffector, robot_state);
                 Eigen::Map<const Eigen::Matrix<double, 6, 7> > jacobian(jacobian_array.data());
-                
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq(robot_state.dq_d.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > tau_ext_hat_filtered(robot_state.tau_ext_hat_filtered.data());
+                const Eigen::MatrixXd pinv = jacobian.completeOrthogonalDecomposition().pseudoInverse();
+                const Eigen::VectorXd robot_cart_vel = jacobian*dq;
+                robot_data->robot_velocity = robot_cart_vel.head(3);
+                robot_data->robot_acceleration = (robot_data->robot_velocity - vel_prev)/dt;
+                vel_prev = robot_data->robot_velocity;
+/*
                 time += dt;
+                if (time > 0.5) {
+                    robot_data->setpoint_velocity(0,0) = 0.4;
+                }
                 if (time > 1.0) {
-                    robot_data->setpoint_velocity(0,0) = 0.2;
+                    robot_data->setpoint_velocity(0,0) = 0.0;
+                }
+                if (time > 1.5) {
+                    robot_data->setpoint_velocity(0,0) = -0.4;
                 }
                 if (time > 2.0) {
                     robot_data->setpoint_velocity(0,0) = 0.0;
-                }
-                if (time > 3.0) {
-                    robot_data->setpoint_velocity(0,0) = -0.2;
-                }
-                if (time > 4.0) {
-                    robot_data->setpoint_velocity(0,0) = 0.0;
                     time = 0.0;
                 }
-                /*
-                robot_data->external_force = get_ext_force(robot_state);
-                double wanted_force = 0.25*9.81; //In kg. (F = ma)
-                Eigen::Vector3d total_force = robot_data->external_force.normalized()*std::max(robot_data->external_force.norm() - wanted_force, 0.0);
-                damping = std::min(damping + 0.5, 500.0);
-                if (total_force.norm() > 0.0) {
-                    damping = 20.0;
-                }
-                robot_data->setpoint_acc = (1.0/robot_data->fake_mass)*(total_force - damping*robot_data->robot_velocity); //a=1/m * (F - Bv) Admittance controller
-                
-*/
-                Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq(robot_state.dq_d.data());
-                Eigen::VectorXd robot_cart_vel = jacobian*dq;
-                robot_data->robot_velocity = robot_cart_vel.head(3);
-              /*  cout << robot_cart_vel[0] << " : " << dq[1] << endl;
-                
-                robot_data->robot_acceleration = (robot_data->robot_velocity - vel_prev)/dt;
-                vel_prev = robot_data->robot_velocity;
-*/
+                robot_data->setpoint_velocity(0,0) = 0.0;
                 acc = (robot_data->setpoint_velocity - robot_data->robot_velocity) / dt;
-                //acc = robot_data->setpoint_acc;
-
-               /* 
-                // -- PID -- 
-                robot_data->setpoint_velocity = robot_data->robot_velocity + robot_data->setpoint_acc*dt;
-                velocityPid.setParameters(0.5, 0.0, 0.0);
-                robot_data->desired_velocity = velocityPid.computePID(robot_data->setpoint_velocity-robot_data->robot_velocity ,dt);
-                acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
-
-                // -- PID END --
                 */
 
+                // -- Get force input --
+                //robot_data->external_force = get_ext_force(robot_state);
+                robot_data->external_force = get_ext_force_filtered(robot_state, force_prev, 10);
+                force_prev = robot_data->external_force;
+                //robot_data->external_force[2] += 0.683*9.81;
+                double wanted_force = 0*9.81; //In kg. (F = ma)
+                Eigen::Vector3d total_force = robot_data->external_force.normalized()*std::max(robot_data->external_force.norm() - wanted_force, 0.0);
+                std::cout << robot_data->external_force[2] << std::endl;
+                // -- END Get force input --
 
+                // -- Admittance Controller --
+                damping = robot_data->kp;
+                /*
+                if (total_force.norm() > 0.0) {
+                    damping = std::max(damping - damping_rate*dt, damping_low);
+                } else {
+                    damping = std::min(damping + damping_rate*dt, damping_high);
+                }*/
+                robot_data->setpoint_acc = (1.0/robot_data->fake_mass)*(total_force - damping*robot_data->robot_velocity); //a=1/m * (F - Bv) Admittance controller
+                acc = robot_data->setpoint_acc;
+                // -- END Admittance Controller --
+
+                
+                // -- PID --
+                //velocityPid.setParameters(robot_data->kp, robot_data->ki, robot_data->kd);
+                /*
+                acc = velocityPid.computePID(total_force ,dt);
+                acc -= robot_data->fake_mass*robot_data->robot_velocity;
+                */
+                //robot_data->desired_velocity = velocityPid.computePID(total_force ,dt);
+                //acc = (robot_data->desired_velocity - robot_data->robot_velocity) / dt;
+                
+                // -- PID END --
+                
+
+                // -- Limit Cartesian jerk, acceleration and velocity --
                 Eigen::Vector3d jerk = (acc - robot_data->robot_acceleration) / dt;
                 limitVector(jerk, jerk_limit);
                 acc = robot_data->robot_acceleration + jerk*dt;
                 limitVector(acc, acceleration_limit);
                 vel_desired = robot_data->robot_velocity + acc * dt;
+                limitVector(vel_desired, velocity_limit);
+                // -- END Limit --
 
                 Eigen::VectorXd cart_vel(6);
                 cart_vel.setZero();
                 cart_vel.head(3) = vel_desired;
                 //Eigen::MatrixXd jacobian_inverse;
                 //pseudoInverse(jacobian, jacobian_inverse);
-                Eigen::MatrixXd pinv = jacobian.completeOrthogonalDecomposition().pseudoInverse();
                 //cout << pinv << endl << "----------" << endl;
-                //jacobian_inverse = jacobian.transpose();
                 qd_desired = pinv*cart_vel;
-                                /*
+
+                /*
                 //Limit jerk, acceleration and velocity of all joints
                 Eigen::VectorXd qdd_desired = (qd_desired-qd_prev)/dt;
                 Eigen::VectorXd qddd = (qdd_desired-qdd_prev)/dt;
@@ -376,12 +400,14 @@ void* RobotLoopThread(void* arg) {
                 limitEach(qd_desired, qd_limit);
                 qd_prev = qd_desired;
                 qdd_prev = qdd_desired;
-                // --------------------------------------------------
+                // -------------------------
                 */
+
+                //cout << qd_desired[3] << "," << tau_ext_hat_filtered[3] << endl;
 
                 robot_data->run = true;
                 franka::JointVelocities qd_command = {{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}};
-                //qd_command = {{0.0, qd_desired[1], 0.0, 0.0, 0.0, 0.0, 0.0}};
+                //qd_command = {{0.0, 0.0, 0.0, qd_desired[3], 0.0, 0.0, 0.0}};
                 qd_command = {{qd_desired[0], qd_desired[1], qd_desired[2], qd_desired[3], qd_desired[4], qd_desired[5], qd_desired[6]}};
 
                 return qd_command;

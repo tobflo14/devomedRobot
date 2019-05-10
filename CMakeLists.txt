@@ -68,7 +68,9 @@ common/source/utils.cpp
 common/source/common.cpp 
 common/source/controls.cpp
 common/source/texture.cpp
-graphics/source/plot2d.cpp 
+graphics/source/plot2d.cpp
+graphics/source/plot3d.cpp
+graphics/source/gui.cpp 
 src/functions/source/pid.cpp
 src/functions/source/functions.cpp
 src/threads/source/robot_loop_thread.cpp
@@ -76,7 +78,6 @@ src/threads/source/calculate_velocity_thread.cpp
 src/threads/source/plot_thread.cpp
 src/threads/source/track_thread.cpp
 src/threads/source/gui_thread.cpp
-src/threads/source/gui_thread_1.cpp
 src/threads/source/cartesian_velocity_thread.cpp
 src/threads/source/solver_thread.cpp
 src/threads/source/solver.cpp

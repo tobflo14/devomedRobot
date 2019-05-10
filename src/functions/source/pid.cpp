@@ -1,8 +1,4 @@
 #include "pid.h"
-#include "global_struct.h"
-#include <iostream>
-
-#include <Eigen/Dense>
 
 Pid::Pid(){
     init();
@@ -10,9 +6,11 @@ Pid::Pid(){
 }
 
 void Pid::init() {
-    this->past_error = Eigen::Vector3d(0.0, 0.0, 0.0);
-    this->integral = Eigen::Vector3d(0.0, 0.0, 0.0);
-    this->derivative = Eigen::Vector3d(0.0, 0.0, 0.0);
+    this->pid.setZero();
+    this->past_pid.setZero();
+    this->past_error.setZero();
+    this->integral.setZero();
+    this->derivative.setZero();
 }
 
 void Pid::setParameters(double kp, double ki, double kd) {
@@ -22,16 +20,20 @@ void Pid::setParameters(double kp, double ki, double kd) {
 }
 
 Eigen::Vector3d Pid::computePID(Eigen::Vector3d error, double dt){
-    //Run only if dt > 0 because derivative can't divide by 0!
+    //Get new pid only if dt > 0
     if (dt) { 
 
         integral += error*dt;
         derivative = (error - past_error)/dt;
+        //derivative = -(pid - past_pid)/dt;
+        //derivative = -pid;
 
+        this->past_pid = pid;
         pid = kp*error + ki*integral + kd*derivative;
-        
-        this->past_error = error;
 
-        return pid;
+        this->past_error = error;
     }
+
+    return pid;
+
 }

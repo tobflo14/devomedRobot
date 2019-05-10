@@ -1,10 +1,10 @@
 #ifndef GUI_H
 #define GUI_H
 
-
 #include <gtkmm.h>
 #include "global_struct.h"
 #include <gtkmm/glarea.h>
+#include "plot3d.h"
 
 
 class Gui {
@@ -20,8 +20,14 @@ class Gui {
         static bool gl_draw();
         void onRealize();
         void onUnrealize();
-        bool update_plot();
         bool onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */);
+        void onRealizeModel();
+        void onUnrealizeModel();
+        bool onRenderModel(const Glib::RefPtr<Gdk::GLContext>& /* context */);
+        bool update_plot();
+        bool update_model();
+        bool onKeyPress(GdkEventKey* event);
+        
         //void create_button(std::string name, double *value_ptr, double change_value, void (Gui::*f)());
 
     private:
@@ -33,6 +39,7 @@ class Gui {
        // shared_robot_data *robot_data1;
         Gtk::Window *mainWindow;
         Gtk::GLArea *gl_area;
+        Gtk::GLArea *gl_model_area;
         Gtk::Button *btn_p_up;
         Gtk::Button *btn_p_down ;
         Gtk::Button *btn_i_up;
@@ -45,7 +52,6 @@ class Gui {
         Gtk::Label  *lbl_i_value;
         Gtk::Label  *lbl_d_value;
         Gtk::Label  *lbl_mass_value;
-        Gtk::Label  *lbl_status;
         shared_robot_data *robot_data;
         double p_value;
         double i_value;
@@ -64,6 +70,7 @@ class Gui {
         char mass_value_char[30] = {};
 
         GtkWidget *gl_drawing_area;
+        Plot3d plot3;
 
 };
 

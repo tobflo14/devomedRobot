@@ -19,6 +19,7 @@ class Pid {
         Eigen::Vector3d past_error;
         Eigen::Vector3d integral;
         Eigen::Vector3d derivative;
+        Eigen::Vector3d past_pid;
      
 };
 

@@ -85,6 +85,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="valign">center</property>
                             <property name="margin_left">8</property>
                             <property name="margin_right">8</property>
                             <property name="margin_top">8</property>
@@ -143,7 +144,7 @@
                         <property name="margin_left">20</property>
                         <property name="margin_right">20</property>
                         <property name="margin_top">40</property>
-                        <property name="pixbuf">..\build\images\Fri Mar  8 16:14:59 2019
+                        <property name="pixbuf">../build/images/Fri Mar  8 16:14:14 2019
 .tga</property>
                       </object>
                       <packing>
@@ -455,6 +456,8 @@ Motstand:                     1.5 kg</property>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">24</property>
+                    <property name="margin_right">24</property>
                     <property name="row_homogeneous">True</property>
                     <property name="column_homogeneous">True</property>
                     <child>
@@ -484,6 +487,7 @@ en database, eller ta opp en egen
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="valign">center</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -497,6 +501,7 @@ en database, eller ta opp en egen
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="valign">center</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -515,6 +520,7 @@ en database, eller ta opp en egen
                       <object class="GtkComboBox" id="dropdown_exercises">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="valign">center</property>
                         <property name="margin_top">40</property>
                         <property name="margin_bottom">40</property>
                         <property name="model">liststore1</property>
@@ -549,6 +555,7 @@ en database, eller ta opp en egen
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="valign">center</property>
                         <property name="margin_left">10</property>
                         <property name="margin_right">10</property>
                         <property name="margin_top">40</property>
@@ -578,7 +585,7 @@ en database, eller ta opp en egen
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel" id="new_exercise_tab">
+                  <object class="GtkLabel" id="page_5">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Ny Øvelse</property>
@@ -593,13 +600,14 @@ en database, eller ta opp en egen
                     <property name="visible">True</property>
                     <property name="app_paintable">True</property>
                     <property name="can_focus">False</property>
+                    <property name="has_depth_buffer">True</property>
                   </object>
                   <packing>
                     <property name="position">5</property>
                   </packing>
                 </child>
                 <child type="tab">
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="page_6">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Modell</property>
