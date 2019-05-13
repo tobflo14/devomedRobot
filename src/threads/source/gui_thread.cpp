@@ -6,12 +6,13 @@
 
 
 void* GuiThread(void *arg) {
-    //Plot3d plot3 = Plot3d(); 
+    std::cout << "Running in GUI-thread" << std::endl;
+    
     Gui gui = Gui(arg);
-    printf("possible to make an instance of gui");
+    std::cout << "inbetween" << std::endl;
     gui.GuiThread();
     
-    printf("running in thread");
+    std::cout << "Exit GUI-thread" << std::endl;
     
     return NULL;
 }

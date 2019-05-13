@@ -82,8 +82,8 @@ int main(int argc, char** argv) {
     for( i = 0; i < NUM_THREADS; i++ ) {
         if (i == 0) {
             //rc = pthread_create(&threads[i], NULL, RobotLoopThread , &robot_data);
-            //rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
-            rc = pthread_create(&threads[i], NULL, PlotThread , &robot_data);
+            rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
+            //rc = pthread_create(&threads[i], NULL, PlotThread , &robot_data);
         }
         else if (i == 1) {
             rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);

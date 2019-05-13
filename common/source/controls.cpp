@@ -13,12 +13,25 @@
 
 glm::mat4 ViewMatrix;
 glm::mat4 ProjectionMatrix;
+glm::mat4 ModelingMatrix;
+
+glm::mat4 RotationMatrix;
+glm::mat4 TranslationMatrix;
+glm::mat4 ScalingMatrix; // scaling er vel ikke aktuelt her
+float rotationY;
 
 glm::mat4 getViewMatrix(){
 	return ViewMatrix;
 }
 glm::mat4 getProjectionMatrix(){
 	return ProjectionMatrix;
+}
+glm::mat4 getModelMatrix(){
+	return ModelingMatrix;
+}
+
+float getOrientationY(){
+	return rotationY;
 }
 
 // Initial position : on +Z
@@ -32,9 +45,16 @@ float angle = 3.14f / 2.0f;
 float FoV = 45.0f;
 float vector_length = 5;
 
+float mod_angle_x = 0.0f;
+float mod_angle_y = 0.0f;
+float mod_angle_z = 0.0f;
+
 float x = 0;
 float y = 0;
 float z = 0;
+float mod_x = 0;
+float mod_y = 0;
+float mod_z = 0;
 
 
 
@@ -109,6 +129,13 @@ void computeMatricesFromInputs(GLFWwindow* window){
 								up                  // Head is up (set to 0,-1,0 to look upside-down)
 						   );
 
+	RotationMatrix = glm::eulerAngleXYZ(getOrientationY(), 0.0f, 0.0f);
+	TranslationMatrix = glm::mat4(1.0);
+	ScalingMatrix = glm::mat4(1.0);
+
+
+	ModelingMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
+
 
 }
 
@@ -143,11 +170,11 @@ void computeMatricesFromKeyInputs(int keyval){
 	}
 	// Turn right
 	if (keyval == 97){
-		angle -= 0.01;
+		angle -= 0.03;
 	}
 	// Turn left
 	if (keyval == 100){
-		angle += 0.01;
+		angle += 0.03;
 	}
 
 	// Zoom out
@@ -159,6 +186,49 @@ void computeMatricesFromKeyInputs(int keyval){
 	if (keyval == 110) {
 		vector_length -= 0.02f;
 	}
+
+
+	// Translate model left
+	if (keyval == 108){
+		mod_x += 0.02f;
+	}
+	
+	if ( keyval == 106){
+		mod_x -= 0.02f;
+	}
+
+	if (keyval == 105) {
+		mod_y += 0.01f;
+	}
+	if (keyval == 107) {
+		mod_y -= 0.01f;
+	}
+
+	// Rotation x-axis
+	if (keyval == 118) {
+		mod_angle_x += 0.01f;
+	}
+	// Rotation x-axis
+	if (keyval == 98) {
+		mod_angle_x -= 0.01f;
+	}
+	// Rotation y-axis
+	if (keyval == 102) {
+		mod_angle_y += 0.01f;
+	}
+	// Rotation y-axis
+	if (keyval == 103) {
+		mod_angle_y -= 0.01f;
+	}
+	// Rotation z-axis
+	if (keyval == 114) {
+		mod_angle_z += 0.01f;
+	}
+	// Rotation z-axis
+	if (keyval == 116) {
+		mod_angle_z -= 0.01f;
+	}
+	
 
 	x = vector_length * cos(angle);
 	z = vector_length * sin(angle);
@@ -177,6 +247,13 @@ void computeMatricesFromKeyInputs(int keyval){
 								glm::vec3(0,y,0), // and looks here : at the same position, plus "direction"
 								up                  // Head is up (set to 0,-1,0 to look upside-down)
 						   );
+
+	RotationMatrix = glm::eulerAngleXYZ(mod_angle_x, mod_angle_y, mod_angle_z);
+	TranslationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(mod_x, mod_y, mod_z));
+	ScalingMatrix = glm::mat4(1.0);
+
+
+	ModelingMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
 
 
 }

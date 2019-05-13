@@ -20,9 +20,9 @@ Plot3d plot3 = Plot3d();
  }
 
  void Gui::init() {
-     this->app = Gtk::Application::create();
-     this->builder = Gtk::Builder::create_from_file("window_main.glade");
-     //this->plot3 = Plot3d();
+    
+     
+    // this->plot3 = Plot3d();
  }
 
 
@@ -69,6 +69,11 @@ void Gui::create_button(std::string name, double &value_ptr, double change_value
 
 
 void* Gui::GuiThread() {
+  Glib::RefPtr<Gtk::Application> app = Gtk::Application::create();
+  // = Gtk::Builder::create_from_file("window_main.glade");
+    // this->app = Gtk::Application::create();
+     this->builder = Gtk::Builder::create_from_file("window_main.glade");
+
 
     //auto app
     p_value = robot_data->kp;
@@ -76,7 +81,7 @@ void* Gui::GuiThread() {
     d_value = robot_data->kd;
     mass_value = robot_data->fake_mass;
 
-    printf("running");
+    std::cout << "Running in gui main function" << std::endl;
 
     builder->get_widget("window_main", mainWindow);
     builder->get_widget("btn_shutdown", btn_shutdown);
@@ -88,6 +93,7 @@ void* Gui::GuiThread() {
     builder->get_widget("gl_area", gl_area);
     builder->get_widget("gl_model_area", gl_model_area);
 
+    std::cout << "gets all widgets" << std::endl;
 
   //  create_button("btn_p_up", &p_value, 0.01);
     create_button("btn_p_up", p_value, 1);
@@ -98,6 +104,7 @@ void* Gui::GuiThread() {
     create_button("btn_d_down", d_value, -0.001);
     create_button("btn_mass_up", mass_value, 1);
     create_button("btn_mass_down", mass_value, -1);
+    std::cout << "creates alle buttons" << std::endl;
 
   
     btn_shutdown->signal_clicked().connect(sigc::mem_fun(*this, &Gui::shutdown));
@@ -106,27 +113,25 @@ void* Gui::GuiThread() {
     });
 
     // GL PLOT AREA   
+      std::cout << "more buttons" << std::endl;
+
  
-    gl_area->set_auto_render();
+   // gl_area->set_auto_render();
+    
     gl_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealize));
     gl_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealize));
     gl_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRender), false);
-    Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_plot), 4000);
+    //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_plot), 4000); // gir seg_fault men virker overflødig ? 
 
-   
-    gl_model_area->set_auto_render();
+
+  //  gl_model_area->set_auto_render();
     gl_model_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
     gl_model_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
     gl_model_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
     //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_model), 4000);
 
-    gl_model_area->signal_key_press_event().connect(sigc::mem_fun(*this, &Gui::onKeyPress), false);
-
     mainWindow->signal_key_press_event().connect(sigc::mem_fun(*this, &Gui::onKeyPress), false);
-   // g_signal_connect (G_OBJECT (window), "key_press_event", G_CALLBACK (on_key_press), NULL);
-
-
-
+    // Mulig problem her, hvis man trykker på knappene så endrer figuren selv om man ikke er i riktig vindu
 /*
     */
     //Glib::signal_timeout().connect([this]() {
@@ -140,21 +145,9 @@ void* Gui::GuiThread() {
 
     // GL MODEL AREA
    
-  //  gl_model_area->set_auto_render();
-   // gl_model_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
-  //  gl_model_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
-  //  gl_model_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
-  //  Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_model), 4000);
-  /*
-    gl_model_area->signal_unrealize().connect([this]() {
-      gl_model_area->make_current();
-      onUnrealize();
-    });
-    
-    
-
-*/
+    std::cout << "right before app run" << std::endl;
     app->run(*mainWindow);
+    std::cout << "right after app run" << std::endl;
     return NULL;
 }
 
@@ -192,7 +185,6 @@ bool Gui::onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
   try {
     gl_area->throw_if_error();
     update_plot();
-    std::cout << "updated plot" << std::endl;
     plot.gl_draw();  
   }
   catch(const Gdk::GLError& gle) {
@@ -208,6 +200,7 @@ void Gui::onRealizeModel(){
  // gl_model_area->make_current();
   gl_model_area->make_current();
   try {
+  // plot3.loadOBJ();
     plot3.realize();
     std::cout << "model realized" << std::endl;
   }
@@ -232,7 +225,7 @@ void Gui::onUnrealizeModel(){
 }
 
 bool Gui::onRenderModel(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
-  cout << "on render model" << endl;
+ // cout << "on render model" << endl;
   gl_model_area->make_current();
 
   try{

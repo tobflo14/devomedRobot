@@ -11,10 +11,11 @@ objl::Loader loader;
 
 Plot3d::Plot3d(){
     init();
-    loadOBJ();
+	loadOBJ();
 }
 
 void Plot3d::init(){
+	
     this->WINDOW_WIDTH = 1024;
     this->WINDOW_HEIGHT = 768;
 }
@@ -85,6 +86,7 @@ void Plot3d::initArea() {
 }
 
 void Plot3d::realize() {
+	//loadOBJ();
 	initArea();
 	loadModel();
 }
@@ -98,7 +100,7 @@ void Plot3d::loadOBJ() {
 }
 
 void Plot3d::loadModel() {
-
+//	loadOBJ();
 	loadTexture();
 
 	glBindVertexArray(VertexArrayID);
@@ -128,8 +130,8 @@ void Plot3d::loadModel() {
 				(double)(rand()%100)/100, 
                 (double)(rand()%100)/100);
                 */
-                //std::cout << mesh.Vertices[i].Position.X << std::endl;
-
+			 //  if (i < 10) {  std::cout << mesh.Vertices[i].Position.X << std::endl; }
+                
 			normals[cur_total_vertices + i] = glm::vec3(mesh.Vertices[i].Normal.X,
 				mesh.Vertices[i].Normal.Y,
 				mesh.Vertices[i].Normal.Z);
@@ -173,10 +175,16 @@ void Plot3d::drawModel() {
 	//glClearColor(1.0,1.0,1.0,0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+	//glm::mat4 RotationMatrix = getRots;
+	glm::mat4 TranslationMatrix = glm::mat4(1.0);
+	glm::mat4 ScalingMatrix = glm::mat4(1.0);
+
 	ProjectionMatrix = getProjectionMatrix();
 	ViewMatrix = getViewMatrix();
-	ModelMatrix = glm::mat4(1.0);
-	//glm::mat4 ModelMatrix = glm::mat4(1.0);
+	//ModelMatrix = glm::mat4(1.0);
+	//ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
+	ModelMatrix = getModelMatrix();
 	MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 	
 	

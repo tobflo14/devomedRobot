@@ -14,7 +14,10 @@ void* PlotThread(void* arg) {
 
     shared_robot_data *robot_data = (shared_robot_data *)arg;
     Plot2d plot = Plot2d(1000, 2.0f, 2);
-    Plot3d plot3 = Plot3d();
+    
+    
+    //Plot3d plot3 = Plot3d();
+    
   
    // plot.deleteBuffers();
     plot.initGLFW();
@@ -40,16 +43,15 @@ void* PlotThread(void* arg) {
 
 
         plot.drawGraph();
-        plot.swapBuffers();
-       // std::cout << "haslla" << value1 << std::endl;   
+        plot.swapBuffers(); 
 
 
          /// 3D MODEL   
         //plot3.drawModel();
         //plot3.swapBuffers();
-        usleep(160000);
+        usleep(16000);
     } // Check if the ESC key was pressed or the window was closed
-    while( plot.openWindow );
+    while( plot.openWindow );// || plot3.openWindow );
 
 
    /*

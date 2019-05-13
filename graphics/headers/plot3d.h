@@ -3,13 +3,14 @@
 
 //#include <epoxy/gl.h>
 
-//#include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
+
 
 
 
@@ -51,13 +52,12 @@ class Plot3d {
         GLuint TextureID;
         GLuint Texture;
         glm::mat4 MVP;
+        
         glm::mat4 ProjectionMatrix;
         glm::mat4 ViewMatrix;
         glm::mat4 ModelMatrix;
         glm::vec3 lightPos;
-        int num_model_vertices;
-
-     
+        int num_model_vertices; 
 };
 
 #endif

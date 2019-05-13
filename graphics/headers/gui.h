@@ -59,7 +59,6 @@ class Gui {
         double mass_value;
         double change_value;
         
-        Glib::RefPtr<Gtk::Application> app;
         Glib::RefPtr<Gtk::Builder> builder;
 
         //Gtk::Builder builder2;
@@ -70,7 +69,6 @@ class Gui {
         char mass_value_char[30] = {};
 
         GtkWidget *gl_drawing_area;
-        Plot3d plot3;
 
 };
 
