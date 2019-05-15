@@ -10,7 +10,7 @@ using namespace Eigen;
 
 void pd_velocity();
 
-Vector3d get_position(const franka::RobotState& robot_state);
+//Vector3d get_position(const franka::RobotState& robot_state);
 
 Quaterniond get_orientation(const franka::RobotState& robot_state);
 

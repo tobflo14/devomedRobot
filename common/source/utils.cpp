@@ -9,13 +9,13 @@
 
 typedef EulerSystem<EULER_X, EULER_Y, EULER_Z> EulerSystem;
 // typedef EulerAngles<float, rotationEulerConv> rotationEulerAngles;
-
+/*
 Vector3d get_position(const franka::RobotState& robot_state) {
       		return Vector3d(robot_state.O_T_EE[12], robot_state.O_T_EE[13],
                              robot_state.O_T_EE[14]);
 }
 
-    	
+    	*/
 Quaterniond get_orientation(const franka::RobotState& robot_state) {
 
     // Taking out the Rotation part for O_T_EE from robot, and push it through Quaterniond

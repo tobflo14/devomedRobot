@@ -60,7 +60,7 @@ void* CartesianVelocityThread(void* arg)
 
 
 				// Update position with state array
-				data->robot_position = get_position(state);
+				//data->robot_position = get_position(state);
 				// Update orientation with quaternion from state array
 				data->robot_orientation = get_orientation(state);
 				// GET W_CURR FROM ROBOT STATE

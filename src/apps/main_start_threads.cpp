@@ -10,7 +10,7 @@
 #include <thread>
 
 
-#define NUM_THREADS 1
+#define NUM_THREADS 3
 
 static shared_robot_data robot_data;
 
@@ -32,14 +32,16 @@ Eigen::Vector3d setpoint_ang_acc;
 std::vector<Point> plot1;
 std::vector<Point> plot2;
 std::vector<std::vector<double>> tracking_data;
-double kp = 7.0;
+Eigen::MatrixXd track_path;
+double kp = 0.001;
 double ki = 0.0;
-double kd = 0.0;
+double kd = 0.00004;
 double fake_mass = 2.0; //Simulated mass in kg
 double timer;
 bool run;
 bool shutdown;
 bool track_position = false;
+std::string open_file;
 
 int main(int argc, char** argv) {
     int rc;
@@ -74,6 +76,8 @@ int main(int argc, char** argv) {
     robot_data.run = run;
     robot_data.shutdown = shutdown;
     robot_data.track_position = track_position;
+    robot_data.open_file = open_file;
+    robot_data.track_path = track_path;
 
     pthread_t threads[NUM_THREADS];
 
@@ -81,21 +85,21 @@ int main(int argc, char** argv) {
     int i;
     for( i = 0; i < NUM_THREADS; i++ ) {
         if (i == 0) {
-            //rc = pthread_create(&threads[i], NULL, RobotLoopThread , &robot_data);
-            rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
+            rc = pthread_create(&threads[i], NULL, RobotLoopThread , &robot_data);
+            //rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
             //rc = pthread_create(&threads[i], NULL, PlotThread , &robot_data);
         }
         else if (i == 1) {
             rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
         }
         else if (i == 2) {
-            rc = pthread_create(&threads[i], NULL, CalculateVelocityThread, &robot_data);
-        }
-        else if (i == 3) {
             rc = pthread_create(&threads[i], NULL, TrackThread, &robot_data);
         }
-        else if (i == 4) {
+        else if (i == 3) {
             rc = pthread_create(&threads[i], NULL, PlotThread , &robot_data);
+        }
+        else if (i == 4) {
+            rc = pthread_create(&threads[i], NULL, CalculateVelocityThread, &robot_data);
         }
 
         if (rc) {

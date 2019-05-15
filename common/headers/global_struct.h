@@ -37,6 +37,9 @@ struct shared_robot_data
     bool run;
     bool shutdown;
     bool track_position;
+    bool floating_mode;
+    std::string open_file;
+    Eigen::MatrixXd track_path;
 };
 
 #endif

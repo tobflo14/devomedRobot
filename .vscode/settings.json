@@ -57,7 +57,8 @@
         "dense": "cpp",
         "*.vertexshader": "cpp",
         "hash_map": "cpp",
-        "eulerangles": "cpp"
+        "eulerangles": "cpp",
+        "core": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

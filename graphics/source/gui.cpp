@@ -3,7 +3,7 @@
 #include <gtkmm.h>
 #include <string.h>
 #include <gtkmm/glarea.h>
-#include <plot2d.h>
+#include "plot2d.h"
 //#include "plot3d.h"
 
 //shared_robot_data *robot_data;
@@ -50,6 +50,7 @@ void Gui::update_values() {
 void Gui::change(double &value_ptr, double value) {
     value_ptr += value;
     update_values();
+    
 }
 
 //m_button1.signal_clicked().connect( sigc::bind<Glib::ustring>( sigc::mem_fun(*this, &HelloWorld::on_button_clicked), "button 1") );
@@ -81,8 +82,6 @@ void* Gui::GuiThread() {
     d_value = robot_data->kd;
     mass_value = robot_data->fake_mass;
 
-    std::cout << "Running in gui main function" << std::endl;
-
     builder->get_widget("window_main", mainWindow);
     builder->get_widget("btn_shutdown", btn_shutdown);
     builder->get_widget("btn_record", btn_record);
@@ -92,30 +91,39 @@ void* Gui::GuiThread() {
     builder->get_widget("lbl_mass_value", lbl_mass_value);
     builder->get_widget("gl_area", gl_area);
     builder->get_widget("gl_model_area", gl_model_area);
+    builder->get_widget("lbl_current_plot_value", lbl_current_plot_value);
+    builder->get_widget("btn_save_exercise", btn_save_exercise);
+    builder->get_widget("btn_choose_exercise", btn_choose_exercise);
 
-    std::cout << "gets all widgets" << std::endl;
-
-  //  create_button("btn_p_up", &p_value, 0.01);
-    create_button("btn_p_up", p_value, 1);
-    create_button("btn_p_down", p_value, -1);
-    create_button("btn_i_up", i_value, 0.01);
-    create_button("btn_i_down", i_value, -0.01);
-    create_button("btn_d_up", d_value, 0.001);
-    create_button("btn_d_down", d_value, -0.001);
-    create_button("btn_mass_up", mass_value, 1);
-    create_button("btn_mass_down", mass_value, -1);
-    std::cout << "creates alle buttons" << std::endl;
-
+    create_button("btn_p_up", p_value, 0.0001);
+    create_button("btn_p_down", p_value, -0.0001);
+    create_button("btn_i_up", i_value, 0.001);
+    create_button("btn_i_down", i_value, -0.001);
+    create_button("btn_d_up", d_value, 0.00001);
+    create_button("btn_d_down", d_value, -0.00001);
+    create_button("btn_mass_up", mass_value, 0.1);
+    create_button("btn_mass_down", mass_value, -0.1);
+  
   
     btn_shutdown->signal_clicked().connect(sigc::mem_fun(*this, &Gui::shutdown));
     btn_record->signal_clicked().connect([&]() {
       robot_data->track_position = !robot_data->track_position;
+      
     });
 
-    // GL PLOT AREA   
-      std::cout << "more buttons" << std::endl;
+    btn_save_exercise->signal_clicked().connect([&]() {
+      robot_data->floating_mode = !robot_data->floating_mode;
+    });
 
- 
+    btn_choose_exercise->signal_clicked().connect([&]() {
+      robot_data->open_file = "output.csv";
+      robot_data->track_path = readMatrix(robot_data->open_file);
+      std::cout << "File opened" << robot_data->open_file << std::endl;
+    });
+
+    
+    // GL PLOT AREA   
+
    // gl_area->set_auto_render();
     
     gl_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealize));
@@ -238,21 +246,22 @@ bool Gui::onRenderModel(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
   } 
   return true;
 }
-
-
-
 bool Gui::update_plot() {
   double value1 = (double) rand() / (double) RAND_MAX;
   double value2 = rand() / RAND_MAX;
-  robot_data->plot1.push_back(Point(value1, value1));
+  //robot_data->plot1.push_back(Point(value1, value1));
   robot_data->plot2.push_back(Point(value2, 0));
-
-  //for (size_t i = 0; i < robot_data->plot1.size(); i++) {
-  if (robot_data->plot1.size() > 0) {
-      Point values[] = {robot_data->plot1[0], robot_data->plot2[0]};
+  size_t i;
+  for (i = 0; i < robot_data->plot1.size(); i++) {
+  //if (robot_data->plot1.size() > 0) {
+      Point values[] = {robot_data->plot1[i], robot_data->plot2[0]};
       plot.graph_update(values);
   }
  // }
+ if (robot_data->plot1.size() > 0) {
+  sprintf(lbl_plot_value, "%.2f", robot_data->plot1[i].second);
+ }
+  lbl_current_plot_value->set_text(lbl_plot_value);
   robot_data->plot1.clear();
   robot_data->plot2.clear(); 
   gl_area->queue_render();
@@ -260,24 +269,7 @@ bool Gui::update_plot() {
 }
 
 bool Gui::update_model() {
-  /*
-  double value1 = (double) rand() / (double) RAND_MAX;
-  double value2 = rand() / RAND_MAX;
-  robot_data->plot1.push_back(Point(value1, value1));
-  robot_data->plot2.push_back(Point(value2, 0));
-
-  //for (size_t i = 0; i < robot_data->plot1.size(); i++) {
-  if (robot_data->plot1.size() > 0) {
-      Point values[] = {robot_data->plot1[0], robot_data->plot2[0]};
-      //plot.graph_update(values);
-  }
- // }
-  robot_data->plot1.clear();
-  robot_data->plot2.clear();
- // gl_area->queue_render();
- */
   gl_model_area->queue_render();
-
   return true;
 }
 

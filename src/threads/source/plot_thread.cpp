@@ -27,17 +27,17 @@ void* PlotThread(void* arg) {
     //plot3.initWindow();
     //plot3.realize();
     do{
-        
+        /*
         double value1 = (double) rand() / (double) RAND_MAX;
         double value2 = rand() / RAND_MAX;
         robot_data->plot1.push_back(Point(value1, value1));
         robot_data->plot2.push_back(Point(value2, 0));
-
-        // for (size_t i = 0; i < robot_data->plot1.size(); i++) {
-            // Point values[] = {robot_data->plot1[i], robot_data->plot2[i]};
-            Point values[] = {robot_data->plot1[0], robot_data->plot2[0]};
+*/
+         for (size_t i = 0; i < robot_data->plot1.size(); i++) {
+             Point values[] = {robot_data->plot1[i], robot_data->plot2[i]};
+            //Point values[] = {robot_data->plot1[0], robot_data->plot2[0]};
             plot.graph_update(values);
-        //}
+        }
         robot_data->plot1.clear();
         robot_data->plot2.clear();
 

@@ -3,7 +3,29 @@
 //Released under CC0
 //https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 #include "functions.h"
-/*
+
+Vector3d closestPointOnLine(const Vector3d linePoint1, const Vector3d linePoint2, const Vector3d point) {
+  Vector3d lineDirection = (linePoint2 -  linePoint1).normalized();
+  double projectedDistance = (point - linePoint1).dot(lineDirection);
+  if (projectedDistance <= 0) return linePoint1;
+  if (projectedDistance >= (linePoint2 - linePoint1).norm()) return linePoint2;
+  return linePoint1 + lineDirection*projectedDistance;
+}
+
+Vector3d closestPointOnLineSegment(const MatrixXd lines, Vector3d point) {
+  double closestDistance = 10000;
+  Vector3d closestPointOfAll;
+  for (int i = 0; i < lines.cols()-1; i++) {
+    Vector3d closestPoint = closestPointOnLine(lines.col(i), lines.col(i+1), point);
+    double distance = (closestPoint - point).squaredNorm();
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestPointOfAll = closestPoint;
+    }
+  }
+  return closestPointOfAll;
+}
+
 Vector3d get_position(const franka::RobotState& robot_state) {
   return Vector3d(
     robot_state.O_T_EE[12],
@@ -11,7 +33,7 @@ Vector3d get_position(const franka::RobotState& robot_state) {
     robot_state.O_T_EE[14]
   );
 }
-*/
+
 Vector3d get_measured_cartesian_velocity(const franka::RobotState& robot_state, const Eigen::Matrix<double, 6, 7> jacobian) {
 
   Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq(robot_state.dq_d.data());
@@ -43,10 +65,20 @@ Vector3d get_ang_acceleration(const franka::RobotState& robot_state) {
   );
 }
 
+//Filters the magnitude of the vector
+Vector3d get_ext_force_magnitude_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff) {
+  Vector3d force = get_ext_force(robot_state);
+  return force.normalized()*franka::lowpassFilter(0.001, force.norm(), prev_force.norm(), cutoff);
+}
+
+//Filters each element of the vector individually
 Vector3d get_ext_force_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff) {
   Vector3d force = get_ext_force(robot_state);
-  //Filters the magnitude of the vector
-  return force.normalized()*franka::lowpassFilter(0.001, force.norm(), prev_force.norm(), cutoff);
+    return Vector3d(
+    franka::lowpassFilter(0.001, force[0], prev_force[0], cutoff),
+    franka::lowpassFilter(0.001, force[1], prev_force[1], cutoff),
+    franka::lowpassFilter(0.001, force[2], prev_force[2], cutoff)
+  );
 }
 
 Vector3d get_ext_force(const franka::RobotState& robot_state) {
@@ -55,6 +87,12 @@ Vector3d get_ext_force(const franka::RobotState& robot_state) {
     robot_state.K_F_ext_hat_K[1]+0.7,
     robot_state.K_F_ext_hat_K[2]+1.65
   );
+}
+
+//Filters the magnitude of the vector
+Vector3d get_ext_ang_force_magnitude_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff) {
+  Vector3d force = get_ext_ang_force(robot_state);
+  return force.normalized()*franka::lowpassFilter(0.001, force.norm(), prev_force.norm(), cutoff);
 }
 
 Vector3d get_ext_ang_force(const franka::RobotState& robot_state) {
@@ -166,10 +204,13 @@ MatrixXd RamerDouglasPeucker(const MatrixXd pointList, double epsilon) {
   }
 }
 */
-MatrixXd readMatrix(const char *filename)
-    {
+MatrixXd readMatrix(std::string filename) {
     std::ifstream indata;
-    indata.open(filename);
+    try {
+      indata.open(filename.c_str());
+    } catch (std::system_error& e) {
+      std::cerr << e.what() << std::endl;
+    }
     std::string line;
     std::vector<double> values;
     uint rows = 0;
@@ -177,9 +218,12 @@ MatrixXd readMatrix(const char *filename)
         std::stringstream lineStream(line);
         std::string cell;
         while (std::getline(lineStream, cell, ';')) {
-            values.push_back(std::stod(cell));
+          std::stringstream cellstream(cell);
+          double value;
+          cellstream >> value;
+          values.push_back(value);
         }
         ++rows;
     }
-    return Map<const MatrixXd>(values.data(), rows, values.size()/rows);
+    return Map<const MatrixXd>(values.data(), values.size()/rows, rows);
   };

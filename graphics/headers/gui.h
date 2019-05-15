@@ -48,10 +48,13 @@ class Gui {
         Gtk::Button *btn_d_down;
         Gtk::Button *btn_shutdown;
         Gtk::Button *btn_record;
+        Gtk::Button *btn_save_exercise;
+        Gtk::Button *btn_choose_exercise;
         Gtk::Label  *lbl_p_value;
         Gtk::Label  *lbl_i_value;
         Gtk::Label  *lbl_d_value;
         Gtk::Label  *lbl_mass_value;
+        Gtk::Label  *lbl_current_plot_value;
         shared_robot_data *robot_data;
         double p_value;
         double i_value;
@@ -67,6 +70,7 @@ class Gui {
         char i_value_char[30] = {};
         char d_value_char[30] = {};
         char mass_value_char[30] = {};
+        char lbl_plot_value[30] = {};
 
         GtkWidget *gl_drawing_area;
 
