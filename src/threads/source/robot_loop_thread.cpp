@@ -59,7 +59,6 @@ void* RobotLoopThread(void* arg) {
             force_prev.setZero();
             Eigen::Vector3d ang_force_prev;
             ang_force_prev.setZero();
-            double wanted_force = 0.0;
             double dt = 0.001;
             double time = 0.0;
 
@@ -98,7 +97,7 @@ void* RobotLoopThread(void* arg) {
                 // -- Force Controller --
                 double friction = 0.01*virtual_mass*9.81; //F_f = mu*m*g
                 double ang_friction = 0.05*virtual_mass*9.81; //F_f = mu*m*g
-                friction += wanted_force*9.81;
+                friction += (robot_data->wanted_force/1000)*9.81;
                 Eigen::Vector3d cart_friction_force;
                 cart_friction_force.setZero();
                 Eigen::Vector3d ang_friction_force;
@@ -133,13 +132,14 @@ void* RobotLoopThread(void* arg) {
 
                 //bool 
                 if (!robot_data->floating_mode) {
+                    robot_data->plot1.push_back(Point(0.0,external_force.norm()/9.81));
                     if (!trackingpath_is_initialized) {
                         Eigen::Vector3d first_column = robot_data->track_path.col(0);
                         robot_data->track_path = robot_data->track_path.colwise() - first_column;
                         robot_data->track_path = robot_data->track_path.colwise() + robot_cart_pos;
                         trackingpath_is_initialized = true;
                     }
-                    const Eigen::Vector3d closestPoint = closestPointOnLineSegment(robot_data->track_path, cart_pos_desired);
+                    const Eigen::Vector3d closestPoint = closestPointOnLineSegment(robot_data->track_path, cart_pos_desired, robot_data->fractionCompleted);
                     // -- PID --
                     Eigen::Vector3d error = closestPoint - cart_pos_desired;
                     positionPid.setParameters(robot_data->kp, robot_data->ki, robot_data->kd);
@@ -150,7 +150,6 @@ void* RobotLoopThread(void* arg) {
                     trackingpath_is_initialized = false;
                 }
 
-                //robot_data->plot1.push_back(Point(0.0,closestPoint[2]));
                 
                
                 const Eigen::Vector3d cart_vel_constrained = (cart_pos_desired - robot_cart_pos)/dt;

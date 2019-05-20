@@ -12,17 +12,21 @@ Vector3d closestPointOnLine(const Vector3d linePoint1, const Vector3d linePoint2
   return linePoint1 + lineDirection*projectedDistance;
 }
 
-Vector3d closestPointOnLineSegment(const MatrixXd lines, Vector3d point) {
+Vector3d closestPointOnLineSegment(const MatrixXd lines, Vector3d point, double &fractionCompleted) {
+  int closestIndex = 0;
   double closestDistance = 10000;
   Vector3d closestPointOfAll;
-  for (int i = 0; i < lines.cols()-1; i++) {
+  int num_lines = lines.cols()-1;
+  for (int i = 0; i < num_lines; i++) {
     Vector3d closestPoint = closestPointOnLine(lines.col(i), lines.col(i+1), point);
     double distance = (closestPoint - point).squaredNorm();
     if (distance < closestDistance) {
       closestDistance = distance;
       closestPointOfAll = closestPoint;
+      closestIndex = i;
     }
   }
+  fractionCompleted = (double)closestIndex/(num_lines-1);
   return closestPointOfAll;
 }
 
@@ -218,10 +222,13 @@ MatrixXd readMatrix(std::string filename) {
         std::stringstream lineStream(line);
         std::string cell;
         while (std::getline(lineStream, cell, ';')) {
+          
           std::stringstream cellstream(cell);
           double value;
           cellstream >> value;
           values.push_back(value);
+          
+          //values.push_back(std::stod(cell));
         }
         ++rows;
     }

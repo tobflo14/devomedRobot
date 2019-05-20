@@ -10,7 +10,7 @@
 #include <thread>
 
 
-#define NUM_THREADS 3
+#define NUM_THREADS 2
 
 static shared_robot_data robot_data;
 
@@ -38,6 +38,8 @@ double ki = 0.0;
 double kd = 0.00004;
 double fake_mass = 2.0; //Simulated mass in kg
 double timer;
+double fractionCompleted;
+double wanted_force;
 bool run;
 bool shutdown;
 bool track_position = false;
@@ -73,6 +75,8 @@ int main(int argc, char** argv) {
     robot_data.kd = kd;
     robot_data.fake_mass = fake_mass;
     robot_data.timer = timer;
+    robot_data.fractionCompleted = fractionCompleted;
+    robot_data.wanted_force = wanted_force;
     robot_data.run = run;
     robot_data.shutdown = shutdown;
     robot_data.track_position = track_position;

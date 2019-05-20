@@ -1,0 +1,15 @@
+* {
+    font-size: 24pt;
+}
+
+.heading1 {
+    font-size: 2em;
+}
+
+progress, trough {
+  min-height: 50px;
+}
+
+notebook tab {
+    padding: 20px 40px 20px 40px;
+}

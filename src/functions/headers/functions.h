@@ -23,7 +23,7 @@ using namespace Eigen;
 typedef std::pair<double, double> Point;
 
 Vector3d closestPointOnLine(const Vector3d linePoint1, const Vector3d linePoint2, const Vector3d point);
-Vector3d closestPointOnLineSegment(const MatrixXd lines, Vector3d point);
+Vector3d closestPointOnLineSegment(const MatrixXd lines, Vector3d point, double &fractionCompleted);
 Vector3d get_position(const franka::RobotState& robot_state);
 Vector3d get_measured_cartesian_velocity(const franka::RobotState& robot_state, const Eigen::Matrix<double, 6, 7> jacobian);
 Vector3d get_desired_acceleration(const franka::RobotState& robot_state);

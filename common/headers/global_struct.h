@@ -34,6 +34,8 @@ struct shared_robot_data
     double kd;
     double timer;
     double fake_mass;
+    double fractionCompleted;
+    double wanted_force;
     bool run;
     bool shutdown;
     bool track_position;

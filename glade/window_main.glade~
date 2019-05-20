@@ -292,7 +292,7 @@ Motstand:                     1.5 kg</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="current_plot_value">
+                          <object class="GtkLabel" id="lbl_current_plot_value">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_right">429</property>
