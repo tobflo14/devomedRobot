@@ -15,6 +15,7 @@
 static shared_robot_data robot_data;
 
 franka::RobotState robot_state;
+franka::RobotMode robot_mode;
 Eigen::Vector3d robot_position;
 Eigen::Vector3d robot_velocity;
 Eigen::Vector3d robot_ang_velocity;
@@ -53,6 +54,7 @@ int main(int argc, char** argv) {
     shutdown = false;
 
     robot_data.robot_state = robot_state;
+    robot_data.robot_mode = robot_mode;
     robot_data.robot_position = robot_position;
     robot_data.robot_velocity = robot_velocity;
     robot_data.robot_ang_velocity = robot_ang_velocity;

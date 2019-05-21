@@ -27,6 +27,7 @@ class Gui {
         bool update_plot();
         bool update_model();
         bool onKeyPress(GdkEventKey* event);
+        void updateRobotStatus();
         
         //void create_button(std::string name, double *value_ptr, double change_value, void (Gui::*f)());
 
@@ -101,6 +102,7 @@ class Gui {
         Gtk::Label      *lbl_page_run;
         Gtk::GLArea     *gl_area;
         Gtk::Label      *lbl_resistance;
+        Gtk::Label      *lbl_robot_status;
         Gtk::Paned      *paned_plot_value;
         Gtk::Button     *btn_screenshot;
         Gtk::Label      *lbl_plot_info;

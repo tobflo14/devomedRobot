@@ -100,6 +100,12 @@ COMMAND ${CMAKE_COMMAND} -E copy_directory
 COMMENT "copy glade to build directory"
 VERBATIM)
 
+ADD_CUSTOM_TARGET(copy_objfiles_dir ALL
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+"${CMAKE_CURRENT_SOURCE_DIR}/objfiles" "${CMAKE_BINARY_DIR}"
+COMMENT "copy objfiles to build directory"
+VERBATIM)
+
 foreach(example ${EXAMPLES})
 	add_executable(${example} src/apps/${example}.cpp ${SOURCES})
   target_link_libraries(${example} OpenGL  Franka::Franka

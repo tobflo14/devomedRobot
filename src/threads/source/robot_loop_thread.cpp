@@ -53,6 +53,7 @@ void* RobotLoopThread(void* arg) {
             franka::Model model = robot.loadModel();
             franka::RobotState initial_state = robot.readOnce();
             const Eigen::Vector3d initial_cart_pos = get_position(initial_state);
+            robot_data->robot_mode = initial_state.robot_mode;
 
 
             Eigen::Vector3d force_prev;
@@ -76,6 +77,7 @@ void* RobotLoopThread(void* arg) {
                 double inertia_radius = 0.8;
 
                 time += dt;
+                robot_data->robot_mode = robot_state.robot_mode;
 
                 std::array<double, 42> jacobian_array = model.zeroJacobian(franka::Frame::kEndEffector, robot_state);
                 Eigen::Map<const Eigen::Matrix<double, 6, 7> > jacobian(jacobian_array.data());
@@ -190,6 +192,7 @@ void* RobotLoopThread(void* arg) {
             robot.control(cartesian_joint_velocities);
             
         } catch (const franka::Exception& e) {
+            robot_data->robot_mode = robot.readOnce().robot_mode;
             
             std::cerr << e.what() << std::endl;
             if (!robot_data->shutdown) {
@@ -209,7 +212,8 @@ void* RobotLoopThread(void* arg) {
         }
     }
     robot_data->run = false;
-
+    robot_data->robot_mode = robot.readOnce().robot_mode;
+    
     std::cout << "Robot loop thread shutting down " << std::endl;
     return NULL;
 }

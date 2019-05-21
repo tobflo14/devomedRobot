@@ -997,6 +997,17 @@ Notater:					gjennomføres 2 ganger i uken</property>
           </packing>
         </child>
         <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Robot status</property>
+          </object>
+          <packing>
+            <property name="left_attach">4</property>
+            <property name="top_attach">6</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="lbl_user_info">
             <property name="can_focus">False</property>
             <property name="halign">start</property>
@@ -1009,18 +1020,27 @@ Notater: Nakkesleng fra bilulykke 24.12.2018 med påkjørsel fra venstre side</p
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">6</property>
+            <property name="height">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="lbl_robot_status">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Robot status</property>
           </object>
           <packing>
             <property name="left_attach">4</property>
-            <property name="top_attach">6</property>
+            <property name="top_attach">7</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>

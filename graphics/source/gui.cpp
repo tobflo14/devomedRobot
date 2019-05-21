@@ -231,8 +231,11 @@ void* Gui::GuiThread() {
       btn_save_exercise->set_label("Lagret!");
     });
 
+    builder->get_widget("lbl_robot_status", lbl_robot_status);
+
     Glib::signal_timeout().connect([&]() -> bool {
       progress_exercise->set_fraction(robot_data->fractionCompleted);
+      updateRobotStatus();
       return true;
     }, 40);
 
@@ -279,6 +282,9 @@ void* Gui::GuiThread() {
     return NULL;
 }
 
+void Gui::updateRobotStatus() {
+  lbl_robot_status->set_text(std::to_string((int)robot_data->robot_mode));
+}
 
 
 

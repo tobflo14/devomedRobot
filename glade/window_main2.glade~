@@ -1012,7 +1012,15 @@ Notater: Nakkesleng fra bilulykke 24.12.2018 med påkjørsel fra venstre side</p
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Robot status</property>
+          </object>
+          <packing>
+            <property name="left_attach">4</property>
+            <property name="top_attach">6</property>
+          </packing>
         </child>
         <child>
           <placeholder/>
