@@ -102,7 +102,7 @@ VERBATIM)
 
 ADD_CUSTOM_TARGET(copy_objfiles_dir ALL
 COMMAND ${CMAKE_COMMAND} -E copy_directory
-"${CMAKE_CURRENT_SOURCE_DIR}/objfiles" "${CMAKE_BINARY_DIR}"
+"${CMAKE_CURRENT_SOURCE_DIR}/objfiles" "${CMAKE_BINARY_DIR}/objfiles"
 COMMENT "copy objfiles to build directory"
 VERBATIM)
 

@@ -39,24 +39,28 @@ class Gui {
         void d_down();
 
         int current_exercise;
+        int plot_update_count;
         bool show_debug;
+        bool rep_counted;
        // shared_robot_data *robot_data1;
         Gtk::Window *mainWindow;
         Gtk::Label  *lbl_user_info;
         
         Gtk::GLArea *gl_model_area;
-        Gtk::Button *btn_p_up;
-        Gtk::Button *btn_p_down ;
-        Gtk::Button *btn_i_up;
-        Gtk::Button *btn_i_down;
-        Gtk::Button *btn_d_up;
-        Gtk::Button *btn_d_down;
+      //  Gtk::Button *btn_p_up;
+      //  Gtk::Button *btn_p_down ;
+      //  Gtk::Button *btn_i_up;
+      //  Gtk::Button *btn_i_down;
+      //  Gtk::Button *btn_d_up;
+      //  Gtk::Button *btn_d_down;
         Gtk::Button *btn_shutdown;   
         Gtk::Button *btn_choose_exercise;
         Gtk::Label  *lbl_p_value;
         Gtk::Label  *lbl_i_value;
         Gtk::Label  *lbl_d_value;
         Gtk::Label  *lbl_mass_value;
+        Gtk::Label  *lbl_inertia_radius;
+        Gtk::Label  *lbl_filter_freq;
         
         shared_robot_data *robot_data;
 
@@ -95,6 +99,7 @@ class Gui {
         Gtk::Label      *lbl_chosen_exercise;
         Gtk::Label      *lbl_info_exercise;
         Gtk::Image      *image_exercise;
+        Gtk::GLArea     *gl_exercise_area;
         Gtk::ToggleButton     *btn_record;
         Gtk::Button     *btn_save_exercise;
 
@@ -120,8 +125,13 @@ class Gui {
         double i_value;
         double d_value;
         double mass_value;
+        double inertia_r_value;
+        double filter_freq_value;
         double change_value;
-        
+        double rep_count;
+
+        double wanted_force;
+
         Glib::RefPtr<Gtk::Builder> builder;
 
         //Gtk::Builder builder2;
@@ -130,7 +140,10 @@ class Gui {
         char i_value_char[30] = {};
         char d_value_char[30] = {};
         char mass_value_char[30] = {};
+        char inertia_r_value_char[30] = {};
+        char filter_freq_value_char[30] = {};
         char lbl_plot_value[30] = {};
+        char rep_count_char[30] = {};
 
         GtkWidget *gl_drawing_area;
 

@@ -16,12 +16,14 @@ Plot3d plot3 = Plot3d();
 
  Gui::Gui(void *arg) {
     this->robot_data = (shared_robot_data *)arg;
-    show_debug = false;
     Gui::init();
  }
 
  void Gui::init() {
-    
+    plot_update_count = 0;
+    rep_count = 0;
+    show_debug = false;
+    rep_counted = false;
      
     // this->plot3 = Plot3d();
  }
@@ -31,10 +33,14 @@ void Gui::update_values() {
     sprintf(i_value_char, "%f", i_value);
     sprintf(d_value_char, "%f", d_value);
     sprintf(mass_value_char, "%f", mass_value);
+    sprintf(inertia_r_value_char, "%f", inertia_r_value);
+    sprintf(filter_freq_value_char, "%f", filter_freq_value);
     lbl_p_value->set_text(p_value_char);
     lbl_i_value->set_text(i_value_char);
     lbl_d_value->set_text(d_value_char);
     lbl_mass_value->set_text(mass_value_char);
+    lbl_inertia_radius->set_text(inertia_r_value_char);
+    lbl_filter_freq->set_text(filter_freq_value_char);
     robot_data->kp = p_value;
     robot_data->ki = i_value;
     robot_data->kd = d_value;
@@ -69,7 +75,7 @@ void* Gui::GuiThread() {
   Glib::RefPtr<Gtk::Application> app = Gtk::Application::create();
   // = Gtk::Builder::create_from_file("window_main.glade");
     // this->app = Gtk::Application::create();
-    this->builder = Gtk::Builder::create_from_file("window_main2.glade");
+    this->builder = Gtk::Builder::create_from_file("window_main3.glade");
 
     //Add css to the gui
     Glib::RefPtr<Gtk::CssProvider> cssProvider = Gtk::CssProvider::create();
@@ -93,8 +99,11 @@ void* Gui::GuiThread() {
     builder->get_widget("lbl_i_value", lbl_i_value);
     builder->get_widget("lbl_d_value", lbl_d_value);
     builder->get_widget("lbl_mass_value", lbl_mass_value);
+    builder->get_widget("lbl_inertia_radius", lbl_inertia_radius);
+    builder->get_widget("lbl_filter_freq", lbl_filter_freq);
     builder->get_widget("gl_area", gl_area);
     builder->get_widget("gl_model_area", gl_model_area);
+    builder->get_widget("gl_exercise_area", gl_exercise_area);
     builder->get_widget("lbl_current_plot_value", lbl_current_plot_value);
     builder->get_widget("btn_save_exercise", btn_save_exercise);
     //builder->get_widget("btn_choose_exercise", btn_choose_exercise);
@@ -107,6 +116,10 @@ void* Gui::GuiThread() {
     create_button("btn_d_down", d_value, -0.00001);
     create_button("btn_mass_up", mass_value, 0.1);
     create_button("btn_mass_down", mass_value, -0.1);
+    create_button("btn_inertia_radius_up", inertia_r_value, 0.1);
+    create_button("btn_inertia_radius_down", inertia_r_value, -0.1);
+    create_button("btn_filter_freq_up", filter_freq_value, 0.1);
+    create_button("btn_filter_freq_down", filter_freq_value, -0.1);
   
     builder->get_widget("notebook", notebook);
     notebook->get_nth_page(1)->hide();
@@ -124,6 +137,7 @@ void* Gui::GuiThread() {
       notebook->get_nth_page(2)->show();
       notebook->get_nth_page(3)->show();
       notebook->set_current_page(1);
+      plot3.updateModel(0);
     });
 
     builder->get_widget("entry_title_program", entry_title_program);
@@ -162,6 +176,7 @@ void* Gui::GuiThread() {
       std::cout << treeview_exercises->get_column(1)->get_title() << endl;
     }*/
 
+    builder->get_widget("lbl_rep_count", lbl_rep_count);
     builder->get_widget("progress_exercise", progress_exercise);
 
     btn_record->signal_clicked().connect([&]() {
@@ -233,15 +248,31 @@ void* Gui::GuiThread() {
 
     builder->get_widget("lbl_robot_status", lbl_robot_status);
 
+    //Realtime loop
     Glib::signal_timeout().connect([&]() -> bool {
       progress_exercise->set_fraction(robot_data->fractionCompleted);
+      
+      if(robot_data->fractionCompleted > 0.98 && !rep_counted) {
+        rep_count++;
+        sprintf(rep_count_char, "%.0f", rep_count);
+        lbl_rep_count->set_text(rep_count_char);
+        rep_counted = true;
+      }
+      else if(robot_data->fractionCompleted < 0.02) {
+        rep_counted = false;
+      }
+      if (rep_counted) {
+        robot_data->wanted_force = 0.0;
+      } else {
+        robot_data->wanted_force = wanted_force;
+      }
       updateRobotStatus();
       return true;
     }, 40);
 
     builder->get_widget("spin_resistance", spin_resistance);
     spin_resistance->signal_value_changed().connect([&](){
-      robot_data->wanted_force = spin_resistance->get_value_as_int();
+      wanted_force = spin_resistance->get_value_as_int();
     });
 
     
@@ -256,12 +287,19 @@ void* Gui::GuiThread() {
 
 
   //  gl_model_area->set_auto_render();
-    gl_model_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
-    gl_model_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
-    gl_model_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
+  //  gl_model_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
+  //  gl_model_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
+  //  gl_model_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
     //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_model), 4000);
 
+    gl_exercise_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
+    gl_exercise_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
+    gl_exercise_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
+
+
     mainWindow->signal_key_press_event().connect(sigc::mem_fun(*this, &Gui::onKeyPress), false);
+
+
     // Mulig problem her, hvis man trykker på knappene så endrer figuren selv om man ikke er i riktig vindu
 /*
     */
@@ -283,7 +321,23 @@ void* Gui::GuiThread() {
 }
 
 void Gui::updateRobotStatus() {
-  lbl_robot_status->set_text(std::to_string((int)robot_data->robot_mode));
+  int mode = (int)robot_data->robot_mode;
+  string lbl;
+  if (mode == 0)      lbl = "Status ukjent";
+  else if (mode == 1) lbl = "Oppstartsmodus";
+  else if (mode == 2 && robot_data->track_position) lbl = "Opptaksmodus"; 
+  else if (mode == 2 && robot_data->floating_mode)  lbl = "Fri bevegelse";
+  else if (mode == 2) lbl = "Begrenset bevegelse";
+  else if (mode == 3) lbl = "Guidet modus";
+  else if (mode == 4) {
+    lbl = "Error utløst: ";
+    lbl.append(robot_data->error_message);
+    }
+
+  else if (mode == 5) lbl = "Brukerknapp aktivert";
+  else if (mode == 6) lbl = "Automatisk error Automatic Error Recovery";
+
+  lbl_robot_status->set_text(lbl);
 }
 
 
@@ -331,8 +385,8 @@ bool Gui::onRender(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
 
 
 void Gui::onRealizeModel(){
- // gl_model_area->make_current();
-  gl_model_area->make_current();
+  //gl_model_area->make_current();
+  gl_exercise_area->make_current();
   try {
   // plot3.loadOBJ();
     plot3.realize();
@@ -345,9 +399,11 @@ void Gui::onRealizeModel(){
 }
 
 void Gui::onUnrealizeModel(){
-  gl_model_area->make_current();
+  //gl_model_area->make_current();
+  gl_exercise_area->make_current();
   try {
-    gl_model_area->throw_if_error();
+   // gl_model_area->throw_if_error();
+    gl_exercise_area->throw_if_error();
     plot3.cleanupModel();
     std::cout << "model unrealized" << std::endl;
   }
@@ -360,10 +416,12 @@ void Gui::onUnrealizeModel(){
 
 bool Gui::onRenderModel(const Glib::RefPtr<Gdk::GLContext>& /* context */) {
  // cout << "on render model" << endl;
-  gl_model_area->make_current();
+  //gl_model_area->make_current();
+  gl_exercise_area->make_current();
 
   try{
-    gl_model_area->throw_if_error();
+    //gl_model_area->throw_if_error();
+    gl_exercise_area->throw_if_error();
     plot3.drawModel(); 
   }
   catch(const Gdk::GLError& gle){
@@ -384,8 +442,9 @@ bool Gui::update_plot() {
       plot.graph_update(values);
   }
  // }
- if (robot_data->plot1.size() > 0) {
-  sprintf(lbl_plot_value, "%.2f", robot_data->plot1[i].second);
+ if (robot_data->plot1.size() > 0 && plot_update_count++ > 3) {
+  sprintf(lbl_plot_value, "%.0i", ((int) (robot_data->plot1[i].second*100)) *10 );
+  plot_update_count = 0;
  }
   lbl_current_plot_value->set_text(lbl_plot_value);
   robot_data->plot1.clear();
@@ -395,13 +454,15 @@ bool Gui::update_plot() {
 }
 
 bool Gui::update_model() {
-  gl_model_area->queue_render();
+ // gl_model_area->queue_render();
+  gl_exercise_area->queue_render();
   return true;
 }
 
 bool Gui::onKeyPress(GdkEventKey* event) {
   std::cout << event->keyval << ' ' << event->hardware_keycode << ' ' << event->state << std::endl;
   //Close window on Esc press
+  
   if (event->keyval == 65307) {
     robot_data->shutdown = true;
     mainWindow->close();
@@ -420,7 +481,7 @@ bool Gui::onKeyPress(GdkEventKey* event) {
 
   plot3.updateModel(event->keyval);
   
-  gl_model_area->queue_render();
-
-  return false;
+ // gl_model_area->queue_render();
+  gl_exercise_area->queue_render();
+  return true;
 }

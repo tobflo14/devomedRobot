@@ -14,6 +14,7 @@
 
 static shared_robot_data robot_data;
 
+
 franka::RobotState robot_state;
 franka::RobotMode robot_mode;
 Eigen::Vector3d robot_position;
@@ -45,6 +46,7 @@ bool run;
 bool shutdown;
 bool track_position = false;
 std::string open_file;
+std::string error_message;
 
 int main(int argc, char** argv) {
     int rc;
@@ -55,6 +57,7 @@ int main(int argc, char** argv) {
 
     robot_data.robot_state = robot_state;
     robot_data.robot_mode = robot_mode;
+    robot_data.error_message = error_message;
     robot_data.robot_position = robot_position;
     robot_data.robot_velocity = robot_velocity;
     robot_data.robot_ang_velocity = robot_ang_velocity;
@@ -91,12 +94,10 @@ int main(int argc, char** argv) {
     int i;
     for( i = 0; i < NUM_THREADS; i++ ) {
         if (i == 0) {
-            rc = pthread_create(&threads[i], NULL, RobotLoopThread , &robot_data);
-            //rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
-            //rc = pthread_create(&threads[i], NULL, PlotThread , &robot_data);
+            rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
         }
         else if (i == 1) {
-            rc = pthread_create(&threads[i], NULL, GuiThread , &robot_data);
+            rc = pthread_create(&threads[i], NULL, RobotLoopThread , &robot_data);
         }
         else if (i == 2) {
             rc = pthread_create(&threads[i], NULL, TrackThread, &robot_data);

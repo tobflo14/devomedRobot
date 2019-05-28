@@ -43,6 +43,7 @@ struct shared_robot_data
     bool floating_mode;
     std::string open_file;
     Eigen::MatrixXd track_path;
+    std::string error_message;
 };
 
 #endif

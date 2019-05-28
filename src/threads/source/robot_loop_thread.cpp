@@ -30,8 +30,24 @@ void* RobotLoopThread(void* arg) {
     franka::Robot robot(ROBOT_IP);
     std::cout << "Connected to robot" << std::endl;
 
+    double q_margin = 0.2;
+    Eigen::VectorXd q_min(7);
+    q_min <<    -2.8973 + q_margin,
+                -1.7628 + q_margin,
+                -2.8973 + q_margin,
+                -3.0718 + q_margin,
+                -2.8973 + q_margin,
+                -0.0175 + q_margin,
+                -2.8973 + q_margin;
+    Eigen::VectorXd q_max(7);
+    q_max <<    2.8973 - q_margin,
+                1.7628 - q_margin,
+                2.8973 - q_margin,
+                -0.0698 - q_margin,
+                2.8973 - q_margin,
+                3.7525 - q_margin,
+                2.8973 - q_margin;
 
-    //cout << track_path << endl;
 
     while (tries > 0 && !robot_data->shutdown) {
 
@@ -64,8 +80,11 @@ void* RobotLoopThread(void* arg) {
             double time = 0.0;
 
             Pid positionPid = Pid();
-            Eigen::Vector3d past_error;
-            past_error.setZero();
+            positionPid.init(Eigen::VectorXd::Zero(3));
+            Pid jointPid = Pid();
+            jointPid.init(Eigen::VectorXd::Zero(7));
+            jointPid.setParameters(0.001, 0, 0.00002);
+            
             robot_data->floating_mode = true;
             bool trackingpath_is_initialized = false;
 
@@ -81,9 +100,10 @@ void* RobotLoopThread(void* arg) {
 
                 std::array<double, 42> jacobian_array = model.zeroJacobian(franka::Frame::kEndEffector, robot_state);
                 Eigen::Map<const Eigen::Matrix<double, 6, 7> > jacobian(jacobian_array.data());
-                Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq(robot_state.dq_d.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > dq_d(robot_state.dq_d.data());
+                Eigen::Map<const Eigen::Matrix<double, 7, 1> > q_d(robot_state.q_d.data());
                 const Eigen::MatrixXd pseudo_inverse = jacobian.completeOrthogonalDecomposition().pseudoInverse();
-                const Eigen::VectorXd robot_velocity = jacobian*dq;
+                const Eigen::VectorXd robot_velocity = jacobian*dq_d;
                 const Eigen::Vector3d robot_cart_vel = robot_velocity.head(3);
                 const Eigen::Vector3d robot_ang_vel = robot_velocity.tail(3);
                 const Eigen::Vector3d robot_cart_pos = get_position(robot_state);
@@ -97,42 +117,27 @@ void* RobotLoopThread(void* arg) {
                 // -- END Get force input --
 
                 // -- Force Controller --
+
+                //Cartesian
                 double friction = 0.01*virtual_mass*9.81; //F_f = mu*m*g
-                double ang_friction = 0.05*virtual_mass*9.81; //F_f = mu*m*g
-                friction += (robot_data->wanted_force/1000)*9.81;
-                Eigen::Vector3d cart_friction_force;
-                cart_friction_force.setZero();
-                Eigen::Vector3d ang_friction_force;
-                ang_friction_force.setZero();
-                //Apply static friction if no speed. Apply kinetic friction if external force exceeds friction force.
-                if (robot_cart_vel.norm() > 0.01 || external_force.norm() > friction) {
-                    //Apply friction in the opposite direction of velocity
-                    cart_friction_force = -robot_cart_vel.normalized()*friction;
-                } else {
-                    //Apply friction equal to the external force, to make sure sum F = 0, and there is no movement.
-                    cart_friction_force = -external_force;
-                }
-                //Apply static friction if no speed. Apply kinetic friction if external force exceeds friction force.
-                if (robot_ang_vel.norm() > 0.01 || external_ang_force.norm() > friction) {
-                    //Apply friction in the opposite direction of velocity
-                    ang_friction_force = -robot_ang_vel.normalized()*ang_friction;
-                } else {
-                    //Apply friction equal to the external force, to make sure sum F = 0, and there is no movement.
-                    ang_friction_force = -external_ang_force;
-                }
-                double inertia = 0.66*virtual_mass*pow(inertia_radius,2); //Inertia for a ball with certain radius
+                friction += (robot_data->wanted_force/1000)*9.81; //Add a wanted resistance in grams to the friction force
+                const Eigen::Vector3d cart_friction_force = frictionForce(robot_cart_vel, external_force, friction);
                 const Eigen::Vector3d total_force = external_force + cart_friction_force;
                 const Eigen::Vector3d acc = (1.0/virtual_mass)*total_force; // a = 1/m * F
-                const Eigen::Vector3d total_ang_force = external_ang_force + ang_friction_force;
-                const Eigen::Vector3d ang_acc = (1.0/inertia)*total_ang_force; // a = 1/I * F
                 const Eigen::Vector3d cart_vel_desired = robot_cart_vel + acc * dt;
+
+                //Angular
+                double ang_friction = 0.05*virtual_mass*9.81; //F_f = mu*m*g
+                const Eigen::Vector3d ang_friction_force = frictionForce(robot_ang_vel, external_ang_force, ang_friction);
+                const Eigen::Vector3d total_ang_force = external_ang_force + ang_friction_force;
+                double inertia = 0.66*virtual_mass*pow(inertia_radius,2); //Inertia for a ball with certain radius
+                const Eigen::Vector3d ang_acc = (1.0/inertia)*total_ang_force; // a = 1/I * F
                 const Eigen::Vector3d ang_vel_desired = robot_ang_vel + ang_acc * dt;
                 // -- END Force Controller --
 
                 // -- Constrain Position --
                 Eigen::Vector3d cart_pos_desired = robot_cart_pos + cart_vel_desired * dt;
 
-                //bool 
                 if (!robot_data->floating_mode) {
                     robot_data->plot1.push_back(Point(0.0,external_force.norm()/9.81));
                     if (!trackingpath_is_initialized) {
@@ -151,12 +156,8 @@ void* RobotLoopThread(void* arg) {
                 } else {
                     trackingpath_is_initialized = false;
                 }
-
-                
                
                 const Eigen::Vector3d cart_vel_constrained = (cart_pos_desired - robot_cart_pos)/dt;
-                //cout << closestPoint[2] << endl;
-
                 // -- END Constrain Position --
 
                 if (robot_data->track_position) {
@@ -166,7 +167,7 @@ void* RobotLoopThread(void* arg) {
                         robot_cart_pos[2]
                     });
                 }
-
+                
                 Eigen::VectorXd desired_velocity(6);
                 desired_velocity.setZero();
                 desired_velocity.head(3) = cart_vel_constrained;
@@ -174,26 +175,48 @@ void* RobotLoopThread(void* arg) {
 
                 //Solve IK
                 Eigen::VectorXd qd_desired = pseudo_inverse*desired_velocity;
+                Eigen::VectorXd q_desired = q_d + qd_desired*dt;
+                
+                Eigen::VectorXd q_clamped = q_desired.cwiseMin(q_max).cwiseMax(q_min);
+                Eigen::VectorXd joint_error = q_clamped - q_desired;
+                
+                Eigen::VectorXd q_pid = jointPid.computePID(q_clamped - q_desired, dt);
+                Eigen::VectorXd iserror = joint_error.cwiseSign().cwiseAbs();
+                cout << iserror[3] << endl;
+                q_desired = q_desired + q_pid;//*iserror;
 
+                qd_desired = (q_desired - q_d)/dt;
+
+                std::array<double, 7> qd = {qd_desired[0], qd_desired[1], qd_desired[2], qd_desired[3], qd_desired[4], qd_desired[5], qd_desired[6]};
+/*
+                std::array<double, 7> qd_limited = franka::limitRate(
+                    franka::kMaxJointVelocity,
+                    franka::kMaxJointAcceleration,
+                    {franka::kMaxJointJerk[0]*0.5, franka::kMaxJointJerk[1]*0.5, franka::kMaxJointJerk[2]*0.5, franka::kMaxJointJerk[3]*0.5, franka::kMaxJointJerk[4]*0.5, franka::kMaxJointJerk[5]*0.5, franka::kMaxJointJerk[6]*0.5},
+                    qd,
+                    robot_state.dq_d,
+                    robot_state.ddq_d
+                );
+*/
                 robot_data->run = true;
 
                 if (robot_data->shutdown) {
-                    qd_desired.setZero();
-                    if (!(abs(dq.array()) > 0.001).any()) {
+                    qd = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+                    if (!(abs(dq_d.array()) > 0.001).any()) {
                         robot_data->run = false;
                         return franka::MotionFinished(franka::JointVelocities{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}});
                     }
                     
                 }
 
-                return {{qd_desired[0], qd_desired[1], qd_desired[2], qd_desired[3], qd_desired[4], qd_desired[5], qd_desired[6]}};
+                return qd;
             };
             // Start real-time control loop.
             robot.control(cartesian_joint_velocities);
             
         } catch (const franka::Exception& e) {
             robot_data->robot_mode = robot.readOnce().robot_mode;
-            
+            robot_data->error_message = e.what();
             std::cerr << e.what() << std::endl;
             if (!robot_data->shutdown) {
                 robot_data->run = false;

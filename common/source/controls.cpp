@@ -35,7 +35,7 @@ float getOrientationY(){
 }
 
 // Initial position : on +Z
-glm::vec3 position = glm::vec3( 0, 0, 5 ); 
+glm::vec3 position;
 // Initial horizontal angle : toward -Z
 float horizontalAngle = 3.14f;
 // Initial vertical angle : none
@@ -43,14 +43,13 @@ float verticalAngle = 0.0f;
 float angle = 3.14f / 2.0f;
 // Initial Field of View
 float FoV = 45.0f;
-float vector_length = 5;
-
+float vector_length = 1.6;
 float mod_angle_x = 0.0f;
-float mod_angle_y = 0.0f;
+float mod_angle_y = 5 * 3.14f / 4.0f;
 float mod_angle_z = 0.0f;
 
 float x = 0;
-float y = 0;
+float y = 0.4;
 float z = 0;
 float mod_x = 0;
 float mod_y = 0;
@@ -214,11 +213,11 @@ void computeMatricesFromKeyInputs(int keyval){
 	}
 	// Rotation y-axis
 	if (keyval == 102) {
-		mod_angle_y += 0.01f;
+		mod_angle_y += 0.02f;
 	}
 	// Rotation y-axis
 	if (keyval == 103) {
-		mod_angle_y -= 0.01f;
+		mod_angle_y -= 0.02f;
 	}
 	// Rotation z-axis
 	if (keyval == 114) {

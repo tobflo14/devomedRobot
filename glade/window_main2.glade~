@@ -321,9 +321,9 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="margin_top">30</property>
-                                    <property name="label" translatable="yes">Opprettet 					20.5.2019
+                                    <property name="label" translatable="yes">Opprettet 					20.05.2019
 Antall ganger gjennomført: 	3
-Notater:					gjennomføres 2 ganger i uken</property>
+Notater:					Gjennomføres 2 ganger i uken</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -598,7 +598,7 @@ Notater:					gjennomføres 2 ganger i uken</property>
                                     <property name="halign">start</property>
                                     <property name="margin_top">30</property>
                                     <property name="margin_bottom">30</property>
-                                    <property name="label" translatable="yes">skal det stå noe her?</property>
+                                    <property name="label" translatable="yes">Notat:</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -674,6 +674,10 @@ Notater:					gjennomføres 2 ganger i uken</property>
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">30</property>
+                <property name="margin_right">30</property>
+                <property name="margin_top">30</property>
+                <property name="margin_bottom">30</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="column_homogeneous">True</property>
@@ -715,8 +719,8 @@ Notater:					gjennomføres 2 ganger i uken</property>
                   <object class="GtkSpinButton" id="spin_resistance">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="margin_top">20</property>
-                    <property name="margin_bottom">20</property>
+                    <property name="halign">center</property>
+                    <property name="margin_top">30</property>
                     <property name="adjustment">adjustment_motstand</property>
                     <property name="climb_rate">10</property>
                     <property name="numeric">True</property>
@@ -730,7 +734,7 @@ Notater:					gjennomføres 2 ganger i uken</property>
                   <object class="GtkLabel" id="lbl_resistance">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Juster motstand</property>
+                    <property name="label" translatable="yes">Juster motstand [g]</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -743,6 +747,7 @@ Notater:					gjennomføres 2 ganger i uken</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="margin_top">30</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -751,7 +756,7 @@ Notater:					gjennomføres 2 ganger i uken</property>
                 </child>
                 <child>
                   <object class="GtkGLArea" id="gl_area">
-                    <property name="height_request">300</property>
+                    <property name="height_request">400</property>
                     <property name="visible">True</property>
                     <property name="app_paintable">True</property>
                     <property name="can_focus">False</property>
@@ -770,11 +775,19 @@ Notater:					gjennomføres 2 ganger i uken</property>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
-                    <property name="top_attach">2</property>
+                    <property name="top_attach">3</property>
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Påført kraft [g]</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
+                    <property name="top_attach">2</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -1002,13 +1015,25 @@ Notater:					gjennomføres 2 ganger i uken</property>
             <property name="halign">start</property>
             <property name="valign">start</property>
             <property name="label" translatable="yes">Kia Brekke
-Født: 4.4.1994
-Kunde fra: 17.5.2019
-Notater: Nakkesleng fra bilulykke 24.12.2018 med påkjørsel fra venstre side</property>
+Født: 		04.04.1994
+Kunde fra: 	17.05.2019
+Notater: 	Nakkesleng fra bilulykke 24.12.2018 
+			påkjørsel fra venstre side</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">6</property>
+            <property name="height">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="lbl_robot_status">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="left_attach">4</property>
+            <property name="top_attach">7</property>
           </packing>
         </child>
         <child>
@@ -1021,6 +1046,21 @@ Notater: Nakkesleng fra bilulykke 24.12.2018 med påkjørsel fra venstre side</p
             <property name="left_attach">4</property>
             <property name="top_attach">6</property>
           </packing>
+        </child>
+        <child>
+          <object class="GtkFixed">
+            <property name="height_request">250</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">6</property>
+            <property name="height">2</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>
