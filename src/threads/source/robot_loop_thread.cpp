@@ -94,6 +94,7 @@ void* RobotLoopThread(void* arg) {
                 double filter_freq = 10.0;
                 double virtual_mass = 2.0;
                 double inertia_radius = 0.8;
+                double end_effector_mass = 0.367; //End effector mass in kg
 
                 time += dt;
                 robot_data->robot_mode = robot_state.robot_mode;
@@ -110,24 +111,33 @@ void* RobotLoopThread(void* arg) {
 
 
                 // -- Get force input --
-                const Eigen::Vector3d external_force = get_ext_force_magnitude_filtered(robot_state, force_prev, filter_freq);
+                Eigen::Vector3d external_force = get_ext_force_magnitude_filtered(robot_state, force_prev, filter_freq);
                 const Eigen::Vector3d external_ang_force = get_ext_ang_force_magnitude_filtered(robot_state, ang_force_prev, filter_freq);
                 force_prev = external_force;
                 ang_force_prev = external_ang_force;
+                external_force(2,0) += end_effector_mass*9.81;
                 // -- END Get force input --
 
                 // -- Force Controller --
 
                 //Cartesian
-                double friction = 0.01*virtual_mass*9.81; //F_f = mu*m*g
-                friction += (robot_data->wanted_force/1000)*9.81; //Add a wanted resistance in grams to the friction force
+
+                //F_fk = mu*m*g
+                double friction = 0.01*virtual_mass*9.81; 
+                //Wanted force in grams to act as an extra friction
+                double wanted_force = (robot_data->wanted_force/1000)*9.81;
+                //Convert friction into static or kinetic friction based on velocity
                 const Eigen::Vector3d cart_friction_force = frictionForce(robot_cart_vel, external_force, friction);
-                const Eigen::Vector3d total_force = external_force + cart_friction_force;
-                const Eigen::Vector3d acc = (1.0/virtual_mass)*total_force; // a = 1/m * F
+                const Eigen::Vector3d cart_wanted_force = frictionForce(robot_cart_vel, external_force, wanted_force);
+                //F_tot = F_ext + F_f + F_w
+                const Eigen::Vector3d total_force = external_force + cart_friction_force + cart_wanted_force;
+                //a = 1/m * F_tot
+                const Eigen::Vector3d acc = (1.0/virtual_mass)*total_force;
+                //v = v_0 + a * dt
                 const Eigen::Vector3d cart_vel_desired = robot_cart_vel + acc * dt;
 
                 //Angular
-                double ang_friction = 0.05*virtual_mass*9.81; //F_f = mu*m*g
+                double ang_friction = 0.05*virtual_mass*9.81; //F_fk = mu*m*g
                 const Eigen::Vector3d ang_friction_force = frictionForce(robot_ang_vel, external_ang_force, ang_friction);
                 const Eigen::Vector3d total_ang_force = external_ang_force + ang_friction_force;
                 double inertia = 0.66*virtual_mass*pow(inertia_radius,2); //Inertia for a ball with certain radius
@@ -182,7 +192,7 @@ void* RobotLoopThread(void* arg) {
                 
                 Eigen::VectorXd q_pid = jointPid.computePID(q_clamped - q_desired, dt);
                 Eigen::VectorXd iserror = joint_error.cwiseSign().cwiseAbs();
-                cout << iserror[3] << endl;
+                
                 q_desired = q_desired + q_pid;//*iserror;
 
                 qd_desired = (q_desired - q_d)/dt;
