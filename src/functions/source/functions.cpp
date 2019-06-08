@@ -33,12 +33,12 @@ Vector3d closestPointOnLineSegment(const MatrixXd lines, Vector3d point, double 
 //Return a simple friction force with static friction up to a desired "max_friction_force", and then kinetic friction.
 Vector3d frictionForce(Vector3d velocity, Vector3d external_force, double max_friction_force) {
   //Kinetic friction if we have velocity, or force exceeds the desired force value
-  if (velocity.norm() > 0.01 || external_force.norm() > max_friction_force) {
+  if (velocity.norm() > 0.001 || external_force.norm() > max_friction_force) {
       //Apply friction in the opposite direction of velocity
-      return -velocity.normalized()*max_friction_force;
+      return velocity.normalized()*max_friction_force;
   } else {
       //Static friction: sum F = 0, and there is no movement.
-      return -external_force;
+      return external_force;
   }
 }
 

@@ -60,6 +60,8 @@ class Plot2d {
         GLuint dataArray;
         GLuint dataBuffer;
         GLuint colorbuffer;
+        GLuint gridArray;
+        GLuint gridbuffer;
         GLuint modelbuffer;
         GLuint programID;
         GLuint MatrixID;

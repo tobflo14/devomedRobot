@@ -10,7 +10,7 @@
 //auto app
 
 //
-Plot2d plot = Plot2d(1000,2,2); 
+Plot2d plot = Plot2d(8000,3,2); 
 Plot3d plot3 = Plot3d();
 
 
@@ -287,16 +287,20 @@ void* Gui::GuiThread() {
 
 
   //  gl_model_area->set_auto_render();
-  //  gl_model_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
-  //  gl_model_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
-  //  gl_model_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
+    gl_model_area->signal_realize().connect([&]() {gl_model_area->make_current();});
+    gl_model_area->signal_unrealize().connect([&]() {gl_model_area->make_current();});
+    gl_model_area->signal_render().connect([&](const Glib::RefPtr<Gdk::GLContext>&)-> bool{
+      gl_model_area->make_current();
+      plot3.drawModel();
+      return true;
+      }, false);
     //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_model), 4000);
 
     gl_exercise_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
     gl_exercise_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
     gl_exercise_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);
 
-
+    //notebook->get_nth_page(3)->signal_key_press_event().connect(sigc::mem_fun(*this, &Gui::onKeyPress), false);
     mainWindow->signal_key_press_event().connect(sigc::mem_fun(*this, &Gui::onKeyPress), false);
 
 
@@ -434,11 +438,11 @@ bool Gui::update_plot() {
   double value1 = (double) rand() / (double) RAND_MAX;
   double value2 = rand() / RAND_MAX;
   //robot_data->plot1.push_back(Point(value1, value1));
-  robot_data->plot2.push_back(Point(value2, 0));
+ // robot_data->plot2.push_back(Point(value2, 0));
   size_t i;
   for (i = 0; i < robot_data->plot1.size(); i++) {
   //if (robot_data->plot1.size() > 0) {
-      Point values[] = {robot_data->plot1[i], robot_data->plot2[0]};
+      Point values[] = {robot_data->plot1[i], robot_data->plot2[i]};
       plot.graph_update(values);
   }
  // }
@@ -483,5 +487,5 @@ bool Gui::onKeyPress(GdkEventKey* event) {
   
  // gl_model_area->queue_render();
   gl_exercise_area->queue_render();
-  return true;
+  return false;
 }

@@ -61,7 +61,8 @@ void* RobotLoopThread(void* arg) {
                 {{20.0, 20.0, 20.0, 25.0, 25.0, 25.0}}, {{20.0, 20.0, 20.0, 25.0, 25.0, 25.0}});
             // First move the robot to a suitable joint configuration
             //std::array<double, 7> q_goal = {{0, -M_PI_4, 0, -3 * M_PI_4, 0, M_PI_2, M_PI_4}};
-            std::array<double, 7> q_goal = {{0, M_PI_4/2, 0, -3 * M_PI_4, 0, 3.5 * M_PI_4, 0}};
+            std::array<double, 7> q_goal = {{0, 0, 0, -2 * M_PI_4, 0, M_PI_2, 0}};
+            //std::array<double, 7> q_goal = {{0, M_PI_4/2, 0, -3 * M_PI_4, 0, 3.5 * M_PI_4, 0}};
             MotionGenerator motion_generator(0.2, q_goal);
 
             robot.control(motion_generator);
@@ -83,7 +84,7 @@ void* RobotLoopThread(void* arg) {
             positionPid.init(Eigen::VectorXd::Zero(3));
             Pid jointPid = Pid();
             jointPid.init(Eigen::VectorXd::Zero(7));
-            jointPid.setParameters(0.001, 0, 0.00002);
+            jointPid.setParameters(0.002, 0, 0.0001);
             
             robot_data->floating_mode = true;
             bool trackingpath_is_initialized = false;
@@ -93,7 +94,7 @@ void* RobotLoopThread(void* arg) {
                 //Constants, to be taken out of the loop when finished
                 double filter_freq = 10.0;
                 double virtual_mass = 2.0;
-                double inertia_radius = 0.8;
+                double inertia_radius = 0.4;
                 double end_effector_mass = 0.367; //End effector mass in kg
 
                 time += dt;
@@ -130,7 +131,7 @@ void* RobotLoopThread(void* arg) {
                 const Eigen::Vector3d cart_friction_force = frictionForce(robot_cart_vel, external_force, friction);
                 const Eigen::Vector3d cart_wanted_force = frictionForce(robot_cart_vel, external_force, wanted_force);
                 //F_tot = F_ext + F_f + F_w
-                const Eigen::Vector3d total_force = external_force + cart_friction_force + cart_wanted_force;
+                const Eigen::Vector3d total_force = external_force - cart_friction_force - cart_wanted_force;
                 //a = 1/m * F_tot
                 const Eigen::Vector3d acc = (1.0/virtual_mass)*total_force;
                 //v = v_0 + a * dt
@@ -139,7 +140,7 @@ void* RobotLoopThread(void* arg) {
                 //Angular
                 double ang_friction = 0.05*virtual_mass*9.81; //F_fk = mu*m*g
                 const Eigen::Vector3d ang_friction_force = frictionForce(robot_ang_vel, external_ang_force, ang_friction);
-                const Eigen::Vector3d total_ang_force = external_ang_force + ang_friction_force;
+                const Eigen::Vector3d total_ang_force = external_ang_force - ang_friction_force*inertia_radius;
                 double inertia = 0.66*virtual_mass*pow(inertia_radius,2); //Inertia for a ball with certain radius
                 const Eigen::Vector3d ang_acc = (1.0/inertia)*total_ang_force; // a = 1/I * F
                 const Eigen::Vector3d ang_vel_desired = robot_ang_vel + ang_acc * dt;
@@ -150,6 +151,7 @@ void* RobotLoopThread(void* arg) {
 
                 if (!robot_data->floating_mode) {
                     robot_data->plot1.push_back(Point(0.0,external_force.norm()/9.81));
+                   // robot_data->plot2.push_back(Point(0.0,external_force.norm()/9.81))
                     if (!trackingpath_is_initialized) {
                         Eigen::Vector3d first_column = robot_data->track_path.col(0);
                         robot_data->track_path = robot_data->track_path.colwise() - first_column;
@@ -159,6 +161,9 @@ void* RobotLoopThread(void* arg) {
                     const Eigen::Vector3d closestPoint = closestPointOnLineSegment(robot_data->track_path, cart_pos_desired, robot_data->fractionCompleted);
                     // -- PID --
                     Eigen::Vector3d error = closestPoint - cart_pos_desired;
+
+                    double length_error = external_force.dot(error.normalized());
+                    robot_data->plot2.push_back(Point(0.0, (external_force - length_error*error.normalized()).norm()/9.81));
                     positionPid.setParameters(robot_data->kp, robot_data->ki, robot_data->kd);
                     const Eigen::Vector3d pid_position = positionPid.computePID(error, dt);
                     cart_pos_desired += pid_position;
@@ -166,8 +171,8 @@ void* RobotLoopThread(void* arg) {
                 } else {
                     trackingpath_is_initialized = false;
                 }
-               
                 const Eigen::Vector3d cart_vel_constrained = (cart_pos_desired - robot_cart_pos)/dt;
+                
                 // -- END Constrain Position --
 
                 if (robot_data->track_position) {

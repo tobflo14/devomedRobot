@@ -1,5 +1,3 @@
-
-// OpenGL-stuff
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,20 +21,19 @@
 
 
 // grid
-/*GLfloat xgrid[4][3] = {
+GLfloat xgrid[2][3] = {
 	-1.0f, 0.0f, 0.0f,
 	 1.0f, 0.0f, 0.0f,
-	-1.0f, 0.2f, 0.0f,
-	 1.0f, 0.2f, 0.0f, 
 };
-*/
+
 
 #define TEST_RUN 0
 
 //GLfloat last_100[100*3];
-#define SAMPLES_HALF_FRAME 500
+#define SAMPLES_HALF_FRAME 4000
+#define NUM_PLOTSS 2
 int samples_half_frame = SAMPLES_HALF_FRAME;
-GLfloat current_100[SAMPLES_HALF_FRAME*3];
+GLfloat current_100[SAMPLES_HALF_FRAME*3*NUM_PLOTSS];
 
 
 Plot2d::Plot2d(int samples_per_frame, float y_range, int number_of_plots) {
@@ -198,7 +195,7 @@ void Plot2d::genColor() {
 void Plot2d::initializeBuffer() {
 	glGenVertexArrays(1, &dataArray);
 	glGenBuffers(1, &dataBuffer);
-	glGenBuffers(1, &colorbuffer);
+	//	glGenBuffers(1, &colorbuffer);
 	//  glewExperimental = true;
 	glBindVertexArray(dataArray);
 
@@ -208,7 +205,7 @@ void Plot2d::initializeBuffer() {
 		0,                        // attribute. No particular reason for 0, but must match the layout in the shader.
 		VERTEX_COORDINATE_COUNT,  // size (3 coordinates)
 		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
+		GL_FALSE,           // normalized
 		0,                  // stride
 		(void*)0            // array buffer offset
 	);
@@ -217,27 +214,21 @@ void Plot2d::initializeBuffer() {
 	uniform_color = glGetUniformLocation(programID, "uniformcolor");
 }
 
-/*
-void CreateGrid(GLuint vertexArray, GLuint dataBuffer) {
-	//glGenBuffers(1, &vertexGridBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
+
+void Plot2d::CreateGrid() {
+	glGenVertexArrays(1, &gridArray);
+	glGenBuffers(1, &gridbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, gridbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof (xgrid), xgrid, GL_STREAM_DRAW);
 	
 	//glGenVertexArrays(1, &vertexArray);
-	glBindVertexArray(vertexArray);
+	glBindVertexArray(gridArray);
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, gridbuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
-	glGenBuffers(1, &gridColorBuffer);
- 	glBindBuffer(GL_ARRAY_BUFFER, gridColorBuffer);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(xgrid_color), xgrid_color, GL_STATIC_DRAW);
-  
-  glEnableVertexAttribArray(1);
-  glBindBuffer(GL_ARRAY_BUFFER, gridColorBuffer);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 }
-*/
+
 
 void Plot2d::drawGrid() {
 		// Clear the screen
@@ -250,9 +241,15 @@ void Plot2d::drawGrid() {
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-*/
-	glBindVertexArray(dataArray);
-	glDrawArrays(GL_LINES, 0, 4);
+	*/
+	GLfloat color3[4] = {150.f/255.f, 150.f/255.f, 150.f/255.f, 1};
+
+	glBindVertexArray(gridArray);
+	glEnableVertexAttribArray (0);
+	glUniform4fv(uniform_color, 1, color3);
+	glDrawArrays(GL_LINES, 0, 2);
+
+	glFlush();
 }
 
 
@@ -261,16 +258,31 @@ void Plot2d::drawGrid() {
  */
 void Plot2d::graph_update(Point values[]) {
 	GLfloat point[3];
-  //vertexDataBuffer = vertexBuffers;
 	glBindVertexArray(dataArray);
   glBindBuffer(GL_ARRAY_BUFFER, dataBuffer);
- // float value = (float) mainValue;
 	//	float current_index_of_buffer = sizeof(GLfloat) * INDEX_OF_LAST_ENTRY * VERTEX_COORDINATE_COUNT;
-	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT*samples_half_frame;
+	float size_of_new_data = sizeof(GLfloat) * VERTEX_COORDINATE_COUNT*samples_half_frame*NUM_PLOTS;
 	//double values[NUM_PLOTS];
-	//	for(int i=0; i<NUM_PLOTS; i++) {
-		float value_x = (float) values[0].first;
-		float value_y = (float) values[0].second;
+	for(int j=0; j<NUM_PLOTS; j++) {
+		float value_x = (float) values[j].first;
+		float value_y = (float) values[j].second;
+
+		if (INDEX_OF_LAST_ENTRY < samples_half_frame) {
+			current_100[(INDEX_OF_LAST_ENTRY + SAMPLES_HALF_FRAME*j)*3] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
+			current_100[(INDEX_OF_LAST_ENTRY + SAMPLES_HALF_FRAME*j)*3 + 1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f;
+			current_100[(INDEX_OF_LAST_ENTRY + SAMPLES_HALF_FRAME*j)*3 + 2] = 0.0f;
+			//INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1);
+		}
+		else {
+			for (int i=0; i<samples_half_frame-1; i++) {
+			 current_100[(i + SAMPLES_HALF_FRAME*j)*3  ] = GRAPH_WIDTH * i / SAMPLES_PER_FRAME -1.0f;;
+			 current_100[(i + SAMPLES_HALF_FRAME*j)*3 + 1] = current_100[(i + 1 + SAMPLES_HALF_FRAME*j)*3 + 1];
+			 current_100[(i + SAMPLES_HALF_FRAME*j)*3 + 2] = current_100[(i + 1 + SAMPLES_HALF_FRAME*j)*3 + 2];
+			}
+			current_100[(samples_half_frame*(j+1)-1)*3 ] = GRAPH_WIDTH * (samples_half_frame) / SAMPLES_PER_FRAME -1.0f;
+			current_100[(samples_half_frame*(j+1)-1)*3 + 1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f;
+			current_100[(samples_half_frame*(j+1)-1)*3 + 2] = 0.0f;
+		}
 		/*
 		point[0] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
 		point[1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f; // [1,-1]
@@ -278,26 +290,7 @@ void Plot2d::graph_update(Point values[]) {
 	*/
 	//	glBufferSubData(GL_ARRAY_BUFFER, current_index_of_buffer + buffersize*i,
 	//	size_of_new_data, point);
-	//}
-
-		if (INDEX_OF_LAST_ENTRY < samples_half_frame) {
-			current_100[INDEX_OF_LAST_ENTRY*3] = GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / SAMPLES_PER_FRAME -1.0f;
-			current_100[INDEX_OF_LAST_ENTRY*3 + 1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f;
-			current_100[INDEX_OF_LAST_ENTRY*3 + 2] = 0.0f;
-			//INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1);
-		}
-		else {
-			for (int i=0; i<samples_half_frame-1; i++) {
-			 current_100[i*3] = GRAPH_WIDTH * i / SAMPLES_PER_FRAME -1.0f;;
-			 current_100[i*3+1] = current_100[(i+1)*3 + 1];
-			 current_100[i*3+2] = current_100[(i+1)*3 + 2];
-			}
-			current_100[(samples_half_frame-1)*3] = GRAPH_WIDTH * (samples_half_frame) / SAMPLES_PER_FRAME -1.0f;
-			current_100[(samples_half_frame-1)*3 + 1] = 2 * (value_y - MIN_EXP_VALUE) / (MAX_EXP_VALUE - MIN_EXP_VALUE) - 1.0f;
-			current_100[(samples_half_frame-1)*3 + 2] = 0.0f;
-		}
-		
-
+	}
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size_of_new_data, current_100);	
 	// Increment buffer position, start writing to the start of the buffer again when the end is reached
 	INDEX_OF_LAST_ENTRY = (INDEX_OF_LAST_ENTRY + 1); //% (SAMPLES_PER_FRAME);
@@ -307,8 +300,7 @@ void Plot2d::graph_update(Point values[]) {
 /*
  * Clear screen, send transformation through MVP matrix and draw content in buffer
  */
-void Plot2d::drawGraph()
-{
+void Plot2d::drawGraph(){
   // Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -319,12 +311,13 @@ void Plot2d::drawGraph()
 	// in the "MVP" uniform
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
+	drawGrid();
 	glBindVertexArray(dataArray);
 
 	//glUniform1f(1, C_GRAPH_WIDTH - C_GRAPH_WIDTH * INDEX_OF_LAST_ENTRY / C_SAMPLES_PER_FRAME ); // hva gjør egentlig dette ? ser ingen forskjell?
 	//for (int i=0; i<NUM_PLOTS; i++) {
-//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
-//	}
+	//		glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME*i, INDEX_OF_LAST_ENTRY);
+	//	}
 	GLfloat white[4] = {1, 1, 1, 1};
 	GLfloat red[4] = {1, 0, 0, 1};
 	glUniform4fv(uniform_color, 1, white);
@@ -349,7 +342,6 @@ void Plot2d::swapBuffers() {
 }
 
 void Plot2d::deleteBuffers() {
-	//std::cout << "deleting buffers" << std::endl;
 	glDisableVertexAttribArray(0);	// unbind 
 	glDisableVertexAttribArray(1);
 	glDeleteBuffers(1, &colorbuffer);
@@ -368,7 +360,7 @@ bool Plot2d::gl_draw() {
   glUseProgram(programID);
   
   glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
+	drawGrid();
 	if (TEST_RUN == 1) {
 		glBindVertexArray(vao);
 		glEnableVertexAttribArray(0);
@@ -377,7 +369,6 @@ bool Plot2d::gl_draw() {
 		GLfloat red[4] = {1, 0, 0, 1};
 		GLfloat green[4] = {0, 1, 0, 1};
 		glUniform4fv(uniform_color, 1, green);
-		//std::cout << "drawing is happening" << std::endl;
 		glDrawArrays(GL_LINES, 0, 4);
 		glUniform4fv(uniform_color, 1, red);
 		glDrawArrays(GL_LINE_STRIP, 4, 8);
@@ -393,18 +384,24 @@ bool Plot2d::gl_draw() {
 	//	}
 		GLfloat color1[4] = {152.f/255.f, 0, 186.f/255.f, 1};
 		GLfloat color2[4] = {50.f/255.f, 145.f/255.f, 0, 1};
+		GLfloat color3[4] = {50.f/255.f, 50.f/255.f, 50.f/255.f, 1};
 		glUniform4fv(uniform_color, 1, color1);
 		if (INDEX_OF_LAST_ENTRY < samples_half_frame) {
 			glDrawArrays(GL_LINE_STRIP, 0, INDEX_OF_LAST_ENTRY);
+			glUniform4fv(uniform_color, 1, color2);
+			glDrawArrays(GL_LINE_STRIP, samples_half_frame, INDEX_OF_LAST_ENTRY);
 		}
 		else {
 			glDrawArrays(GL_LINE_STRIP, 0, samples_half_frame);
+			glUniform4fv(uniform_color, 1, color2);
+			glDrawArrays(GL_LINE_STRIP, samples_half_frame, samples_half_frame);
 		}	
 	//	glUniform4fv(uniform_color, 1, color2);
 	//	glDrawArrays(GL_LINE_STRIP, SAMPLES_PER_FRAME, INDEX_OF_LAST_ENTRY);
 	}
 
   glDisableVertexAttribArray(0);
+
   //glBindBuffer(GL_ARRAY_BUFFER, 0);
   //glUseProgram(0);
 
@@ -412,14 +409,10 @@ bool Plot2d::gl_draw() {
   return true;
 }
 
-
-
-#define G_STRUCT_OFFSET(struct_type, member) \ ((long) offsetof (struct_type, member))
-
-
 void Plot2d::realize() {
 	init_buffers();
 	init_shaders();
+	CreateGrid();
 }
 
 void Plot2d::unrealize() {
@@ -449,8 +442,6 @@ void Plot2d::init_buffers() {
 		glGenVertexArrays (1, &vao);
 		glBindVertexArray (vao);
 
-		std::cout << "size of vao before buffring " << sizeof(vao) << std::endl;
-
 		/* this is the VBO that holds the vertex data */
 		glGenBuffers (1, &position_index);
 		glBindBuffer (GL_ARRAY_BUFFER, position_index);
@@ -460,7 +451,6 @@ void Plot2d::init_buffers() {
 		glEnableVertexAttribArray (0);
 		glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) 0);
 
-		std::cout << "size of xgrid after buffring " << sizeof(xgrid) << std::endl;
 		glBindBuffer (GL_ARRAY_BUFFER, 0);
 		glBindVertexArray (0);
 	}
@@ -490,7 +480,7 @@ void Plot2d::init_shaders() {
 	MVP = ProjectionMatrix * ViewMatrix * ModelMatrix; // Remember, matrix multiplication is the other way around
 
 
-//	uniform_color = glGetUniformLocation(programID, "uniformcolor");
+	//	uniform_color = glGetUniformLocation(programID, "uniformcolor");
   int status;
   glGetProgramiv(programID, GL_LINK_STATUS, &status);
   //glDeleteProgram(program);
