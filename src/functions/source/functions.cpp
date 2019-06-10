@@ -73,6 +73,22 @@ Vector3d get_ang_velocity(const franka::RobotState& robot_state) {
   );
 }
 
+Vector3d get_velocity(const franka::RobotState& robot_state) {
+  return Vector3d(
+    robot_state.O_dP_EE_c[0],
+    robot_state.O_dP_EE_c[1],
+    robot_state.O_dP_EE_c[2]
+  );
+}
+
+Vector3d get_acceleration(const franka::RobotState& robot_state) {
+  return Vector3d(
+    robot_state.O_ddP_EE_c[0],
+    robot_state.O_ddP_EE_c[1],
+    robot_state.O_ddP_EE_c[2]
+  );
+}
+
 Vector3d get_ang_acceleration(const franka::RobotState& robot_state) {
   return Vector3d(
     robot_state.O_ddP_EE_c[3],

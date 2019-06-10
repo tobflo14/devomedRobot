@@ -64,7 +64,6 @@ set(EXAMPLES
 
 set(SOURCES
 common/source/shader.cpp 
-common/source/utils.cpp 
 common/source/common.cpp 
 common/source/controls.cpp
 common/source/texture.cpp
@@ -74,18 +73,18 @@ graphics/source/gui.cpp
 src/functions/source/pid.cpp
 src/functions/source/functions.cpp
 src/threads/source/robot_loop_thread.cpp
-src/threads/source/calculate_velocity_thread.cpp
-src/threads/source/plot_thread.cpp
-src/threads/source/track_thread.cpp
+#src/threads/source/calculate_velocity_thread.cpp
+#src/threads/source/plot_thread.cpp
+#src/threads/source/track_thread.cpp
 src/threads/source/gui_thread.cpp
-src/threads/source/cartesian_velocity_thread.cpp
-src/threads/source/solver_thread.cpp
-src/threads/source/solver.cpp
-src/threads/source/pd_vec3d.cpp
-src/threads/source/pd_quat.cpp
-src/threads/source/qp_control.cpp
-src/threads/source/matrix_support.cpp
-src/threads/source/ldl.cpp
+#src/threads/source/cartesian_velocity_thread.cpp
+#src/threads/source/solver_thread.cpp
+#src/threads/source/solver.cpp
+#src/threads/source/pd_vec3d.cpp
+#src/threads/source/pd_quat.cpp
+#src/threads/source/qp_control.cpp
+#src/threads/source/matrix_support.cpp
+#src/threads/source/ldl.cpp
 )
 
 ADD_CUSTOM_TARGET(copy_shader_dir ALL

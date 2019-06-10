@@ -28,7 +28,9 @@ Vector3d frictionForce(Vector3d velocity, Vector3d external_force, double max_fr
 Vector3d get_position(const franka::RobotState& robot_state);
 Vector3d get_measured_cartesian_velocity(const franka::RobotState& robot_state, const Eigen::Matrix<double, 6, 7> jacobian);
 Vector3d get_desired_acceleration(const franka::RobotState& robot_state);
+Vector3d get_velocity(const franka::RobotState& robot_state);
 Vector3d get_ang_velocity(const franka::RobotState& robot_state);
+Vector3d get_acceleration(const franka::RobotState& robot_state);
 Vector3d get_ang_acceleration(const franka::RobotState& robot_state);
 Vector3d get_ext_force_magnitude_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff);
 Vector3d get_ext_force_filtered(const franka::RobotState& robot_state, Vector3d prev_force, double cutoff);

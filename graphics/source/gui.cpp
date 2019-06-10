@@ -102,8 +102,8 @@ void* Gui::GuiThread() {
     builder->get_widget("lbl_inertia_radius", lbl_inertia_radius);
     builder->get_widget("lbl_filter_freq", lbl_filter_freq);
     builder->get_widget("gl_area", gl_area);
-    builder->get_widget("gl_model_area", gl_model_area);
-    builder->get_widget("gl_exercise_area", gl_exercise_area);
+    builder->get_widget("gl_exercise_area", gl_model_area);
+    builder->get_widget("gl_model_area", gl_exercise_area);
     builder->get_widget("lbl_current_plot_value", lbl_current_plot_value);
     builder->get_widget("btn_save_exercise", btn_save_exercise);
     //builder->get_widget("btn_choose_exercise", btn_choose_exercise);
@@ -286,7 +286,7 @@ void* Gui::GuiThread() {
     //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_plot), 4000); // gir seg_fault men virker overflødig ? 
 
 
-  //  gl_model_area->set_auto_render();
+  /*
     gl_model_area->signal_realize().connect([&]() {gl_model_area->make_current();});
     gl_model_area->signal_unrealize().connect([&]() {gl_model_area->make_current();});
     gl_model_area->signal_render().connect([&](const Glib::RefPtr<Gdk::GLContext>&)-> bool{
@@ -295,7 +295,7 @@ void* Gui::GuiThread() {
       return true;
       }, false);
     //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Gui::update_model), 4000);
-
+*/
     gl_exercise_area->signal_realize().connect(sigc::mem_fun(*this, &Gui::onRealizeModel));
     gl_exercise_area->signal_unrealize().connect(sigc::mem_fun(*this, &Gui::onUnrealizeModel));
     gl_exercise_area->signal_render().connect(sigc::mem_fun(*this, &Gui::onRenderModel), false);

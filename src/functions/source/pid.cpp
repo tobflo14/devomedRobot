@@ -1,8 +1,7 @@
 #include "pid.h"
 
 Pid::Pid(){
-    //init();
-    //setParameters(0.0,0.0,0.0);
+    
 }
 
 void Pid::init(Eigen::VectorXd zero_vector) {
