@@ -5,6 +5,7 @@
 #include "examples_common.h"
 #include "pid.h"
 
+#include <thread>
 #include <iostream>
 #include <fstream>
 #include <Eigen/Dense>
@@ -29,7 +30,6 @@ void* RobotLoopThread(void* arg) {
     // Connect to robot.
     franka::Robot robot(ROBOT_IP);
     std::cout << "Connected to robot" << std::endl;
-
     double q_margin = 0.2;
     Eigen::VectorXd q_min(7);
     q_min <<    -2.8973 + q_margin,
@@ -95,10 +95,12 @@ void* RobotLoopThread(void* arg) {
                 double filter_freq = 10.0;
                 double virtual_mass = 2.0;
                 double inertia_radius = 0.4;
-                double end_effector_mass = 0.367; //End effector mass in kg
+                //double end_effector_mass = 0.367; //End effector mass in kg
+                double end_effector_mass = 0; //End effector mass in kg
 
                 time += dt;
                 robot_data->robot_mode = robot_state.robot_mode;
+                robot_data->robot_state = robot_state;
 
                 std::array<double, 42> jacobian_array = model.zeroJacobian(franka::Frame::kEndEffector, robot_state);
                 Eigen::Map<const Eigen::Matrix<double, 6, 7> > jacobian(jacobian_array.data());
@@ -289,7 +291,6 @@ void* RobotLoopThread(void* arg) {
     }
     robot_data->run = false;
     robot_data->robot_mode = robot.readOnce().robot_mode;
-    
     std::cout << "Robot loop thread shutting down " << std::endl;
     return NULL;
 }

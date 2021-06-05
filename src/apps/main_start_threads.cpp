@@ -5,12 +5,13 @@
 #include "plot_thread.h"
 #include "track_thread.h"
 #include "gui_thread.h"
+#include "communication_thread.h"
 
 #include <iostream>
 #include <thread>
 
 
-#define NUM_THREADS 2
+#define NUM_THREADS 4
 
 static shared_robot_data robot_data;
 
@@ -100,10 +101,10 @@ int main(int argc, char** argv) {
             rc = pthread_create(&threads[i], NULL, RobotLoopThread , &robot_data);
         }
         else if (i == 2) {
-            rc = pthread_create(&threads[i], NULL, TrackThread, &robot_data);
+            rc = pthread_create(&threads[i], NULL, communication_thread, &robot_data);
         }
         else if (i == 3) {
-            rc = pthread_create(&threads[i], NULL, PlotThread , &robot_data);
+            rc = pthread_create(&threads[i], NULL, TrackThread , &robot_data);
         }
         else if (i == 4) {
             rc = pthread_create(&threads[i], NULL, CalculateVelocityThread, &robot_data);

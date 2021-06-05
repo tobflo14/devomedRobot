@@ -58,7 +58,17 @@
         "*.vertexshader": "cpp",
         "hash_map": "cpp",
         "eulerangles": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "csignal": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "map": "cpp",
+        "memory_resource": "cpp",
+        "set": "cpp",
+        "string": "cpp",
+        "cfenv": "cpp",
+        "codecvt": "cpp",
+        "future": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }
